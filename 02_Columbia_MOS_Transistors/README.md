@@ -49,8 +49,9 @@ The physical insight into MOS transistors is taught in this module. The knowledg
 #### Connection to My Research
 These topics taught in this module have direct connections to MOSFET parameter extraction and compact modeling. The knowledge about the threshold voltage, channel formation, and MOSFET working principle is helpful in interpreting the I-V curves obtained during experimentation.
 
+---
 
-### Module 2
+### Module 2 - Priliminaries and Background
 
 #### Part 1 – CMOS Manufacturing Process
 ##### Key Concepts
@@ -210,10 +211,57 @@ In this module, I acquired an organized knowledge about the physics behind semic
 #### Research Connection
 The topics covered in this module form the basis of MOSFET compact modeling and parameter extraction. Knowledge of carrier transport, electrostatics, PN junction, and junction capacitance is necessary to understand the MOSFET I-V behavior and develop the physics-based compact model.
 
-### Module 3
-Coming soon.
+---
 
-### Module 4
+### Module 3 - The Two-Terminal and Three-Terminal MOS Structures
+#### Part 1 – Flatband Voltage and Surface Condition
+##### Key Concepts
+- The two-terminal structure of the MOS device is the basis of analysis of MOS transistor operation.
+- The voltage at which the semiconductor energy bands become flat is known as flatband voltage (VFB).
+- Flatband voltage is defined by the work-function difference and interface charge.
+- Gate voltage regulates the state of the semiconductor surface through accumulation, depletion, and inversion states.
+- The surface potential determines the bending of energy band and carrier concentration at the semiconductor surface.
+- Inversion happens when there are enough minority carriers to create an inversion layer.
+
+#### Part 2 - General Analysis, Inversion, and Strong Inversion
+##### Key Concepts
+- Formulated an analysis framework of the MOS structure for accumulation, depletion, and inversion regions.
+- Surface potential (ψs) is derived as a function of the gate bias voltage (VGB) based on charge and potential balance considerations.
+- The net charge on the semiconductor side of the oxide layer is comprised of depletion charge and inversion charge.
+- Weak, moderate, and strong inversion describe different regimes of correlation between surface potential and the inversion charge.
+- Strong inversion means that surface potential remains essentially constant, while the inversion charge grows almost linearly with gate voltage.
+- Threshold voltage (VT0) is defined as a parameter of the strong inversion regime and serves as a foundation for MOSFET modeling.
+
+#### Part 3 - Weak Inversion and Small-Signal Capacitance
+##### Key Concepts
+- Weak inversion is described by an exponential relation between the inversion charge and the gate voltage.
+- Different mathematical models need to be considered in the case of weak, moderate, and strong inversion, since a single equation will not represent all regions appropriately.
+- The small-signal model considers the change in charge and voltage incrementally in the model of MOSFET.
+- The gate-body capacitance CGB is defined as a serial connection of the oxide capacitance and semiconductor capacitance.
+- The semiconductor capacitance includes depletion capacitance and inversion capacitance.
+- The measured value of gate capacitance varies with respect to signal frequency due to inversion charge carriers.
+
+#### Part 4 - The Three-Terminal MOS Structure
+##### Key Concepts
+- A third terminal introduces an effect on the carrier concentration in the inversion layer in relation to the body-to-channel voltage (VCB).
+- Reverse body bias lowers the inversion charge and raises the inversion onset point gate voltage.
+- The body effect is responsible for the rise in threshold voltage when the body bias becomes high.
+- The body effect coefficient (γ) is used to measure the sensitivity of the threshold voltage to body bias.
+- Strong and weak inversion formulas can be adapted from the two terminal MOS by including the body bias.
+- The pinch-off voltage is the body bias where the strong inversion model assumes zero inversion charge.
+
+#### Summary
+In this module, the study of the MOS capacitor is continued beyond electrostatic analysis to its real life application. Flatband voltage, surface characteristics, inversion phenomena, small signal capacitance, and the structure of the MOS device with three terminals will be discussed in this module. This module will also discuss how body bias affects the inversion charge and threshold voltage.
+
+#### Reflection
+In this module, I was able to develop an understanding of the electrostatics and inversion physics of the MOS structure. This included gaining knowledge on how the gate voltage controls the state of the semiconductor at its surface, how the concept of inversion is built up from weak to strong inversion, and how the carrier density affects the behavior of the structure.
+
+#### Connection to My Research
+These concepts that have been learned in this module are actually very relevant to compact MOSFET modeling and parameter extraction. Some of the parameters that are very important in compact MOSFET models like EKV and BSIM include surface potential, inversion charge, threshold voltage, body effect, and small signal capacitance. Knowledge about these physical phenomena gives the basis for the successful modeling of MOSFET behavior and parameter extraction.
+
+---
+
+### Module 4 - 
 Coming soon.
 
 ---
