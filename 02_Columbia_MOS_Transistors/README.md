@@ -202,13 +202,13 @@ Total current consists of:
 - Junction capacitance limits the switching speed of semiconductor devices.
 - Lower junction capacitance enables faster circuit operation.
 
-#### Module Summary
+#### Summary
 This unit builds the semiconductor physics that are needed to understand the functioning of MOS transistors. The CMOS process technology, semiconductor physics, carrier transport, PN junction electrostatics, and junction capacitance concepts all form the physical basis of MOS transistor modeling.
 
-#### What I Learned
+#### Reflection
 In this module, I acquired an organized knowledge about the physics behind semiconductor devices. This included the fabrication process of modern CMOS transistors, the factors that affect semiconductors through carrier concentration and energy band structures, and carrier transport under the influence of drift and diffusion. Furthermore, I became proficient in the concept of PN junction electrostatics such as built-in voltage, depletion layers, reverse bias conditions, and junction capacitance. This forms the basis of study for MOS capacitors, MOS transistors, and MOSFET models in upcoming modules.
 
-#### Research Connection
+#### Connection to My Research
 The topics covered in this module form the basis of MOSFET compact modeling and parameter extraction. Knowledge of carrier transport, electrostatics, PN junction, and junction capacitance is necessary to understand the MOSFET I-V behavior and develop the physics-based compact model.
 
 ---
