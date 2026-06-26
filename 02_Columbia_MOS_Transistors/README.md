@@ -261,11 +261,163 @@ These concepts that have been learned in this module are actually very relevant 
 
 ---
 
-### Module 4 - 
-Coming soon.
+### Module 4 - The Long-Channel MOS Transistor 1
+#### Part 1 – Introduction to the Long-Channel MOS Transistor
+##### Key Concepts
+- Assumptions and structure of long-channel MOSFETs.
+- Operation of four-terminal MOSFETs with various biases.
+- Formation of channel and current flow at strong inversion.
+- IDS-VDS behavior and inversion zones.
+- Basic physical model of MOSFET compact modeling.
+
+#### Part 2 – Complete All-Region Model and Simplified All-Region Models
+##### Key Concepts
+- The all-region model represents the behavior of the MOSFET through the regions of weak, moderate, and strong inversion.
+- The channel current includes drift and diffusion terms.
+- The drift term plays the dominant role during strong inversion, and the diffusion term becomes dominant during weak inversion.
+- Surface potential is the main parameter in finding the drain current.
+- All-region simplified models enhance computational efficiency without decreasing accuracy.
+- They form the basis for advanced MOSFET models like PSP, EKV, and HiSIM.
+
+#### Part 3 – Strong Inversion Models I
+##### Key Concepts
+- The inversion flow in a strong inversion regime involves drifting and neglects diffusing.
+- Models for strong inversions offer explicit expressions for drain currents in terms of voltage across terminals.
+- The non-saturation mode is based on strong inversions over the whole channel.
+- Transition to the saturation mode takes place when the inversion charges at the drain end become zero.
+- The saturation flow in long-channel devices is considered nearly constant.
+- Simple models for strong inversions help enhance computational performance without sacrificing accuracy.
+
+#### Summary
+The operation of the long-channel MOSFET was discussed and models of currents were developed for various regions of inversion. The derivation of the simplified models of currents in the case of strong inversion was done from the all-regions model, which was used to describe the switching from linear to saturation modes of operation of MOSFETs.
+
+#### Reflection
+In this module, I came to know about how semiconductor physics is applied to build models of transistor currents. Drift current dominance during strong inversion became clear, along with the need for different models according to the different operating regions.
+
+#### Connection to my Research
+The modeling tools currently covered in this module are highly relevant to the work I am doing on MOSFET compact modeling and parameter extraction, which involves establishing the link between inversion charge, threshold voltage, and drain current as the physical foundation for model validation and parameter extraction.
+
 
 ---
 
+### Module 5 - The Long-Channel MOS Transistor 2
+#### Part 1 – Strong Inversion Models II
+##### Key Concepts
+
+#### Part 2 – Weak Inversion Models and Source Reference vs. Body Reference
+##### Key Concepts
+
+#### Part 3 – Effective Mobility
+##### Key Concepts
+
+#### Part 4 – Additional Topics
+##### Key Concepts
+
+#### Summary
+#### Reflection
+#### Connection to my Research
+---
+
+### Module 6 - Small - Dimension Effect 1
+#### Part 1 – Velocity Saturation
+##### Key Concepts
+
+#### Part 2 – Channel Length Modulation
+##### Key Concepts
+
+#### Part 3 – Charge Sharing
+##### Key Concepts
+
+#### Part 4 – Drain-Induced Barrier Lowering and Combining Several Effects Into One Model
+##### Key Concepts
+
+#### Part 5 – Hot Carrier Effects and Velocity Overshoot and Ballistic Operation
+##### Key Concepts
+
+#### Part 6 – Polysilicon Depletion
+##### Key Concepts
+
+#### Summary
+#### Reflection
+#### Connection to my Research
+
+---
+
+### Module 7 - Small - Dimension Effect 2 & Modelling for Circuits Simulation
+#### Part 1 – Quantum-Mechanical Effects; Gate Curren, Junction Leakage, and Scaling and New Technologies
+##### Key Concepts
+
+#### Part 2 – Approaches and Properties of Good Models and Model Formulation Considerations
+##### Key Concepts
+
+#### Part 3 – Parameter Extraction
+##### Key Concepts
+
+#### Part 4 – Representative Compact Models and Benchmark Tests
+##### Key Concepts
+
+#### Summary
+#### Reflection
+#### Connection to my Research
+
+---
+
+### Module 8 - Large - Signal Dynamic Operation
+#### Part 1 – Quasi-Static Operation, Terminal Currents in QS Operation, amd Charging Currents in QS Operation
+##### Key Concepts
+
+#### Part 2 – Evaluation of Charges, Transit Time, and Transient Response Using QS Modeling
+##### Key Concepts
+#### Part 3 – Non-Quasi-Static Operation and Extrinsic Parasitics
+##### Key Concepts
+
+#### Summary
+#### Reflection
+#### Connection to my Research
+
+
+---
+
+### Module 9 - Small-Signal Modeling 1
+#### Part 1 – Conductance Parameters
+##### Key Concepts
+
+#### Part 2 – Transconductance
+##### Key Concepts
+
+#### Part 3 – Source-Drain and Output Conductance and Capacitance Definitions and Equivalent Circuits
+##### Key Concepts
+
+#### Part 4 – Capacitance Evaluation and Properties
+##### Key Concepts
+
+#### Summary
+#### Reflection
+#### Connection to my Research
+
+---
+
+### Module 10 - Small-Signal Modeling 2
+#### Part 1 – Complete Capacitance Parameter Set and Complete Quasi-Static Model
+##### Key Concepts
+
+#### Part 2 – y-Parameter Model and Non-Quasi-Static Model
+##### Key Concepts
+
+#### Part 3 – Model Comparison and RF Models
+##### Key Concepts
+
+#### Summary
+#### Reflection
+#### Connection to my Research
+
+---
+
+### Module 11&12 - Final Exam & End of Course
+
+
+
+---
 ## Skills Acquired
 
 - MOS Device Physics
