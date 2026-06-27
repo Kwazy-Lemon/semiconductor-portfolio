@@ -325,7 +325,7 @@ The modeling tools currently covered in this module are highly relevant to the w
 - The effective mobility (μeff) concept is introduced to explain the reduction of mobility due to terminal voltages.
 - The effective mobility is dependent on gate voltage and body bias, thereby improving the accuracy of MOSFET current models.
 - The degradation of mobility results in the deviation of the drain current from linear ideal behavior.
-- 
+  
 #### Part 4 – Additional Topics
 ##### Key Concepts
 - Series resistance at source and drain decreases the terminal voltage and deteriorates drain current performance.
@@ -348,12 +348,34 @@ The topics covered in this module are directly applicable to the MOSFET paramete
 ### Module 6 - Small-Dimension Effect 1
 #### Part 1 – Velocity Saturation
 ##### Key Concepts
+- Velocity saturation takes place when the lateral electric field exceeds the critical field, thus making the drift velocity to become saturated.
+- A modified compact model must be used for short-channel MOSFETs because the assumptions used in long-channel models cease to apply.
+- With the presence of velocity saturation, there is a reduction in both the drain current and the saturation voltage.
+- It is possible to incorporate the velocity-saturation correction factor into the long-channel current equation.
+- In cases where velocity saturation is high, the saturation current becomes insensitive to the channel length since the carriers attain maximum drift velocity.
 
 #### Part 2 – Channel Length Modulation
 ##### Key Concepts
+- CLM is observed when, with increasing VDS beyond saturation, the pinch-off length increases, resulting in a shorter effective channel length.
+- With shorter channel lengths, the drain current rises even in the saturation region rather than staying constant.
+- Drift velocities become higher near the drain as inversion charges decrease, keeping drain current constant until pinch-off occurs.
+- In channel length modulation, compact models use the effective channel length (L – Lp) instead of physical channel length.
+- Pseudo two-dimensional modeling gives a better estimate of the pinch-off region compared to one-dimensional models.
+- Numerical stability of circuit simulations requires continuous current and derivative transitions in compact models.
+- The VA (Early voltage) model offers a crude estimation of channel length modulation, appropriate for only basic circuit analysis.
 
 #### Part 3 – Charge Sharing
 ##### Key Concepts
+- The charge sharing takes place whenever the gate, source, and drain collectively govern the electrostatic condition of the channel rather than just the gate.
+- In the case of short-channel MOSFETs, depletion regions of the source and drain penetrate into the channel.
+- The effective threshold voltage (Vₜ, eff) lowers because some amount of depletion charge shares the source and drain.
+- The charge sharing phenomenon can be explained through the effective body-effect coefficient (γeff), where γeff < γ.
+- As channel length becomes shorter, the threshold voltage roll-off increases.
+- Halo (pocket) implantations are used in order to prevent depletion region spreading and charge sharing.
+- The halo implantation creates the reverse short-channel effect (RSCE), which involves threshold voltage increasing within some short-channel interval.
+- The narrow channel devices also suffer from the charge sharing phenomenon caused by fringing electric field of the gate.
+- STI isolation normally results in threshold voltage reduction while channel width is narrowing; however, LOCOS isolation causes threshold voltage increase in such case.
+- Empirical threshold voltage equations based on both channel length (L) and channel width (W) parameters are used in modern compact models.
 
 #### Part 4 – Drain-Induced Barrier Lowering and Combining Several Effects Into One Model
 ##### Key Concepts
