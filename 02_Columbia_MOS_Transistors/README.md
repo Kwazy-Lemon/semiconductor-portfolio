@@ -303,22 +303,49 @@ The modeling tools currently covered in this module are highly relevant to the w
 ### Module 5 - The Long-Channel MOS Transistor 2
 #### Part 1 – Strong Inversion Models II
 ##### Key Concepts
+- In the source-referenced strong inversion model, the drain current is expressed directly in terms of the terminal voltages (VGS, VDS, and VT).
+- The drain current is a quadratic function of VDS in the nonsaturation (triode) region.
+- In saturation, when VDS equals the pinch-off voltage, the drain current becomes nearly independent of VDS.
+- The square-law model of the MOSFET is derived by setting α = 1, even though this approximation causes modeling inaccuracies.
+- The factor α increases the accuracy of strong inversion current calculation relative to the classical square-law model.
+- The strong inversion models serve as the basis for the circuit analysis and SPICE modeling of long-channel MOSFETs.
 
 #### Part 2 – Weak Inversion Models and Source Reference vs. Body Reference
 ##### Key Concepts
+- For weak inversion, the drain current is controlled by diffusion as opposed to drift.
+- The weak inversion current has an exponential relationship with the gate voltage and can be written explicitly in terms of the voltages across the terminals.
+- Weak inversion current saturates with a low drain voltage (about 3 VT), whereas strong inversion current saturates depending on VGS.
+- Moderate inversion current cannot be modeled using weak and strong inversion only; it needs an all region model.
+- There are advantages to having source-referenced and body-referenced models.
 
 #### Part 3 – Effective Mobility
 ##### Key Concepts
-
+- Carrier mobility is dependent on phonon scattering, Coulomb scattering, and surface roughness scattering.
+- The surface mobility is lower than the bulk mobility and is reduced by increased vertical electric fields.
+- The effective mobility (μeff) concept is introduced to explain the reduction of mobility due to terminal voltages.
+- The effective mobility is dependent on gate voltage and body bias, thereby improving the accuracy of MOSFET current models.
+- The degradation of mobility results in the deviation of the drain current from linear ideal behavior.
+- 
 #### Part 4 – Additional Topics
 ##### Key Concepts
+- Series resistance at source and drain decreases the terminal voltage and deteriorates drain current performance.
+- Temperature alters carrier mobility and threshold voltage affecting the characteristics of MOSFET I-V curve.
+- The breakdown modes are PN junction breakdown, impact ionization, and gate oxide breakdown.
+- The model parameters are obtained using optimization on experimental results.
+- The physical behavior of p-channel MOSFET is similar to that of n-channel MOSFET.
 
 #### Summary
+In this module, the discussion is about MOSFET current modeling in all inversion regions. I understood that there is a complete model for all the regions based on drift-diffusion analysis and how to obtain simplified models for strong and weak inversion regimes. This module also discussed the square law model, effective mobility, and a number of non-ideal behaviors like series resistance, temperature dependency, parameter extraction, and break down phenomenon.
+
 #### Reflection
+I learned from this module that accurate modeling of MOSFETs involves compromise between accuracy and computational simplicity. I understood the reasons behind the use of different models in different regions as well as the implications of making certain assumptions like constant mobility. Understanding effective mobility and other non-ideal characteristics has helped me see the difference between ideal theoretical models and reality.
+
 #### Connection to my Research
+The topics covered in this module are directly applicable to the MOSFET parameter extraction and compact modeling work that I have been doing. It gives the theoretical background needed for understanding how to extract parameters from I-V curves and also to create compact models that can be used in circuit simulations. This knowledge is also useful in explaining the shortcomings of the simplified models used in my work.
+
 ---
 
-### Module 6 - Small - Dimension Effect 1
+### Module 6 - Small-Dimension Effect 1
 #### Part 1 – Velocity Saturation
 ##### Key Concepts
 
@@ -343,7 +370,7 @@ The modeling tools currently covered in this module are highly relevant to the w
 
 ---
 
-### Module 7 - Small - Dimension Effect 2 & Modelling for Circuits Simulation
+### Module 7 - Small-Dimension Effect 2 & Modelling for Circuits Simulation
 #### Part 1 – Quantum-Mechanical Effects; Gate Curren, Junction Leakage, and Scaling and New Technologies
 ##### Key Concepts
 
@@ -362,7 +389,7 @@ The modeling tools currently covered in this module are highly relevant to the w
 
 ---
 
-### Module 8 - Large - Signal Dynamic Operation
+### Module 8 - Large-Signal Dynamic Operation
 #### Part 1 – Quasi-Static Operation, Terminal Currents in QS Operation, amd Charging Currents in QS Operation
 ##### Key Concepts
 
