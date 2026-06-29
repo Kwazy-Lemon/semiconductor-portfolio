@@ -1,57 +1,47 @@
-function ro = output_resistance(data, method)
-%OUTPUT_RESISTANCE Estimate output resistance.
+function ro = output_resistance(data)
+%OUTPUT_RESISTANCE Extract MOSFET output resistance.
 %
 % Description:
-%   Estimate MOSFET output resistance from saturation-region
-%   output characteristics.
+%   Estimate the output resistance from the saturation region
+%   of the output characteristics.
 %
 % Inputs:
-%   data
-%   method
-%       "linear"
-%       "analytical"
+%   data.VDS
+%   data.IDS
 %
 % Outputs:
-%   ro
+%   ro - Output resistance (Ohm)
 %
 % Author:
 %   Jianhao Wu
 %
-% Repository:
+% Project:
 %   MOSFET Parameter Extraction Toolkit
-%
-% Version:
-%   v1.0
-
-%% Default Method
-
-if nargin < 2
-    method = "linear";
-end
 
 %% Read Data
 
 VDS = data.VDS;
 IDS = data.IDS;
 
-%% Select Method
+%% Linear Fit
 
-switch lower(method)
+p = polyfit(VDS, IDS, 1);
 
-    case "linear"
+slope = p(1);
 
-        % To be implemented
-        ro = [];
+%% Output Resistance
 
-    case "analytical"
+ro = 1 / slope;
 
-        % To be implemented
-        ro = [];
+%% Display
 
-    otherwise
-
-        error("Unknown output resistance estimation method.");
+fprintf("\n");
+fprintf("=====================================\n");
+fprintf(" Output Resistance Extraction\n");
+fprintf("=====================================\n");
+fprintf("ro = %.4e Ohm\n", ro);
+fprintf("=====================================\n");
 
 end
 
-end
+
