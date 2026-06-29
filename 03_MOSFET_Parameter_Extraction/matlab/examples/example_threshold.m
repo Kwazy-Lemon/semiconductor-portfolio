@@ -24,6 +24,10 @@ data.Cox = 3.45e-3;
 
 Vth = threshold_voltage(data,"linear");
 
+%% Mobility Extraction
+
+mu = mobility(data);
+
 fprintf("\n");
 fprintf("Threshold Voltage = %.4f V\n",Vth);
 
