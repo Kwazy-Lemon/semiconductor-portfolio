@@ -5,7 +5,7 @@ Independent studies and technical projects in semiconductor devices, MOSFET mode
 
 ## About
 This archive is where I have recorded all the things I studied independently, the technical projects that I did, and the research that I carried out in semiconductor engineering.
-It is a portfolio for my technical work and how much I learned while doing them during my undergrad years.
+It is a portfolio for my technical work and how much I learned while doing them during my undergrad years. All publications and manuscripts in this repository are independently completed with me as the sole author.
 
 ---
 
