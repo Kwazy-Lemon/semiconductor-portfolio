@@ -379,92 +379,231 @@ The topics covered in this module are directly applicable to the MOSFET paramete
 
 #### Part 4 – Drain-Induced Barrier Lowering and Combining Several Effects Into One Model
 ##### Key Concepts
-
+- The short-channel effects can be integrated into one compact MOSFET model.
+- The effective threshold voltage (Vt,eff) is a function of L, W, VDS, and VSB.
+- DIBL effect arises due to the decrease in the barrier height in the source-channel region because of the influence of the drain electric field.
+- With DIBL effect, the drain current becomes greater for the same gate voltage, especially with increased VDS.
+- In extreme cases of DIBL, it can cause the punchthrough effect, with very high leakage current which cannot be shut off by the gate.
+- Modern compact models use an effective value of VDS (VDS,eff).
+  
 #### Part 5 – Hot Carrier Effects and Velocity Overshoot and Ballistic Operation
 ##### Key Concepts
+- Hot carriers are highly energetic carriers that occur in strong electric fields, especially near the drain.
+- Hot carriers lead to impact ionization, causing generation of electron-hole pairs and hence generating body current.
+- Some of these energetic carriers penetrate into the gate oxide region, thereby leading to interface traps and oxide charges.
+- Velocity overshoot is the case where the carriers are seen traveling at velocities higher than their drift velocities for very small distances.
+- Ballistic transport refers to the case where the carriers travel from the source to drain with minimal scattering events.
+- Ballistic operation becomes viable only in short-channel devices and can help enhance currents beyond traditional drift predictions.
+- This concept is more theoretical, and hence is not incorporated in most compact MOSFET models.
 
 #### Part 6 – Polysilicon Depletion
 ##### Key Concepts
+- Polysilicon gate is a semiconductor material that means that it may create a depletion layer rather than act as an ideal conductor.
+- Poly depletion effects start to matter when the oxide layer is very thin and the gate field is high.
+- The depletion layer in the gate creates an additional voltage loss (ψpoly) and therefore reduces the effective gate voltage.
+- Poly depletion reduces the gate capacitance because it increases the effective distance between the gate charges and the channel.
+- This is equivalent to increasing the effective oxide thickness (ΔTOX) and, consequently, the oxide capacitance (COX).
+- Under weak inversion conditions, poly depletion leads to the increase in the slope factor (n).
+- Under strong inversion conditions, poly depletion results in the increase in the effective threshold voltage (VT).
+- The problem does not exist anymore in modern technologies since metal gate is used rather than polysilicon.
 
 #### Summary
+In this module, various short-channel phenomena that affect the validity of the long-channel transistor models were highlighted. This included phenomena such as velocity saturation, channel-length modulation, charge sharing, DIBL, hot carriers, ballistic transport, and polysilicon depletion. This helps us to understand how scaling affects carrier transport, the threshold voltage, and current characteristics of the device.
+
 #### Reflection
+In this module, we learned that the long-channel MOSFET models will not be accurate when the devices get smaller. Instead of developing totally new models, the various short-channel effects are modeled by making additions to the long-channel models. It is helpful to know the physics behind each effect.
+
 #### Connection to my Research
+Short channel effects studied in this module can be described by using effective parameters in compact models for MOSFETs. It is important to understand the physics behind velocity saturation, channel length modulation, DIBL, mobility degradation, and shift in threshold voltages in order to interpret results from parameter extraction and evaluate compact models.
 
 ---
 
 ### Module 7 - Small-Dimension Effect 2 & Modelling for Circuits Simulation
 #### Part 1 – Quantum-Mechanical Effects; Gate Curren, Junction Leakage, and Scaling and New Technologies
 ##### Key Concepts
+- Inversion charge moves away from Si-SiO2 interface due to quantum confinement, which increases the effective oxide thickness and Vth.
+- Tunneling through thin oxide causes large leakage currents due to gate current.
+- Gate current consists of gate to channel, gate to source/drains overlap and gate to substrate tunneling current.
+- Band to band tunneling (BTBT) causes body drain junction leakage. Gate Induced Drain Leakage (GIDL) is a result of high electric field at drain end.
+- Thin oxides enhance drive current but increase the gate current tremendously. High (k) dielectrics increase (Cox) and reduce tunneling leakage.
 
 #### Part 2 – Approaches and Properties of Good Models and Model Formulation Considerations
 ##### Key Concepts
-
+- Classical MOS scaling involved reducing channel length, oxide thickness, and supply voltage together to achieve increased speed and density.
+- Today’s scaling is restricted by leakage currents, short-channel effects, and power consumption issues.
+- Novel approaches to scaling involve improving electrostatics instead of classical geometrical scaling (SOI, FinFET/Tri-Gate, high-(k) dielectrics, metal gates, strain engineering, etc.).
+- Physical compact models strike a balance between physical correctness and efficiency of calculations for circuit simulation.
+- The ideal compact models should give a correct estimate for current, charge, capacitance, leakage, parasitics, etc.
+- Equations and their derivatives must be smooth and continuous to provide correct simulation results and performance.
+- Proper smoothing functions are used instead of hard switching in regions (between linear and saturation regions, for example).
+- Parameters of the model should be physically interpretable, independent, and easily extractable from measurements.
+- Numerical stability of the compact model is important under all conditions.
+- 
 #### Part 3 – Parameter Extraction
 ##### Key Concepts
+- The process of parameter extraction matches the values of compact models’ parameters to the data of the device under test by minimizing the prediction errors.
+- The DC behavior and small-signal parameters need to be fitted accurately.
+- The values of parameters should maintain their physical significance instead of being blindly optimized.
+- Threshold voltage, mobility, oxide thickness, and channel dimensions correction are among those parameters which are extracted commonly.
+- Binning uses different sets of parameters for different device sizes.
 
 #### Part 4 – Representative Compact Models and Benchmark Tests
 ##### Key Concepts
+- Representative compact models include BSIM, EKV, PSP, and HiSIM, which differ in their approach to modeling.
+- Physical compact models find a compromise between physics and computation in circuit simulation.
+- Benchmarking is used to check the accuracy, continuity, symmetry, and numerically stability of a model.
+- Good compact models are supposed to provide smooth (I)-(V) curves with continuous derivatives.
+- Benchmarking allows us to discover modeling bugs prior to applying compact models in circuit design.
 
 #### Summary
+The present module covered advanced compact modeling of MOSFETs, including issues related to leakage currents, scaling down of technology, modeling, parameterization, and benchmarking. It was noted that for the simulation of circuits with accuracy, one needs models which are physically intuitive and computationally fast and whose parameters need to be obtained by benchmark tests.
+
 #### Reflection
+The module made me realize that there is a lot that goes into accurate modeling apart from just writing the equations. A good compact model should not only be physically accurate and numerically stable but also efficient to simulate while being applicable for all operating regimes and transistor dimensions. Parameter extraction and benchmarking are crucial for a realistic model.
+
 #### Connection to my Research
+This module is highly relevant to my study of MOSFET parameter extraction and compact models. The topics of physical parameter extraction, optimization techniques, and the validation of compact models are extremely useful for designing an effective parameter extraction algorithm and its evaluation.
 
 ---
 
 ### Module 8 - Large-Signal Dynamic Operation
 #### Part 1 – Quasi-Static Operation, Terminal Currents in QS Operation, amd Charging Currents in QS Operation
 ##### Key Concepts
+- Introduced quasi-static (QS) operation where terminal voltages vary such that charge equations for DC remain valid.
+- Differentiated between quasi-static and non-quasi-static (NQS) operation where the charges do not vary instantaneously.
+- Described the relationship between inversion charge, gate charge, and body charge in terms of terminal voltages.
+- Indicated that during QS operation, transport current and charging current both co-exist.
+- Defined source charge (QS) and drain charge (QD) in terms of charge redistribution.
+- Derived terminal charging currents by differentiating the terminal charges and applying chain rule.
+- Formulated charge conservation (KCL) equation for the charging currents.
+
 
 #### Part 2 – Evaluation of Charges, Transit Time, and Transient Response Using QS Modeling
 ##### Key Concepts
+- Determination of terminal charges (gate, body, source, drain, inversion) through charge distribution density.
+- Conversion of charge integration from position (x) to channel potential by drift-current equation.
+- Investigation of charge distribution in non-saturation and saturation conditions.
+- Demonstration that increase of VDS leads to increase of depletion charge and decrease of inversion charge.
+- Concept of drain/source charge division (QD and QS) was introduced for transient analysis.
+- Derivation of transit time (τ = QI / IDS) for strong and weak inversion.
+- Explanation that transit time is proportional to L² and is finally limited by velocity saturation.
+- Application of charge formulas to quasi-static transient response and charge current calculations.
+- Discussion of 40/60 charge ratio, limitations of quasi-static approach and necessity of NQS modeling in high speed regime.
+- 
 #### Part 3 – Non-Quasi-Static Operation and Extrinsic Parasitics
 ##### Key Concepts
-
+- Described small-signal parameters of source conductance (g_s), drain conductance (g_d), and output conductance (g_0) based on current-voltage characteristics.
+- Developed small-signal capacitance by considering terminal charge change versus terminal voltage.
+- Stated that the capacitance of the MOS device is voltage-dependent rather than voltage-independent as an ideal capacitor.
+- Created the small-signal equivalent circuit with the use of conductances and capacitances for transistor operation under AC conditions.
+- Differentiated between intrinsic and extrinsic (or parasitic) capacitances.
+- 
 #### Summary
-#### Reflection
-#### Connection to my Research
+MOSFET large-signal dynamics was discussed in Module 8 in connection with the extension of DC analysis to time-varying situations. The topics included QS mode, charging current, charge distribution, transit time, and NQS mode, and additionally introduced extrinsic parasitics that affect the high-frequency performance of the device.
 
+#### Reflection
+From this module, I have gained an insight into the fact that the behavior of transient MOSFETs is controlled not only by the aspect of current transport but also charge storage and charge redistribution. It further explained to me why QS modeling fails at higher frequency ranges and why NQS considerations become necessary.
+
+#### Connection to my Research
+Charge distribution, transit time, and parasitics are terms that have direct connection with compact MOSFET modeling. These terms form a theoretical framework for enhancing the dynamic current estimation and parameter extraction process which is very useful for my research on compact MOSFET models.
 
 ---
 
 ### Module 9 - Small-Signal Modeling 1
 #### Part 1 – Conductance Parameters
 ##### Key Concepts
+- Discussed small-signal analysis based on the impact of small voltage changes at the terminals around a DC bias point.
+- Identified the three primary conductance parameters, namely, gate transconductance, body transconductance, and output conductance.
+- Represented the conductance parameters as the partial derivatives of the drain current with respect to the terminal voltages.
+- Derived the small-signal drain current as the weighted sum of the three conductance parameters with their corresponding voltage changes.
+- Designed the low-frequency small-signal equivalent circuit based on conductances and controlled current sources.
+- Added the conductance parameters for the gate and body leakage to the equivalent circuit.
+- Consolidated the various conductances into one low-frequency small-signal equivalent circuit.
 
 #### Part 2 – Transconductance
 ##### Key Concepts
+- Defined gate transconductance (gm) as the ratio of change in drain current to that in gate-source voltage.
+- Described the properties of the transconductance curve in the non-saturation and saturation regime in strong inversion.
+- Explored the factors that affect transconductance, including the velocity saturation effect and the short-channel effect.
+- Elaborated on the properties of weak inversion transconductance and contrasted the behavior of transconductance with that of bipolar transistors.
+- Made a comparison of the variation of gm and gm/current in weak, moderate and strong inversion regimes.
+- Defined the body transconductance (gmb) and explained its relation to body effect and threshold voltage variation.
+- Examined the respective influence of the gate and the body on the channel current from the ratio between gm and gmb.
 
 #### Part 3 – Source-Drain and Output Conductance and Capacitance Definitions and Equivalent Circuits
 ##### Key Concepts
+- Described source-drain conductance (gsd) and output conductance (g₀) as important small signal parameters indicating the effect of variation of the drain voltage on the drain current.
+- Indicated that channel-length modulation, DIBL, and impact ionization are the major causes of variation in output conductance, particularly in saturation region.
+- Introduced small signal capacitances through the relationship between change in charge and change in voltages across terminals.
+- Defined the major intrinsic capacitances such as gate-source (CGS), gate-drain (CGD), gate-body (CGB), body-source (CBS) and body-drain (CBD) capacitances.
+- Created the low frequency small signal equivalent circuit by combining the conductance and capacitance elements.
+- Illustrated how extrinsic resistance and body/drain leakage conductances affect the transconductance and output conductance.
+
 
 #### Part 4 – Capacitance Evaluation and Properties
 ##### Key Concepts
+- Small-signal capacitance evaluation involved taking derivatives of terminal charges with respect to terminal voltages.
+- Elucidation of the change of intrinsic capacitances (CGS, CGD, CGB, CBS, and CBD) for non-saturation, saturation, weak inversion, depletion, and accumulation.
+- Physical interpretation of capacitance variation due to the effect of channel formation, pinch-off, and charge distribution.
+- Definition of the intrinsic transition (cut-off) frequency, taking into consideration transconductance and gate capacitances with regard to high frequency operation of MOSFETs.
+- Comparison of capacitance variation due to the strong inversion approximation as compared to that of the complete model of the entire operating regions.
+- Identification of intrinsic capacitances as compared to extrinsic (parasitic) capacitances and how their combination leads to the formation of the small signal equivalent circuit.
+- Identification of the increase in significance of extrinsic parasitic capacitances at high frequencies.
 
 #### Summary
+The basis of small signal MOSFET modeling was covered in this unit. This involves representing small changes to the voltage from the dc operating point in terms of conductance and capacitance values. Transconductance, output conductance, and capacitances were interpreted physically, and low frequency small signal equivalent circuits were derived. It was shown how analog and RF performance depends on device parameters.
+
 #### Reflection
+This module made it possible for me to realize how the behavior of a MOSFET is linearized for circuit design purposes. It was not just confined to studying the characteristics of the device at DC. Instead, parameters like gm, gmb, g₀, and the intrinsic capacitances were discussed as measures of how the device behaves in response to small AC variations.
+
 #### Connection to my Research
+This module bears great similarities with my research into MOSFET compact modeling and parameter extraction. All the parameters explained here have been obtained from the very same physical models that are used when creating compact models. Learning how DC behavior, transconductance, output conductance, and capacitances are interrelated will give you a good theoretical background for validating the parameters of the model.
 
 ---
 
 ### Module 10 - Small-Signal Modeling 2
 #### Part 1 – Complete Capacitance Parameter Set and Complete Quasi-Static Model
 ##### Key Concepts
+- Extended the small-signal model from the simple capacitance network to a complete quasi-static (QS) model.
+- Identified the complete set of terminal capacitance coefficients based on the relationship between terminal charge variations and terminal voltage variations.
+- Showed that even though one could define sixteen capacitance coefficients, only nine of them are independent due to the laws of charge conservation and voltage.
+- Found out relations between capacitance coefficients based on Kirchhoff's current law and Kirchhoff's voltage law.
+- Added the concept of non-reciprocal capacitance coefficients to describe the different behavior of each terminal pair.
+- Formulated the complete quasi-static small-signal equivalent circuit which consists of nine independent capacitance coefficients.
+- Elaborated on the meaning of the extra trans-capacitance coefficients.
 
 #### Part 2 – y-Parameter Model and Non-Quasi-Static Model
 ##### Key Concepts
+- Pioneered the general y-parameter approach for modeling small-signal behavior of MOSFETs with no frequency limitations.
+- Defined the y-parameters as the expressions for the relationship of the terminal current and terminal voltage with respect to small-signal excitations, and used the superposition theorem to establish the equations for currents.
+- Simplified the system of y-parameters to only nine independent parameters using the principles of current conservation and voltage relations.
+- Obtained the entire high-frequency equivalent circuit from the y-parameter approach.
+- Showed that the quasi-static small-signal model is one of the special cases of the general y-parameter model.
+- Developed the first-order non-quasi-static (NQS) model for accounting for the time-delay associated with charge redistribution at high frequencies.
+- Discussed the fact that the NQS model is an advanced model which includes resistance, inductance, and frequency-dependent transadmittance.
 
 #### Part 3 – Model Comparison and RF Models
 ##### Key Concepts
-
+- Compares the simple, complete quasi-static (QS) and first order non-quasi static (NQS) small signal models in relation to their equivalent circuits and their applicable frequency ranges.
+- Examined the frequency response of transadmittance magnitude and phase responses and concluded that the NQS model is able to predict transadmittance more accurately at higher frequencies, while the QS model loses accuracy as frequency increases.
+- Determined the approximate validity range of each model whereby the simple model is used for lower frequency calculations, the complete QS model is used for medium frequencies and the NQS model is used for frequencies up to the intrinsic transition frequency.
+- Understood that RF modeling requires the combination of the intrinsic NQS equivalent circuit with extrinsic parasitic resistance, capacitances and inductance to model the real MOSFET.
+- Understands what the transition (cut-off) frequency (fT) is and how it depends on transconductance, gate capacitance, channel length, and velocity saturation.
+- Understand the concept of the maximum oscillation frequency (fmax) which is calculated from the unilateral power gain and the importance of gate resistance.
+- Knows about some RF practical layout considerations like the use of multi-fingered transistors.
+  
 #### Summary
+Module 10 expanded the small-signal analysis of MOSFET devices from the complete quasi-static approach to more advanced high-frequency models. Initially, the full set of capacitance values was determined, and it was shown that nine independent capacitance coefficients are sufficient to completely describe the intrinsic MOSFET characteristics under quasi-static conditions. The next step was the development of the general formulation of the y-parameters, providing the unified description of the MOSFET behavior within the wide frequency spectrum and laying the ground for obtaining the non-quasi-static (NQS) model. In contrast to the quasi-static model, the NQS model accounts for the delay caused by the channel charge redistribution using frequency dependent transadmittance and extra resistance and inductance components. The last part of Module 10 provided the comparison of simple, QS, and NQS models in terms of their accuracy and applicability to different frequency regimes. In addition, some RF-specific notions, such as fT, fmax, and the impact of parasitics and layout design on high frequencies, were covered.
+
 #### Reflection
+This module has provided me with a deeper insight into how the small signal models of MOSFETs change with increasing frequencies. In particular, I came to understand that the simple and quasi-static models can be used satisfactorily at lower frequencies, while an analysis at higher frequencies necessitates the use of advanced models that consider charge redistribution and parasitics. Further, the development of the y-parameter form allowed me to realize that the modeling of transistors at high frequencies is essentially centered on terminal voltages and currents. Another important aspect of using various models is that the choice of a suitable model depends on the compromise between simplicity and accuracy.
+
 #### Connection to my Research
+The present module has relevance to my area of research on MOSFET modeling and compact model generation. The complete capacitance model, y-parameters, and the non-quasi-static modeling concept are the theoretical principles which can be used in explaining the dynamics of the MOSFET under different operating conditions. These theories will be important in parameter extraction and compact model development in situations where both the DC parameters and frequency dependent phenomena need to be considered at the same time. Moreover, the parasitic capacitance effect, transadmittance, and fT and fmax figures will be of great use in improving the accuracy and physicality of future compact MOSFET models.
 
 ---
 
 ### Module 11&12 - Final Exam & End of Course
-
-
 
 ---
 ## Skills Acquired
@@ -473,9 +612,12 @@ The topics covered in this module are directly applicable to the MOSFET paramete
 - Semiconductor Fundamentals
 - Device Modeling
 - Analytical Thinking
+- Small-Signal and RF Modeling
+- Charge-Based MOSFET Modeling
+- Semiconductor Device Modeling
+- Parameter Extraction
 
 ---
 
 ## Reflection
-
-This course strengthens my understanding of MOS transistor operation and semiconductor device physics, providing theoretical foundations for my research on MOSFET modeling and parameter extraction.
+This course has covered extensively all aspects of the operation of a MOSFET starting from the physics of semiconductors to the latest developments in compact modeling techniques. Charge-based modeling, quasistatic and non-quasistatic methods, small signal equivalent circuits and RF modeling have been covered in such depth that it forms a solid theoretical base for my research into the extraction of parameters and compact modeling of the MOSFET.
