@@ -9,7 +9,7 @@ function parameters = level1_extract(data)
 %   data - Imported I-V dataset
 %
 % Outputs:
-%   parameters - Extracted Level-1 parameters
+%   parameters - Structure containing extracted parameters.
 %
 % Author:
 %   Jianhao Wu
@@ -17,8 +17,22 @@ function parameters = level1_extract(data)
 % Project:
 %   MOSFET Parameter Extraction Toolkit
 
-% To be implemented.
+%% Step 1 - Threshold Voltage
+Vth = threshold_voltage(data);
 
-parameters = [];
+%% Step 2 - Carrier Mobility
+mu = mobility(data);
+
+%% Step 3 - Channel-Length Modulation
+lambda = channel_length_modulation(data);
+
+%% Step 4 - Output Resistance
+ro = output_resistance(data);
+
+%% Store Results
+parameters.Vth = Vth;
+parameters.mu = mu;
+parameters.lambda = lambda;
+parameters.ro = ro;
 
 end
