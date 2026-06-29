@@ -6,8 +6,8 @@
 |------|-------------|
 | Type | Conference Paper |
 | Conference | 2026 5th International Conference on Electronics, Integrated Circuits and Communication Technology (EICCT) |
-| Publisher | IEEE |
-| Status | Published |
+| Publisher | IEEE Xplore |
+| Status | Published (EI Indexed) |
 | DOI | [10.1109/EICCT69950.2026.11564710 ](https://doi.org/10.1109/EICCT69950.2026.11564710)|
 
 ---
