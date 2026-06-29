@@ -1,66 +1,66 @@
-function Vth = linear_extraction(data)
-%LINEAR_EXTRACTION Threshold voltage extraction using linear extrapolation.
-%
-% Description:
-%   Estimate MOSFET threshold voltage using the maximum transconductance
-%   linear extrapolation method.
+function [Vth, fit] = linear_extraction(data)
+%LINEAR_EXTRACTION Threshold voltage extraction using Linear Extrapolation.
 %
 % Inputs:
 %   data.VGS
 %   data.IDS
 %
 % Outputs:
-%   Vth - Threshold Voltage (V)
+%   Vth  - Threshold Voltage
+%   fit  - Structure containing fitting information
 %
 % Author:
 %   Jianhao Wu
-%
-% Project:
-%   MOSFET Parameter Extraction Toolkit
 
 %% Read Data
 
 VGS = data.VGS;
 IDS = data.IDS;
 
-%% Smooth Current (reduce numerical noise)
-
-IDS = smoothdata(IDS,"sgolay",7);
-
 %% Calculate Transconductance
 
-gm = gradient(IDS,VGS);
+gm = gradient(IDS, VGS);
 
-%% Find Maximum gm
+%% Maximum gm Point
 
-[~,idx] = max(gm);
+[~, idx] = max(gm);
 
-%% Select Linear Region
+%% Fitting Window
 
-N = 5;
+start_idx = max(1, idx-5);
+end_idx   = min(length(VGS), idx+5);
 
-startIndex = max(1,idx-N);
-endIndex   = min(length(VGS),idx+N);
+range = start_idx:end_idx;
 
-Vfit = VGS(startIndex:endIndex);
-Ifit = IDS(startIndex:endIndex);
+%% Linear Fitting
 
-%% Linear Regression
+p = polyfit(VGS(range), IDS(range), 1);
 
-p = polyfit(Vfit,Ifit,1);
+slope = p(1);
+intercept = p(2);
 
 %% Threshold Voltage
 
-Vth = -p(2)/p(1);
+Vth = -intercept / slope;
 
-%% Display Result
+%% Save Fitting Information
 
-fprintf("\n");
-fprintf("=====================================\n");
-fprintf(" Threshold Voltage Extraction\n");
-fprintf("=====================================\n");
-fprintf("Method : Linear Extrapolation\n");
-fprintf("Vth    : %.4f V\n",Vth);
-fprintf("=====================================\n");
+fit = struct();
+
+fit.slope = slope;
+fit.intercept = intercept;
+
+fit.range = range;
+
+fit.VGS = VGS(range);
+fit.IDS = IDS(range);
+
+fit.gm = gm;
+fit.max_index = idx;
+
+fit.start_index = start_idx;
+fit.end_index = end_idx;
+
+fit.method = "Linear Extrapolation";
 
 end
