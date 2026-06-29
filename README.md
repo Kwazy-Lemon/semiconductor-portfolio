@@ -41,10 +41,10 @@ Coming soon.
 
 ## Learning Roadmap
 ### Completed
-Siemens – EDA Explained(Coursera)
+- Siemens – EDA Explained(Coursera)
+- Columbia – MOS Transistors(Coursera)
 
 ### In Progress
-- Columbia – MOS Transistors(Coursera)
 - ASU – Semiconductor Characterization(Coursera)
 - University of Colorado Boulder – Semiconductor Devices(Coursera)
 
