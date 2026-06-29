@@ -14,10 +14,7 @@ data = read_ltspice_csv('../../datasets/raw/Id_Vgs.txt');
 
 Vth = threshold_voltage(data,"linear");
 
-%% Display Result
+fprintf("\n");
+fprintf("Threshold Voltage = %.4f V\n",Vth);
 
-fprintf('\n');
-fprintf('=================================\n');
-fprintf('Threshold Voltage = %.4f V\n',Vth);
-fprintf('=================================\n');
-plot_transfer_curve(data);
+plot_linear_fit(data,Vth);
