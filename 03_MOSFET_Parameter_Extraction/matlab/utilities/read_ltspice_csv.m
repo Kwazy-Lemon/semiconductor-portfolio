@@ -25,12 +25,8 @@ T = readtable(filename,'VariableNamingRule','preserve');
 
 data = struct();
 
-%% Save Raw Table
-
 data.RawTable = T;
 data.ColumnNames = T.Properties.VariableNames;
-
-%% Detect Dataset Type
 
 [~,name,~] = fileparts(filename);
 
