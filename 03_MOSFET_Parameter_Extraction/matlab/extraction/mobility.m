@@ -1,20 +1,57 @@
-function mu = mobility(data)
-%MOBILITY Extract carrier mobility.
+function mu = mobility(data, method)
+%MOBILITY Extract effective carrier mobility.
 %
 % Description:
-%   Estimate effective carrier mobility using Level-1 equations.
+%   Estimate effective carrier mobility from MOSFET transfer
+%   characteristics.
 %
 % Inputs:
-%   data - I-V dataset
+%   data    - Structure containing MOSFET I-V data
+%   method  - Extraction method
+%             "analytical"
+%             "regression"
 %
 % Outputs:
-%   mu - Carrier mobility
+%   mu      - Effective carrier mobility (cm^2/V·s)
 %
 % Author:
 %   Jianhao Wu
+%
+% Repository:
+%   MOSFET Parameter Extraction Toolkit
+%
+% Version:
+%   v1.0
 
-% To be implemented.
+%% Default Method
 
-mu = [];
+if nargin < 2
+    method = "analytical";
+end
+
+%% Read Data
+
+VGS = data.VGS;
+IDS = data.IDS;
+
+%% Select Method
+
+switch lower(method)
+
+    case "analytical"
+
+        % To be implemented
+        mu = [];
+
+    case "regression"
+
+        % To be implemented
+        mu = [];
+
+    otherwise
+
+        error("Unknown mobility extraction method.");
+
+end
 
 end
