@@ -5,38 +5,65 @@ function Vth = threshold_voltage(data,method)
 %   Estimate the threshold voltage from transfer characteristics.
 %
 % Inputs:
-%   data   - Structure containing VGS and IDS
-%   method - Extraction method
+%   data    - Structure containing VGS and IDS
+%   method  - Extraction method
 %
-%            "linear" (default)
+%             "linear"  (default)
+%             "constant_current"
 %
 % Outputs:
-%   Vth - Threshold voltage (V)
+%   Vth     - Threshold voltage (V)
 %
 % Author:
 %   Jianhao Wu
 %
+% Project:
+%   MOSFET Parameter Extraction Toolkit
+%
 % Version:
 %   v1.0
+
+%% Default Method
 
 if nargin < 2
     method = "linear";
 end
 
+%% Header
+
+fprintf("\n");
+fprintf("=====================================\n");
+fprintf("Threshold Voltage Extraction\n");
+fprintf("=====================================\n");
+
+%% Select Extraction Method
+
 switch lower(method)
 
     case "linear"
 
-        Vth = linear_extraction(data);
+        [Vth,fit] = linear_extraction(data);
 
-    case "constant"
+    case "constant_current"
 
         Vth = constant_current(data);
+
+        fit = [];
 
     otherwise
 
         error("Unknown extraction method.");
 
 end
+
+%% Save Fitting Information
+
+assignin('base','fit',fit);
+
+%% Display Result
+
+fprintf("Method : %s\n",method);
+fprintf("Vth    : %.4f V\n",Vth);
+fprintf("=====================================\n");
 
 end
