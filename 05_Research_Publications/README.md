@@ -5,7 +5,7 @@ This section summarizes my research publications and manuscripts in semiconducto
 ## Conference Papers
 
 | No. | Publication | Status |
-| --- | ----------- | ------ || 1 | [A Systematic and Bias-Consistent Parameter Extraction Framework for Level-1 MOSFET Models](01_EICCT_2026/README.md) | Published (IEEE EICCT 2026) |
+| 1 | [A Systematic and Bias-Consistent Parameter Extraction Framework for Level-1 MOSFET Models](01_EICCT_2026/README.md) | Published (IEEE EICCT 2026) |
 
 ---
 
