@@ -16,7 +16,6 @@ end
 VGS = data.VGS;
 IDS = data.IDS;
 
-% Find point closest to reference current
 [~, idx] = min(abs(IDS - Iref));
 
 Vth = VGS(idx);
