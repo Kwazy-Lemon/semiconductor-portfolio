@@ -35,8 +35,11 @@ Coming soon.
 Coming soon.
 
 ### Publications
-Coming soon.
+- **Conference Papers**
+  - 1 IEEE conference paper (Published)
 
+- **Journal Manuscripts**
+  - 2 manuscripts under review (World Journal of Engineering)
 ---
 
 ## Learning Roadmap
