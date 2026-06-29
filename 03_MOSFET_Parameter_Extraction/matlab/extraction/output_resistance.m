@@ -18,22 +18,16 @@ function ro = output_resistance(data)
 % Project:
 %   MOSFET Parameter Extraction Toolkit
 
-%% Read Data
-
 VDS = data.VDS;
 IDS = data.IDS;
-
-%% Linear Fit
 
 p = polyfit(VDS, IDS, 1);
 
 slope = p(1);
 
-%% Output Resistance
 
 ro = 1 / slope;
 
-%% Display
 
 fprintf("\n");
 fprintf("=====================================\n");
