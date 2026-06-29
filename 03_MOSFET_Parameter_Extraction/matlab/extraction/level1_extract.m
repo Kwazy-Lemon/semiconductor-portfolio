@@ -1,67 +1,43 @@
-function parameters = level1_extract(data)
-%LEVEL1_EXTRACT Main entry of the MOSFET Parameter Extraction Toolkit.
+function parameters = level1_extract(data_transfer,data_output)
+%LEVEL1_EXTRACT Complete Level-1 MOSFET Parameter Extraction.
 %
 % Description:
-%   Perform automatic Level-1 MOSFET compact model parameter extraction
-%   from LTspice simulation or experimental I-V data.
+%   Extract the major Level-1 MOSFET parameters.
 %
 % Inputs:
-%   data - Structure containing MOSFET I-V data
-%
-%          Required fields:
-%          data.VGS
-%          data.VDS
-%          data.IDS
+%   data - MOSFET dataset
 %
 % Outputs:
 %   parameters - Structure containing extracted parameters
 %
-%                parameters.Vth
-%                parameters.mu
-%                parameters.lambda
-%                parameters.ro
-%                parameters.method
-%                parameters.date
-%
 % Author:
 %   Jianhao Wu
 %
-% Repository:
+% Project:
 %   MOSFET Parameter Extraction Toolkit
-%
-% Version:
-%   v1.0
-%
-% Last Updated:
-%   June 2026
 
-%% --------------------------------------------------------
-%  Step 1 : Threshold Voltage Extraction
-%% --------------------------------------------------------
+fprintf("\n");
+fprintf("=========================================\n");
+fprintf(" Level-1 MOSFET Parameter Extraction\n");
+fprintf("=========================================\n");
 
-Vth = threshold_voltage(data,"linear");
+%% Threshold Voltage
 
-%% --------------------------------------------------------
-%  Step 2 : Carrier Mobility Extraction
-%% --------------------------------------------------------
+Vth = threshold_voltage(data_transfer,"linear");
 
-mu = mobility(data,"analytical");
+%% Carrier Mobility
 
-%% --------------------------------------------------------
-%  Step 3 : Channel-Length Modulation Extraction
-%% --------------------------------------------------------
+mu = mobility(data_transfer);
 
-lambda = channel_length_modulation(data,"linear");
+%% Channel-Length Modulation
 
-%% --------------------------------------------------------
-%  Step 4 : Output Resistance Estimation
-%% --------------------------------------------------------
+lambda = channel_length_modulation(data_output);
 
-ro = output_resistance(data,"linear");
+%% Output Resistance
 
-%% --------------------------------------------------------
-%  Generate Parameter Structure
-%% --------------------------------------------------------
+ro = output_resistance(data_output);
+
+%% Store Parameters
 
 parameters = struct();
 
@@ -70,12 +46,18 @@ parameters.mu = mu;
 parameters.lambda = lambda;
 parameters.ro = ro;
 
-%% Metadata
+%% Summary
 
-parameters.method = "Level-1 Analytical Extraction";
+fprintf("\n");
+fprintf("=========================================\n");
+fprintf(" Extraction Summary\n");
+fprintf("=========================================\n");
 
-parameters.date = datetime;
+fprintf("Threshold Voltage      : %.4f V\n",Vth);
+fprintf("Carrier Mobility       : %.4e m^2/Vs\n",mu);
+fprintf("Channel Modulation λ   : %.4e 1/V\n",lambda);
+fprintf("Output Resistance      : %.4e Ohm\n",ro);
 
-parameters.version = "v1.0";
+fprintf("=========================================\n");
 
 end
