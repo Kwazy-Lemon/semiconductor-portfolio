@@ -2,14 +2,19 @@ clc;
 clear;
 close all;
 
-%% Read LTspice Data
+%% Add Toolkit Path
 
-data = read_ltspice_csv("Id_Vgs.txt");
+addpath(genpath(".."));
+
+%% Read Dataset
+
+data = read_ltspice_csv("../../datasets/raw/Id_Vgs.txt");
 
 %% Threshold Voltage Extraction
 
 Vth = threshold_voltage(data,"linear");
 
-%% Display
+%% Display Result
 
-disp(Vth)
+fprintf("\n");
+fprintf("Threshold Voltage = %.4f V\n",Vth);
