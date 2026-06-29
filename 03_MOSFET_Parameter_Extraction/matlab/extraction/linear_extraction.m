@@ -1,28 +1,66 @@
 function Vth = linear_extraction(data)
 %LINEAR_EXTRACTION Threshold voltage extraction using linear extrapolation.
 %
+% Description:
+%   Estimate MOSFET threshold voltage using the maximum transconductance
+%   linear extrapolation method.
+%
 % Inputs:
 %   data.VGS
 %   data.IDS
 %
 % Outputs:
-%   Vth
+%   Vth - Threshold Voltage (V)
+%
+% Author:
+%   Jianhao Wu
+%
+% Project:
+%   MOSFET Parameter Extraction Toolkit
+
+%% Read Data
 
 VGS = data.VGS;
 IDS = data.IDS;
 
-% Calculate transconductance
-gm = gradient(IDS, VGS);
+%% Smooth Current (reduce numerical noise)
 
-% Find maximum gm
-[~, idx] = max(gm);
+IDS = smoothdata(IDS,"sgolay",7);
 
-% Linear fitting around maximum gm
-fit_range = max(1, idx-2):min(length(VGS), idx+2);
+%% Calculate Transconductance
 
-p = polyfit(VGS(fit_range), IDS(fit_range), 1);
+gm = gradient(IDS,VGS);
 
-% Linear extrapolation
+%% Find Maximum gm
+
+[~,idx] = max(gm);
+
+%% Select Linear Region
+
+N = 5;
+
+startIndex = max(1,idx-N);
+endIndex   = min(length(VGS),idx+N);
+
+Vfit = VGS(startIndex:endIndex);
+Ifit = IDS(startIndex:endIndex);
+
+%% Linear Regression
+
+p = polyfit(Vfit,Ifit,1);
+
+%% Threshold Voltage
+
 Vth = -p(2)/p(1);
+
+%% Display Result
+
+fprintf("\n");
+fprintf("=====================================\n");
+fprintf(" Threshold Voltage Extraction\n");
+fprintf("=====================================\n");
+fprintf("Method : Linear Extrapolation\n");
+fprintf("Vth    : %.4f V\n",Vth);
+fprintf("=====================================\n");
 
 end
