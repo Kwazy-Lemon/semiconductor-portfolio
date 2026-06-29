@@ -36,9 +36,11 @@ Coming soon.
 
 ### Research Publications
 
-- [Conference Publications (1)](05_Research_Publications/#conference-papers)
+- [Conference Publications ](05_Research_Publications/#conference-papers)
+  - 1 Published
 
-- [Journal Manuscripts (2)](05_Research_Publications/#journal-papers)
+- [Journal Manuscripts ](05_Research_Publications/#journal-papers)
+  - 2 Under Review
 ---
 
 ## Learning Roadmap
