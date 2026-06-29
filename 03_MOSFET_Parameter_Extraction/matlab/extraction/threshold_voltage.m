@@ -29,6 +29,10 @@ switch lower(method)
 
         Vth = linear_extraction(data);
 
+    case "constant"
+
+        Vth = constant_current(data);
+
     otherwise
 
         error("Unknown extraction method.");
