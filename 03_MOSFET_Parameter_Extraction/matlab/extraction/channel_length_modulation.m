@@ -1,15 +1,13 @@
-function lambda = channel_length_modulation(data, method)
+function lambda = channel_length_modulation(data)
 %CHANNEL_LENGTH_MODULATION Extract channel-length modulation parameter.
 %
 % Description:
-%   Estimate the channel-length modulation parameter (λ)
-%   from output characteristics.
+%   Estimate the channel-length modulation parameter (lambda)
+%   from the output characteristics.
 %
 % Inputs:
-%   data
-%   method
-%       "linear"
-%       "regression"
+%   data.VDS
+%   data.IDS
 %
 % Outputs:
 %   lambda
@@ -17,41 +15,33 @@ function lambda = channel_length_modulation(data, method)
 % Author:
 %   Jianhao Wu
 %
-% Repository:
+% Project:
 %   MOSFET Parameter Extraction Toolkit
-%
-% Version:
-%   v1.0
-
-%% Default Method
-
-if nargin < 2
-    method = "linear";
-end
 
 %% Read Data
 
 VDS = data.VDS;
 IDS = data.IDS;
 
-%% Select Method
+%% Linear Regression
 
-switch lower(method)
+p = polyfit(VDS, IDS, 1);
 
-    case "linear"
+slope = p(1);
 
-        % To be implemented
-        lambda = [];
+intercept = p(2);
 
-    case "regression"
+%% Channel-Length Modulation
 
-        % To be implemented
-        lambda = [];
+lambda = slope / intercept;
 
-    otherwise
+%% Display
 
-        error("Unknown channel-length modulation extraction method.");
-
-end
+fprintf("\n");
+fprintf("=====================================\n");
+fprintf(" Channel-Length Modulation\n");
+fprintf("=====================================\n");
+fprintf("Lambda = %.4e 1/V\n", lambda);
+fprintf("=====================================\n");
 
 end
