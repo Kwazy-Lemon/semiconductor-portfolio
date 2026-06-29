@@ -21,8 +21,6 @@ function mu = mobility(data)
 % Project:
 %   MOSFET Parameter Extraction Toolkit
 
-%% Read Device Data
-
 VGS = data.VGS;
 IDS = data.IDS;
 
@@ -33,17 +31,11 @@ L = data.L;
 
 Cox = data.Cox;
 
-%% Linear Regression
-
 p = polyfit(VGS, IDS, 1);
 
 slope = p(1);
 
-%% Mobility Calculation
-
 mu = slope * L / (Cox * W * VDS);
-
-%% Display
 
 fprintf("\n");
 fprintf("=====================================\n");
