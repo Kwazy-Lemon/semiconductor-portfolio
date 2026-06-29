@@ -34,12 +34,9 @@ Coming soon.
 ### Electronic Design Automation
 Coming soon.
 
-### Publications
-- **Conference Papers**
-  - 1 IEEE conference paper (Published)
-
-- **Journal Manuscripts**
-  - 2 manuscripts under review (World Journal of Engineering)
+### Research Publications
+- [Conference Publications](05_Research_Publications/#conference-papers)
+- [Journal Manuscripts](05_Research_Publications/#journal-papers)
 ---
 
 ## Learning Roadmap
