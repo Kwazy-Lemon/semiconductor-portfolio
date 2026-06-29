@@ -26,12 +26,10 @@ while ~feof(fid)
         continue;
     end
 
-    % Skip title
     if startsWith(line,"V2")
         continue;
     end
 
-    % Find first STEP
     if startsWith(line,"Step Information")
 
         if start_read
