@@ -1,20 +1,57 @@
-function ro = output_resistance(data)
+function ro = output_resistance(data, method)
 %OUTPUT_RESISTANCE Estimate output resistance.
 %
 % Description:
-%   Calculate output resistance from saturation-region characteristics.
+%   Estimate MOSFET output resistance from saturation-region
+%   output characteristics.
 %
 % Inputs:
-%   data - I-V dataset
+%   data
+%   method
+%       "linear"
+%       "analytical"
 %
 % Outputs:
-%   ro - Output resistance
+%   ro
 %
 % Author:
 %   Jianhao Wu
+%
+% Repository:
+%   MOSFET Parameter Extraction Toolkit
+%
+% Version:
+%   v1.0
 
-% To be implemented.
+%% Default Method
 
-ro = [];
+if nargin < 2
+    method = "linear";
+end
+
+%% Read Data
+
+VDS = data.VDS;
+IDS = data.IDS;
+
+%% Select Method
+
+switch lower(method)
+
+    case "linear"
+
+        % To be implemented
+        ro = [];
+
+    case "analytical"
+
+        % To be implemented
+        ro = [];
+
+    otherwise
+
+        error("Unknown output resistance estimation method.");
+
+end
 
 end
