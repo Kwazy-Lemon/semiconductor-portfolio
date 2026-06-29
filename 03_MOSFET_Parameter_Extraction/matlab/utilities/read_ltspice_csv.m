@@ -1,14 +1,18 @@
 function data = read_ltspice_csv(filename)
-%READ_LTSPICE_CSV Import LTspice simulation data.
+%READ_LTSPICE_CSV Import LTspice stepped simulation data.
 %
 % Description:
-%   Read MOSFET I-V data exported from LTspice CSV files.
+%   Read LTspice output files containing stepped simulations
+%   (e.g. VGS sweep with VDS curves).
 %
 % Inputs:
-%   filename - Path to LTspice CSV file
+%   filename - LTspice exported text/csv file
 %
 % Outputs:
-%   data - Structure containing imported data
+%   data - Structure containing:
+%          data.VGS
+%          data.VDS
+%          data.IDS
 %
 % Author:
 %   Jianhao Wu
@@ -18,18 +22,89 @@ function data = read_ltspice_csv(filename)
 %
 % Version:
 %   v1.0
-%
-% Last Updated:
-%   June 2026
 
-%% Read CSV File
+%% Open File
 
-tableData = readtable(filename);
+fid = fopen(filename,'r');
 
-%% Convert to Structure
+if fid==-1
+    error('Cannot open file.');
+end
+
+%% Read All Lines
+
+lines = {};
+
+while ~feof(fid)
+
+    lines{end+1} = fgetl(fid);
+
+end
+
+fclose(fid);
+
+%% Initialize
+
+VGS = [];
+VDS = {};
+IDS = {};
+
+curve = 0;
+
+%% Parse File
+
+for i = 1:length(lines)
+
+    line = strtrim(lines{i});
+
+    % Skip empty line
+    if isempty(line)
+        continue;
+    end
+
+    % Detect Step Information
+    if contains(line,'Step Information')
+
+        curve = curve + 1;
+
+        token = regexp(line,'V1=([-\d\.Ee+]+)','tokens');
+
+        if ~isempty(token)
+
+            VGS(curve) = str2double(token{1}{1});
+
+        end
+
+        VDS{curve} = [];
+        IDS{curve} = [];
+
+        continue;
+
+    end
+
+    % Skip header
+    if startsWith(line,'V2')
+        continue;
+    end
+
+    % Read numeric data
+    value = sscanf(line,'%f %f');
+
+    if numel(value)==2
+
+        VDS{curve}(end+1,1) = value(1);
+        IDS{curve}(end+1,1) = value(2);
+
+    end
+
+end
+
+%% Store Data
 
 data = struct();
 
-% To be implemented
+data.VGS = VGS;
+data.VDS = VDS;
+data.IDS = IDS;
 
 end
