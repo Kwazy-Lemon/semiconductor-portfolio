@@ -6,6 +6,7 @@
 |------|-------------|
 | Type | Journal Manuscript |
 | Journal | World Journal of Engineering |
+| Author | Jianhao Wu (Sole Author) |
 | Status | Under Review |
 | Submission Date | 31 May 2026 |
 
