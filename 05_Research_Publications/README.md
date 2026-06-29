@@ -13,9 +13,9 @@ This section summarizes my research publications and manuscripts in semiconducto
 ## Journal Papers
 
 | No. | Title | Status |
-|------|------|------|
-| 1 | Robust Parameter Extraction for MOSFET Compact Models Using Multi-Bias Regression and Simulation | Under Review (World Journal of Engineering) |
-| 2 | Comparative Analysis of Optimization Strategies for MOSFET Compact Model Parameter Extraction Under Noisy Conditions | Under Review (World Journal of Engineering) |
+|----|------|------|
+|1|[Robust Parameter Extraction for MOSFET Compact Models Using Multi-Bias Regression and Simulation](02_WJE_Robust_Parameter_Extraction/)|Under Review (World Journal of Engineering)|
+|2|[Comparative Analysis of Optimization Strategies for MOSFET Compact Model Parameter Extraction Under Noisy Conditions](03_WJE_Optimization_Strategies/)|Under Review (World Journal of Engineering)|
 
 ---
 
