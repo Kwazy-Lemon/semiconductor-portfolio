@@ -1,56 +1,57 @@
-function mu = mobility(data, method)
-%MOBILITY Extract effective carrier mobility.
+function mu = mobility(data)
+%MOBILITY Extract carrier mobility.
 %
 % Description:
-%   Estimate effective carrier mobility from MOSFET transfer
-%   characteristics.
+%   Estimate carrier mobility using the linear-region method.
 %
 % Inputs:
-%   data    - Structure containing MOSFET I-V data
-%   method  - Extraction method
-%             "analytical"
-%             "regression"
+%   data.VGS
+%   data.IDS
+%   data.VDS
+%   data.W
+%   data.L
+%   data.Cox
 %
 % Outputs:
-%   mu      - Effective carrier mobility (cm^2/V·s)
+%   mu
 %
 % Author:
 %   Jianhao Wu
 %
-% Repository:
+% Project:
 %   MOSFET Parameter Extraction Toolkit
-%
-% Version:
-%   v1.0
 
-%% Default Method
-
-if nargin < 2
-    method = "analytical";
-end
-
-%% Read Data
+%% Read Device Data
 
 VGS = data.VGS;
 IDS = data.IDS;
 
-%% Select Method
+VDS = data.VDS;
 
-switch lower(method)
+W = data.W;
+L = data.L;
 
-    case "analytical"
+Cox = data.Cox;
 
-        % To be implemented
-        mu = [];
+%% Linear Regression
 
-    case "regression"
+p = polyfit(VGS, IDS, 1);
 
-        % To be implemented
-        mu = [];
+slope = p(1);
 
-    otherwise
+%% Mobility Calculation
 
-        error("Unknown mobility extraction method.");
+mu = slope * L / (Cox * W * VDS);
+
+%% Display
+
+fprintf("\n");
+fprintf("=====================================\n");
+fprintf(" Mobility Extraction\n");
+fprintf("=====================================\n");
+fprintf("Mobility = %.4e m^2/Vs\n", mu);
+fprintf("=====================================\n");
+
 
 end
 
