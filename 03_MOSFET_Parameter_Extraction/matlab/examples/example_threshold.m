@@ -8,7 +8,17 @@ addpath(genpath('..'));
 
 %% Read Dataset
 
-data = read_ltspice_csv('../../datasets/raw/Id_Vgs.txt');
+data = read_ltspice_csv("../../datasets/raw/Id_Vgs.txt");
+
+%% Device Information
+
+data.VDS = 0.05;
+
+data.W = 10e-6;
+
+data.L = 1e-6;
+
+data.Cox = 3.45e-3;
 
 %% Threshold Voltage Extraction
 
