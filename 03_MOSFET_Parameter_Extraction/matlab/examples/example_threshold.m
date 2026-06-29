@@ -20,3 +20,4 @@ fprintf('\n');
 fprintf('=================================\n');
 fprintf('Threshold Voltage = %.4f V\n',Vth);
 fprintf('=================================\n');
+plot_transfer_curve(data);
