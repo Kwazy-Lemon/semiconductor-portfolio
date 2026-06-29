@@ -21,23 +21,13 @@ fprintf("=========================================\n");
 fprintf(" Level-1 MOSFET Parameter Extraction\n");
 fprintf("=========================================\n");
 
-%% Threshold Voltage
-
 Vth = threshold_voltage(data_transfer,"linear");
-
-%% Carrier Mobility
 
 mu = mobility(data_transfer);
 
-%% Channel-Length Modulation
-
 lambda = channel_length_modulation(data_output);
 
-%% Output Resistance
-
 ro = output_resistance(data_output);
-
-%% Store Parameters
 
 parameters = struct();
 
@@ -45,8 +35,6 @@ parameters.Vth = Vth;
 parameters.mu = mu;
 parameters.lambda = lambda;
 parameters.ro = ro;
-
-%% Summary
 
 fprintf("\n");
 fprintf("=========================================\n");
