@@ -23,20 +23,16 @@ function Vth = threshold_voltage(data,method)
 % Version:
 %   v1.0
 
-%% Default Method
 
 if nargin < 2
     method = "linear";
 end
 
-%% Header
 
 fprintf("\n");
 fprintf("=====================================\n");
 fprintf("Threshold Voltage Extraction\n");
 fprintf("=====================================\n");
-
-%% Select Extraction Method
 
 switch lower(method)
 
@@ -56,11 +52,7 @@ switch lower(method)
 
 end
 
-%% Save Fitting Information
-
 assignin('base','fit',fit);
-
-%% Display Result
 
 fprintf("Method : %s\n",method);
 fprintf("Vth    : %.4f V\n",Vth);
