@@ -18,12 +18,8 @@ function lambda = channel_length_modulation(data)
 % Project:
 %   MOSFET Parameter Extraction Toolkit
 
-%% Read Data
-
 VDS = data.VDS;
 IDS = data.IDS;
-
-%% Linear Regression
 
 p = polyfit(VDS, IDS, 1);
 
@@ -31,11 +27,7 @@ slope = p(1);
 
 intercept = p(2);
 
-%% Channel-Length Modulation
-
 lambda = slope / intercept;
-
-%% Display
 
 fprintf("\n");
 fprintf("=====================================\n");
