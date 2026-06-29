@@ -1,110 +1,49 @@
 function data = read_ltspice_csv(filename)
-%READ_LTSPICE_CSV Import LTspice stepped simulation data.
+%READ_LTSPICE_CSV Import LTspice simulation data.
 %
 % Description:
-%   Read LTspice output files containing stepped simulations
-%   (e.g. VGS sweep with VDS curves).
+%   Reads LTspice exported TXT/CSV files and converts them into a MATLAB
+%   structure for parameter extraction and visualization.
 %
 % Inputs:
-%   filename - LTspice exported text/csv file
+%   filename - LTspice output file
 %
 % Outputs:
-%   data - Structure containing:
-%          data.VGS
-%          data.VDS
-%          data.IDS
+%   data - Structure containing imported data
+%
+% Fields:
+%   data.X
+%   data.Y
+%   data.RawTable
 %
 % Author:
 %   Jianhao Wu
 %
-% Repository:
+% Project:
 %   MOSFET Parameter Extraction Toolkit
-%
-% Version:
-%   v1.0
 
-%% Open File
+fprintf('-----------------------------------------\n');
+fprintf(' MOSFET Parameter Extraction Toolkit\n');
+fprintf(' LTspice Data Import Module\n');
+fprintf('-----------------------------------------\n');
 
-fid = fopen(filename,'r');
+% Read table
+T = readtable(filename);
 
-if fid==-1
-    error('Cannot open file.');
-end
+% Store original table
+data.RawTable = T;
 
-%% Read All Lines
+% First column
+data.X = T{:,1};
 
-lines = {};
+% Second column
+data.Y = T{:,2};
 
-while ~feof(fid)
+% Column names
+data.ColumnNames = T.Properties.VariableNames;
 
-    lines{end+1} = fgetl(fid);
-
-end
-
-fclose(fid);
-
-%% Initialize
-
-VGS = [];
-VDS = {};
-IDS = {};
-
-curve = 0;
-
-%% Parse File
-
-for i = 1:length(lines)
-
-    line = strtrim(lines{i});
-
-    % Skip empty line
-    if isempty(line)
-        continue;
-    end
-
-    % Detect Step Information
-    if contains(line,'Step Information')
-
-        curve = curve + 1;
-
-        token = regexp(line,'V1=([-\d\.Ee+]+)','tokens');
-
-        if ~isempty(token)
-
-            VGS(curve) = str2double(token{1}{1});
-
-        end
-
-        VDS{curve} = [];
-        IDS{curve} = [];
-
-        continue;
-
-    end
-
-    % Skip header
-    if startsWith(line,'V2')
-        continue;
-    end
-
-    % Read numeric data
-    value = sscanf(line,'%f %f');
-
-    if numel(value)==2
-
-        VDS{curve}(end+1,1) = value(1);
-        IDS{curve}(end+1,1) = value(2);
-
-    end
-
-end
-
-%% Store Data
-
-data = struct();
-
-data.VGS = VGS;
-data.VDS = VDS;
-data.IDS = IDS;
+fprintf('Import Successful!\n');
+fprintf('Samples : %d\n',height(T));
+fprintf('Columns : %d\n',width(T));
 
 end
