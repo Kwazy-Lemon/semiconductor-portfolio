@@ -1,4 +1,3 @@
-# MOSFET Parameter Extraction
 # MOSFET Parameter Extraction Toolkit
 
 A MATLAB-based toolkit for compact MOSFET parameter extraction, verification, visualization, and model evaluation.
@@ -6,12 +5,11 @@ A MATLAB-based toolkit for compact MOSFET parameter extraction, verification, vi
 ---
 
 ## Overview
+This project strives to create a MATLAB-based toolkit for the extraction, verification, visualization, and evaluation of compact MOSFET parameters.
 
-This project aims to develop a complete toolkit for MOSFET compact model parameter extraction based on analytical Level-1 MOSFET models.
+The toolkit presently only considers analytical compact MOSFET models and seeks to enhance their consistency, automation, repeatability, and engineering friendliness.
 
-The toolkit focuses on improving parameter consistency, automation, reproducibility, and engineering usability through systematic extraction algorithms, verification procedures, visualization utilities, and simulation support.
-
-The long-term objective is to build an open-source framework that integrates parameter extraction, parameter verification, compact model validation, and circuit simulation into a unified workflow.
+Future iterations of the toolkit will eventually be able to handle more advanced compact MOSFET models.
 
 ---
 
@@ -63,23 +61,22 @@ The project is designed to:
 
 ## Workflow
 
-```text
-LTspice Simulation
-        │
-        ▼
-Data Import
-        │
-        ▼
-Parameter Extraction
-        │
-        ▼
-Parameter Verification
-        │
-        ▼
-Visualization
-        │
-        ▼
-Compact Model Evaluation
+```        LTspice
+            │
+            ▼
+     Data Acquisition
+            │
+            ▼
+ Parameter Extraction
+            │
+     ┌──────┴──────┐
+     ▼             ▼
+Verification   Visualization
+     │             │
+     └──────┬──────┘
+            ▼
+     Compact Model
+        Evaluation
 ```
 
 ---
@@ -104,10 +101,13 @@ Compact Model Evaluation
 
 ### Completed
 
-- Initial project architecture
-- Level-1 MOSFET extraction methodology
-- IEEE conference publication
-- MATLAB extraction algorithms
+✔ IEEE Conference Publication
+
+✔ MATLAB Extraction Algorithms
+
+✔ Level-1 Extraction Framework
+
+✔ LTspice Automation
 
 ### In Development
 
@@ -144,16 +144,21 @@ Compact Model Evaluation
 
 ## Skills Demonstrated
 
-- MOSFET Modeling
-- Compact Modeling
-- Semiconductor Device Physics
-- Parameter Extraction
-- MATLAB Programming
-- Numerical Optimization
-- Device Characterization
-- Data Visualization
-- LTspice Simulation
-- Engineering Research
+Modeling
+
+• MOSFET Modeling
+• Compact Modeling
+
+Programming
+
+• MATLAB
+• LTspice
+
+Research
+
+• Parameter Extraction
+• Numerical Optimization
+• Device Characterization
 
 ---
 
@@ -167,7 +172,7 @@ Future versions of this toolkit will include:
 - Python implementation
 - Cross-platform support
 - Open-source benchmarking datasets
-
+The long-term goal is to develop an open-source compact modeling toolkit for semiconductor education and research.
 ---
 
 **Author:** Jianhao Wu
