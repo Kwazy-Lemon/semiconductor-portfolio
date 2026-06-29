@@ -12,38 +12,24 @@ function [Vth, fit] = linear_extraction(data)
 % Author:
 %   Jianhao Wu
 
-%% Read Data
-
 VGS = data.VGS;
 IDS = data.IDS;
 
-%% Calculate Transconductance
-
 gm = gradient(IDS, VGS);
 
-%% Maximum gm Point
-
 [~, idx] = max(gm);
-
-%% Fitting Window
 
 start_idx = max(1, idx-5);
 end_idx   = min(length(VGS), idx+5);
 
 range = start_idx:end_idx;
 
-%% Linear Fitting
-
 p = polyfit(VGS(range), IDS(range), 1);
 
 slope = p(1);
 intercept = p(2);
 
-%% Threshold Voltage
-
 Vth = -intercept / slope;
-
-%% Save Fitting Information
 
 fit = struct();
 
