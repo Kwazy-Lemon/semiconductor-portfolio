@@ -1,9 +1,8 @@
 # MOSFET Parameter Extraction Toolkit
 
 A MATLAB-based educational toolkit for automatic extraction of Level-1 MOSFET parameters from LTspice simulation data.
-# MOSFET Parameter Extraction Toolkit
 
-![MATLAB](https://img.shields.io/badge/MATLAB-R2024-orange)
+![MATLAB](https://img.shields.io/badge/MATLAB-R2026-orange)
 ![LTspice](https://img.shields.io/badge/LTspice-Supported-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-v1.0-success)
