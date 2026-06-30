@@ -25,9 +25,8 @@ When an electric field is applied, electrons and holes move in opposite directio
 
 The drift current density is expressed as
 
-\[
-J_{drift}=q(n\mu_n+p\mu_p)E
-\]
+
+`J_drift = q(nμ_n + pμ_p)E`
 
 where
 
@@ -49,14 +48,9 @@ Electrons and holes naturally move from regions of high concentration to regions
 
 The diffusion current density is given by
 
-\[
-J_n=qD_n\frac{dn}{dx}
-\]
+`J_n = qD_n(dn/dx)`
 
-\[
-J_p=-qD_p\frac{dp}{dx}
-\]
-
+`J_p = -qD_p(dp/dx)`
 where
 
 - \(D_n\) and \(D_p\) are the diffusion coefficients.
@@ -87,10 +81,7 @@ Higher mobility generally leads to higher conductivity and faster device operati
 
 Carrier mobility and diffusion are related through the Einstein relation
 
-\[
-\frac{D}{\mu}=\frac{kT}{q}
-\]
-
+`D/μ = kT/q`
 where
 
 - \(D\) is the diffusion coefficient,
