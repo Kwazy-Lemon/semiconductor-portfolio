@@ -1,183 +1,240 @@
 # MOSFET Parameter Extraction Toolkit
 
-A MATLAB-based toolkit for compact MOSFET parameter extraction, verification, visualization, and model evaluation.
+A MATLAB-based educational toolkit for automatic extraction of Level-1 MOSFET parameters from LTspice simulation data.
 
 ---
 
 ## Overview
-This project strives to create a MATLAB-based toolkit for the extraction, verification, visualization, and evaluation of compact MOSFET parameters.
 
-The toolkit presently only considers analytical compact MOSFET models and seeks to enhance their consistency, automation, repeatability, and engineering friendliness.
+The **MOSFET Parameter Extraction Toolkit** is an open-source MATLAB project developed to automate the extraction of fundamental MOSFET parameters from LTspice simulation datasets.
 
-Future iterations of the toolkit will eventually be able to handle more advanced compact MOSFET models.
+The toolkit focuses on the classical **Level-1 MOSFET compact model** and provides a modular workflow including data import, parameter extraction, visualization, and integrated parameter reporting.
+
+It is designed for semiconductor education, device modeling practice, and research-oriented learning.
 
 ---
 
 ## Objectives
 
-The project is designed to:
+This project aims to:
 
-- Extract Level-1 MOSFET compact model parameters automatically
-- Reduce manual parameter tuning and improve repeatability
-- Verify extracted parameters under multiple bias conditions
-- Compare different optimization strategies
-- Visualize extraction quality and fitting accuracy
-- Provide reusable MATLAB implementations for semiconductor research
-
----
-
-## Features
-
-### Parameter Extraction
-
-- Threshold voltage extraction
-- Mobility parameter extraction
-- Channel-length modulation extraction
-- Output resistance estimation
-- Multi-bias parameter extraction
-
-### Parameter Verification
-
-- Multi-bias consistency verification
-- Analytical model validation
-- Error analysis
-- Parameter stability evaluation
-
-### Visualization
-
-- I–V curve comparison
-- Fitting error plots
-- Parameter comparison charts
-- Statistical analysis
-
-### Simulation Support
-
-- LTspice data processing
-- MATLAB automation
-- Compact model validation
-- Device characterization
+- Automatically extract Level-1 MOSFET parameters from LTspice simulation data.
+- Reduce manual calculation during parameter extraction.
+- Provide reusable MATLAB implementations for semiconductor device analysis.
+- Demonstrate modular software design for compact-model parameter extraction.
+- Serve as an educational toolkit for semiconductor device modeling.
 
 ---
 
-## Workflow
+# Features
 
-```        LTspice
-            │
-            ▼
-     Data Acquisition
-            │
-            ▼
- Parameter Extraction
-            │
-     ┌──────┴──────┐
-     ▼             ▼
-Verification   Visualization
-     │             │
-     └──────┬──────┘
-            ▼
-     Compact Model
-        Evaluation
+## Data Import
+
+- LTspice Transfer Characteristics (Id–VGS) import
+- LTspice Output Characteristics (Id–VDS) import
+- Support for LTspice DC Sweep Step datasets
+
+---
+
+## Parameter Extraction
+
+- Threshold Voltage (Vth)
+- Carrier Mobility (μ)
+- Channel-Length Modulation (λ)
+- Output Resistance (ro)
+
+---
+
+## Toolkit Architecture
+
+- Modular MATLAB implementation
+- Independent extraction modules
+- Unified Level-1 extraction interface
+- Example scripts for each extraction routine
+
+---
+
+## Visualization
+
+- Transfer characteristic plotting
+- Threshold voltage visualization
+- Extraction summary reporting
+
+---
+
+# Workflow
+
+```text
+          LTspice Simulation
+                  │
+                  ▼
+           Data Import Module
+                  │
+                  ▼
+        Parameter Extraction
+   ┌────────┬────────┬────────┐
+   ▼        ▼        ▼        ▼
+  Vth       μ        λ        ro
+                  │
+                  ▼
+        Level-1 Extract Interface
+                  │
+                  ▼
+        Results & Visualization
 ```
 
 ---
 
-## Repository Structure
+# Repository Structure
 
-```
+```text
 03_MOSFET_Parameter_Extraction
 │
 ├── README.md
-├── docs/
-├── matlab/
-├── ltspice/
 ├── datasets/
+├── docs/
 ├── figures/
-└── results/
+├── ltspice/
+├── matlab/
+│   ├── examples/
+│   ├── extraction/
+│   ├── utilities/
+│   └── visualization/
+└── LICENSE
 ```
 
 ---
 
-## Current Progress
+# Example
 
-### Completed
+```matlab
+%% Read LTspice datasets
 
-✔ IEEE Conference Publication
+data_transfer = read_ltspice_csv("Id_Vgs.txt");
 
-✔ MATLAB Extraction Algorithms
+data_output = read_ltspice_step("Id_Vds.txt");
 
-✔ Level-1 Extraction Framework
+%% Extract Level-1 parameters
 
-✔ LTspice Automation
+parameters = level1_extract(data_transfer,data_output);
+```
 
-### In Development
+Example output
 
-- Parameter verification module
-- Visualization toolkit
-- Automated extraction workflow
+```text
+Threshold Voltage
 
-### Planned
+Carrier Mobility
 
-- Graphical user interface (GUI)
-- Support for higher-order compact models
-- Additional optimization algorithms
-- SPICE model generation
+Channel-Length Modulation
 
----
-
-## Related Publications
-
-### Conference Paper
-
-- **A Systematic and Bias-Consistent Parameter Extraction Framework for Level-1 MOSFET Models**
-  - IEEE EICCT 2026
-  - Published
-
-### Journal Manuscripts
-
-- Robust Parameter Extraction for MOSFET Compact Models Using Multi-Bias Regression and Simulation
-  - Under Review
-
-- Comparative Analysis of Optimization Strategies for MOSFET Compact Model Parameter Extraction Under Noisy Conditions
-  - Under Review
+Output Resistance
+```
 
 ---
 
-## Skills Demonstrated
+# Current Status
 
-Modeling
+## Completed
 
-• MOSFET Modeling
-• Compact Modeling
-
-Programming
-
-• MATLAB
-• LTspice
-
-Research
-
-• Parameter Extraction
-• Numerical Optimization
-• Device Characterization
+- MATLAB toolkit architecture
+- LTspice data import module
+- Threshold voltage extraction
+- Carrier mobility extraction
+- Channel-length modulation extraction
+- Output resistance extraction
+- Integrated Level-1 extraction interface
+- Example workflows
 
 ---
 
-## Future Development
+## Ongoing
 
-Future versions of this toolkit will include:
+- Visualization improvements
+- Documentation refinement
+- Additional example datasets
 
-- Higher-order compact model extraction
-- BSIM model support
-- Automatic report generation
-- Python implementation
-- Cross-platform support
-- Open-source benchmarking datasets
-The long-term goal is to develop an open-source compact modeling toolkit for semiconductor education and research.
 ---
 
-**Author:** Jianhao Wu
+# Related Publications
 
-**Research Interests**
+## Conference Publication
+
+**A Systematic and Bias-Consistent Parameter Extraction Framework for Level-1 MOSFET Models**
+
+IEEE EICCT 2026
+
+Published
+
+---
+
+## Journal Manuscripts
+
+**Robust Parameter Extraction for MOSFET Compact Models Using Multi-Bias Regression and Simulation**
+
+Under Review
+
+**Comparative Analysis of Optimization Strategies for MOSFET Compact Model Parameter Extraction Under Noisy Conditions**
+
+Under Review
+
+---
+
+# Skills Demonstrated
+
+## Semiconductor Devices
+
+- MOSFET Device Physics
+- Compact Modeling
+- Parameter Extraction
+
+---
+
+## Programming
+
+- MATLAB
+- LTspice
+- Git
+- GitHub
+
+---
+
+## Numerical Methods
+
+- Linear Regression
+- Polynomial Fitting
+- Numerical Analysis
+
+---
+
+## Software Engineering
+
+- Modular Software Design
+- Toolkit Development
+- Data Processing
+
+---
+
+# Future Development
+
+Future versions may include:
+
+- Additional extraction methods
+- Enhanced visualization
+- More example datasets
+- Support for higher-level compact MOSFET models
+
+---
+
+# Author
+
+**Jianhao Wu**
+
+Electrical Engineering, McGill University
+
+---
+
+## Research Interests
 
 - Semiconductor Devices
 - MOSFET Modeling
