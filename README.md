@@ -25,9 +25,6 @@ Coming soon.
 ### Device Characterization
 Coming soon.
 
-### MOSFET Modeling
-Coming soon.
-
 ### Parameter Extraction
 - [MOSFET Parameter Extraction Toolkit](./03_MOSFET_Parameter_Extraction/README.md)
 
