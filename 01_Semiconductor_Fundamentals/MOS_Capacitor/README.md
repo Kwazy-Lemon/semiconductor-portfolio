@@ -15,7 +15,7 @@ A MOS capacitor consists of three layers:
 
 When a voltage is applied to the gate, an electric field is generated across the oxide, causing the charge distribution inside the semiconductor to change.
 
->                     Gate Voltage (VG)
+>*                     Gate Voltage (VG)
                            ↓
         ┌────────────────────────────┐
         │        Metal Gate          │
@@ -29,7 +29,7 @@ When a voltage is applied to the gate, an electric field is generated across the
         │                            │
         └────────────────────────────┘
 
-          ← Hole / Electron Distribution →
+          ← Hole / Electron Distribution →*
 
 ---
 
