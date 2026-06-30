@@ -47,7 +47,7 @@ Coming soon.
 ## Learning Roadmap
 ### Completed
 - Siemens – EDA Explained(Coursera)
-  - [01_Siemens_EDA_Explained](./01_Siemens_EDA_Explained/README.md)
+  - [Siemens EDA Explained](./04_Electronic_Design_Automation/Siemens_EDA_Explained/README.md)
 - Columbia – MOS Transistors(Coursera)
   - [02_Columbia_MOS_Transistors](./02_Columbia_MOS_Transistors/README.md)
 
