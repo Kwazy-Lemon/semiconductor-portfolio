@@ -49,7 +49,7 @@ Coming soon.
 - Siemens – EDA Explained(Coursera)
   - [Siemens EDA Explained](./04_Electronic_Design_Automation/Siemens_EDA_Explained/README.md)
 - Columbia – MOS Transistors(Coursera)
-  - [02_Columbia_MOS_Transistors](./02_Columbia_MOS_Transistors/README.md)
+  - [Columbia_MOS_Transistors](./01_Semiconductor_Fundamentals/Columbia_MOS_Transistors/README.md)
 
 ### In Progress
 - ASU – Semiconductor Characterization(Coursera)
