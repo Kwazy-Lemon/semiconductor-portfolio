@@ -1,1 +1,624 @@
+# Columbia University - MOS Transistors
+
+## Course Information
+
+- Institution: Columbia University
+- Instructor: Yannis Tsividis
+- Platform: Coursera
+- Duration: ~20 hours
+- Modules: 12
+- Status: completed
+---
+
+## Overview
+
+This repository documents my learning progress in MOS transistor physics and semiconductor device fundamentals through the Columbia University course.
+
+---
+
+## Topics Covered
+
+- MOS Capacitors
+- MOS Transistors
+- Device Physics
+- Threshold Voltage
+- Current-Voltage Characteristics
+- Short-Channel Effects
+
+---
+
+## Learning Progress
+
+### Module 1 - Course Introduction and MOS Transistor Overview
+#### Key Concepts
+- Course objectives and learning roadmap
+- Fundamentals of MOS transistor operation
+- MOS capacitor and transistor structure
+- Formation of the inversion layer
+- Roles of gate voltage (VGS) and drain voltage (VDS)
+- Weak, moderate, and strong inversion
+- Linear region and saturation region
+- Importance of compact MOSFET models in circuit design
+
+#### Summary
+This module will explain the general goals of the course and provide some insight about the behavior of the MOS transistor. In particular, it discusses how the gate voltage can control the number of carriers at the semiconductor surface to create a conductive channel between the source and drain. Various regimes of inversion and the current-voltage characteristics of the transistor are introduced here.
+
+#### Reflection
+The physical insight into MOS transistors is taught in this module. The knowledge about channel formation, channel inversion, and current flow in the transistor becomes very important while learning about compact modeling, parameter extraction, and semiconductor devices.
+
+#### Connection to My Research
+These topics taught in this module have direct connections to MOSFET parameter extraction and compact modeling. The knowledge about the threshold voltage, channel formation, and MOSFET working principle is helpful in interpreting the I-V curves obtained during experimentation.
+
+---
+
+### Module 2 - Priliminaries and Background
+
+#### Part 1 – CMOS Manufacturing Process
+##### Key Concepts
+- CMOS technology integrates both NMOS and PMOS transistors.
+- NMOS devices are fabricated in p-type regions, while PMOS devices are fabricated in n-wells.
+- LOCOS (Local Oxidation of Silicon) was an early isolation technology.
+- Modern fabrication mainly uses Shallow Trench Isolation (STI).
+- Source/drain extension regions reduce electric field concentration.
+- Silicide layers lower contact resistance.
+- Metal contacts connect devices to upper interconnect layers.
+- Strain engineering improves carrier mobility in advanced CMOS technologies.
+
+
+#### Part 2 - Semiconductor Fundamentals
+##### Key Concepts
+###### Semiconductor Equilibrium
+- Semiconductor analysis begins under thermal equilibrium conditions.
+- No external electric field, illumination, or current is assumed.
+- The Fermi level remains constant throughout the material.
+
+###### Intrinsic Semiconductor
+- Pure silicon contains equal concentrations of electrons and holes.
+- Thermal energy excites electrons from the valence band into the conduction band.
+- Every generated electron leaves behind a corresponding hole.
+
+###### Extrinsic Semiconductor
+- N-type silicon is created by donor impurities (e.g., phosphorus).
+- P-type silicon is created by acceptor impurities (e.g., boron).
+- Electrons are majority carriers in n-type materials.
+- Holes are majority carriers in p-type materials.
+- Carrier concentrations satisfy the mass-action law:
+  np = ni²
+
+###### Energy Band Model
+- Electron transport is described using the conduction band and valence band.
+- Doping shifts the Fermi level toward either the conduction or valence band.
+- Band diagrams provide a physical interpretation of carrier behavior.
+
+###### Carrier Statistics
+- Carrier concentrations follow Fermi–Dirac statistics.
+- Under normal operating conditions, Maxwell–Boltzmann approximation is usually sufficient.
+- The thermal voltage (VT) simplifies carrier concentration equations.
+
+###### Electrostatics
+- Charge density determines the electric field.
+- Electric potential is obtained from the electric field.
+- Poisson's equation connects charge density and electrostatic potential.
+
+###### Non-equilibrium Conditions
+- Current flow introduces non-equilibrium conditions.
+- Separate quasi-Fermi levels are used for electrons and holes.
+- These concepts are essential for PN junctions and MOS transistor operation.
+
+
+#### Part 3 - Conduction
+##### Key Concepts
+###### Carrier Transport Mechanisms
+Semiconductor current consists of two fundamental transport mechanisms:
+- Drift
+- Diffusion
+The total current is the sum of both components.
+
+###### Drift Current
+- Drift is caused by an external electric field.
+- Carrier drift velocity is proportional to the electric field under low-field conditions.
+v_d = μE
+where:
+- μ is the carrier mobility.
+- E is the electric field.
+At high electric fields, carrier velocity approaches saturation due to lattice scattering.
+
+###### Diffusion Current
+- Diffusion results from carrier concentration gradients.
+- Carriers naturally move from regions of high concentration to low concentration.
+- Diffusion is a statistical transport process driven by thermal motion.
+The diffusion current is proportional to the carrier concentration gradient.
+
+###### Einstein Relation
+Carrier mobility and diffusion coefficient are related by
+D = μVT
+where VT is the thermal voltage.
+
+###### Total Current
+Both electrons and holes contribute to current through drift and diffusion.
+Total current consists of:
+- Electron drift current
+- Electron diffusion current
+- Hole drift current
+- Hole diffusion current
+
+#### Part 4 - Contact Potentials & PN Junctions
+##### Key Concepts
+###### Contact Potential
+- Different materials possess different work functions.
+- When two materials are brought into contact, electrons move from the material with a lower work function to the one with a higher work function.
+- Electron diffusion continues until thermal equilibrium is reached.
+- At equilibrium, the Fermi levels of both materials become aligned.
+- The resulting electric field creates a built-in contact potential.
+
+###### Work Function
+- The work function represents the energy required to remove an electron from the Fermi level to the vacuum level.
+- Differences in work function determine the magnitude of the contact potential.
+
+###### PN Junction at Equilibrium
+- Carrier diffusion forms a depletion region.
+- Ionized donors and acceptors generate an internal electric field.
+- A built-in potential opposes further carrier diffusion.
+- The Fermi level remains constant across the junction.
+
+###### Forward Bias
+- Applying a forward bias lowers the built-in potential barrier.
+- The depletion region becomes narrower.
+- Carrier injection increases dramatically.
+- The diode current increases approximately exponentially.
+
+###### Quasi-Fermi Levels
+- Under non-equilibrium conditions, electrons and holes are described by separate quasi-Fermi levels.
+- Quasi-Fermi levels explain carrier transport under applied bias.
+
+#### Part 5 - PN Junctions(Reverse Bias)
+##### Key Concepts
+###### Reverse-Biased PN Junction
+- Applying a reverse bias increases the built-in potential barrier.
+- The depletion region widens as the reverse voltage increases.
+- Carrier diffusion is strongly suppressed.
+- The maximum electric field occurs near the metallurgical junction.
+
+###### Charge Distribution
+- Fixed ionized donors and acceptors remain inside the depletion region.
+- Charge density is approximately constant within each side of the depletion region.
+- Electric field and potential are obtained by integrating the charge distribution.
+
+###### One-Sided Junction Approximation
+- For highly asymmetric doping (N⁺/P junction), the depletion region mainly extends into the lightly doped side.
+- Depletion width depends on:
+  - Doping concentration
+  - Dielectric constant
+  - Built-in potential
+  - Applied reverse voltage
+ 
+###### Junction Capacitance
+- A reverse-biased PN junction behaves like a voltage-dependent capacitor.
+- Junction capacitance is defined as
+  Cj = dQ / dV
+- Increasing reverse bias widens the depletion region and decreases junction capacitance.
+
+###### Dynamic Performance
+- Junction capacitance limits the switching speed of semiconductor devices.
+- Lower junction capacitance enables faster circuit operation.
+
+#### Summary
+This unit builds the semiconductor physics that are needed to understand the functioning of MOS transistors. The CMOS process technology, semiconductor physics, carrier transport, PN junction electrostatics, and junction capacitance concepts all form the physical basis of MOS transistor modeling.
+
+#### Reflection
+In this module, I acquired an organized knowledge about the physics behind semiconductor devices. This included the fabrication process of modern CMOS transistors, the factors that affect semiconductors through carrier concentration and energy band structures, and carrier transport under the influence of drift and diffusion. Furthermore, I became proficient in the concept of PN junction electrostatics such as built-in voltage, depletion layers, reverse bias conditions, and junction capacitance. This forms the basis of study for MOS capacitors, MOS transistors, and MOSFET models in upcoming modules.
+
+#### Connection to My Research
+The topics covered in this module form the basis of MOSFET compact modeling and parameter extraction. Knowledge of carrier transport, electrostatics, PN junction, and junction capacitance is necessary to understand the MOSFET I-V behavior and develop the physics-based compact model.
+
+---
+
+### Module 3 - The Two-Terminal and Three-Terminal MOS Structures
+#### Part 1 – Flatband Voltage and Surface Condition
+##### Key Concepts
+- The two-terminal structure of the MOS device is the basis of analysis of MOS transistor operation.
+- The voltage at which the semiconductor energy bands become flat is known as flatband voltage (VFB).
+- Flatband voltage is defined by the work-function difference and interface charge.
+- Gate voltage regulates the state of the semiconductor surface through accumulation, depletion, and inversion states.
+- The surface potential determines the bending of energy band and carrier concentration at the semiconductor surface.
+- Inversion happens when there are enough minority carriers to create an inversion layer.
+
+#### Part 2 - General Analysis, Inversion, and Strong Inversion
+##### Key Concepts
+- Formulated an analysis framework of the MOS structure for accumulation, depletion, and inversion regions.
+- Surface potential (ψs) is derived as a function of the gate bias voltage (VGB) based on charge and potential balance considerations.
+- The net charge on the semiconductor side of the oxide layer is comprised of depletion charge and inversion charge.
+- Weak, moderate, and strong inversion describe different regimes of correlation between surface potential and the inversion charge.
+- Strong inversion means that surface potential remains essentially constant, while the inversion charge grows almost linearly with gate voltage.
+- Threshold voltage (VT0) is defined as a parameter of the strong inversion regime and serves as a foundation for MOSFET modeling.
+
+#### Part 3 - Weak Inversion and Small-Signal Capacitance
+##### Key Concepts
+- Weak inversion is described by an exponential relation between the inversion charge and the gate voltage.
+- Different mathematical models need to be considered in the case of weak, moderate, and strong inversion, since a single equation will not represent all regions appropriately.
+- The small-signal model considers the change in charge and voltage incrementally in the model of MOSFET.
+- The gate-body capacitance CGB is defined as a serial connection of the oxide capacitance and semiconductor capacitance.
+- The semiconductor capacitance includes depletion capacitance and inversion capacitance.
+- The measured value of gate capacitance varies with respect to signal frequency due to inversion charge carriers.
+
+#### Part 4 - The Three-Terminal MOS Structure
+##### Key Concepts
+- A third terminal introduces an effect on the carrier concentration in the inversion layer in relation to the body-to-channel voltage (VCB).
+- Reverse body bias lowers the inversion charge and raises the inversion onset point gate voltage.
+- The body effect is responsible for the rise in threshold voltage when the body bias becomes high.
+- The body effect coefficient (γ) is used to measure the sensitivity of the threshold voltage to body bias.
+- Strong and weak inversion formulas can be adapted from the two terminal MOS by including the body bias.
+- The pinch-off voltage is the body bias where the strong inversion model assumes zero inversion charge.
+
+#### Summary
+In this module, the study of the MOS capacitor is continued beyond electrostatic analysis to its real life application. Flatband voltage, surface characteristics, inversion phenomena, small signal capacitance, and the structure of the MOS device with three terminals will be discussed in this module. This module will also discuss how body bias affects the inversion charge and threshold voltage.
+
+#### Reflection
+In this module, I was able to develop an understanding of the electrostatics and inversion physics of the MOS structure. This included gaining knowledge on how the gate voltage controls the state of the semiconductor at its surface, how the concept of inversion is built up from weak to strong inversion, and how the carrier density affects the behavior of the structure.
+
+#### Connection to My Research
+These concepts that have been learned in this module are actually very relevant to compact MOSFET modeling and parameter extraction. Some of the parameters that are very important in compact MOSFET models like EKV and BSIM include surface potential, inversion charge, threshold voltage, body effect, and small signal capacitance. Knowledge about these physical phenomena gives the basis for the successful modeling of MOSFET behavior and parameter extraction.
+
+---
+
+### Module 4 - The Long-Channel MOS Transistor 1
+#### Part 1 – Introduction to the Long-Channel MOS Transistor
+##### Key Concepts
+- Assumptions and structure of long-channel MOSFETs.
+- Operation of four-terminal MOSFETs with various biases.
+- Formation of channel and current flow at strong inversion.
+- IDS-VDS behavior and inversion zones.
+- Basic physical model of MOSFET compact modeling.
+
+#### Part 2 – Complete All-Region Model and Simplified All-Region Models
+##### Key Concepts
+- The all-region model represents the behavior of the MOSFET through the regions of weak, moderate, and strong inversion.
+- The channel current includes drift and diffusion terms.
+- The drift term plays the dominant role during strong inversion, and the diffusion term becomes dominant during weak inversion.
+- Surface potential is the main parameter in finding the drain current.
+- All-region simplified models enhance computational efficiency without decreasing accuracy.
+- They form the basis for advanced MOSFET models like PSP, EKV, and HiSIM.
+
+#### Part 3 – Strong Inversion Models I
+##### Key Concepts
+- The inversion flow in a strong inversion regime involves drifting and neglects diffusing.
+- Models for strong inversions offer explicit expressions for drain currents in terms of voltage across terminals.
+- The non-saturation mode is based on strong inversions over the whole channel.
+- Transition to the saturation mode takes place when the inversion charges at the drain end become zero.
+- The saturation flow in long-channel devices is considered nearly constant.
+- Simple models for strong inversions help enhance computational performance without sacrificing accuracy.
+
+#### Summary
+The operation of the long-channel MOSFET was discussed and models of currents were developed for various regions of inversion. The derivation of the simplified models of currents in the case of strong inversion was done from the all-regions model, which was used to describe the switching from linear to saturation modes of operation of MOSFETs.
+
+#### Reflection
+In this module, I came to know about how semiconductor physics is applied to build models of transistor currents. Drift current dominance during strong inversion became clear, along with the need for different models according to the different operating regions.
+
+#### Connection to my Research
+The modeling tools currently covered in this module are highly relevant to the work I am doing on MOSFET compact modeling and parameter extraction, which involves establishing the link between inversion charge, threshold voltage, and drain current as the physical foundation for model validation and parameter extraction.
+
+
+---
+
+### Module 5 - The Long-Channel MOS Transistor 2
+#### Part 1 – Strong Inversion Models II
+##### Key Concepts
+- In the source-referenced strong inversion model, the drain current is expressed directly in terms of the terminal voltages (VGS, VDS, and VT).
+- The drain current is a quadratic function of VDS in the nonsaturation (triode) region.
+- In saturation, when VDS equals the pinch-off voltage, the drain current becomes nearly independent of VDS.
+- The square-law model of the MOSFET is derived by setting α = 1, even though this approximation causes modeling inaccuracies.
+- The factor α increases the accuracy of strong inversion current calculation relative to the classical square-law model.
+- The strong inversion models serve as the basis for the circuit analysis and SPICE modeling of long-channel MOSFETs.
+
+#### Part 2 – Weak Inversion Models and Source Reference vs. Body Reference
+##### Key Concepts
+- For weak inversion, the drain current is controlled by diffusion as opposed to drift.
+- The weak inversion current has an exponential relationship with the gate voltage and can be written explicitly in terms of the voltages across the terminals.
+- Weak inversion current saturates with a low drain voltage (about 3 VT), whereas strong inversion current saturates depending on VGS.
+- Moderate inversion current cannot be modeled using weak and strong inversion only; it needs an all region model.
+- There are advantages to having source-referenced and body-referenced models.
+
+#### Part 3 – Effective Mobility
+##### Key Concepts
+- Carrier mobility is dependent on phonon scattering, Coulomb scattering, and surface roughness scattering.
+- The surface mobility is lower than the bulk mobility and is reduced by increased vertical electric fields.
+- The effective mobility (μeff) concept is introduced to explain the reduction of mobility due to terminal voltages.
+- The effective mobility is dependent on gate voltage and body bias, thereby improving the accuracy of MOSFET current models.
+- The degradation of mobility results in the deviation of the drain current from linear ideal behavior.
+  
+#### Part 4 – Additional Topics
+##### Key Concepts
+- Series resistance at source and drain decreases the terminal voltage and deteriorates drain current performance.
+- Temperature alters carrier mobility and threshold voltage affecting the characteristics of MOSFET I-V curve.
+- The breakdown modes are PN junction breakdown, impact ionization, and gate oxide breakdown.
+- The model parameters are obtained using optimization on experimental results.
+- The physical behavior of p-channel MOSFET is similar to that of n-channel MOSFET.
+
+#### Summary
+In this module, the discussion is about MOSFET current modeling in all inversion regions. I understood that there is a complete model for all the regions based on drift-diffusion analysis and how to obtain simplified models for strong and weak inversion regimes. This module also discussed the square law model, effective mobility, and a number of non-ideal behaviors like series resistance, temperature dependency, parameter extraction, and break down phenomenon.
+
+#### Reflection
+I learned from this module that accurate modeling of MOSFETs involves compromise between accuracy and computational simplicity. I understood the reasons behind the use of different models in different regions as well as the implications of making certain assumptions like constant mobility. Understanding effective mobility and other non-ideal characteristics has helped me see the difference between ideal theoretical models and reality.
+
+#### Connection to my Research
+The topics covered in this module are directly applicable to the MOSFET parameter extraction and compact modeling work that I have been doing. It gives the theoretical background needed for understanding how to extract parameters from I-V curves and also to create compact models that can be used in circuit simulations. This knowledge is also useful in explaining the shortcomings of the simplified models used in my work.
+
+---
+
+### Module 6 - Small-Dimension Effect 1
+#### Part 1 – Velocity Saturation
+##### Key Concepts
+- Velocity saturation takes place when the lateral electric field exceeds the critical field, thus making the drift velocity to become saturated.
+- A modified compact model must be used for short-channel MOSFETs because the assumptions used in long-channel models cease to apply.
+- With the presence of velocity saturation, there is a reduction in both the drain current and the saturation voltage.
+- It is possible to incorporate the velocity-saturation correction factor into the long-channel current equation.
+- In cases where velocity saturation is high, the saturation current becomes insensitive to the channel length since the carriers attain maximum drift velocity.
+
+#### Part 2 – Channel Length Modulation
+##### Key Concepts
+- CLM is observed when, with increasing VDS beyond saturation, the pinch-off length increases, resulting in a shorter effective channel length.
+- With shorter channel lengths, the drain current rises even in the saturation region rather than staying constant.
+- Drift velocities become higher near the drain as inversion charges decrease, keeping drain current constant until pinch-off occurs.
+- In channel length modulation, compact models use the effective channel length (L – Lp) instead of physical channel length.
+- Pseudo two-dimensional modeling gives a better estimate of the pinch-off region compared to one-dimensional models.
+- Numerical stability of circuit simulations requires continuous current and derivative transitions in compact models.
+- The VA (Early voltage) model offers a crude estimation of channel length modulation, appropriate for only basic circuit analysis.
+
+#### Part 3 – Charge Sharing
+##### Key Concepts
+- The charge sharing takes place whenever the gate, source, and drain collectively govern the electrostatic condition of the channel rather than just the gate.
+- In the case of short-channel MOSFETs, depletion regions of the source and drain penetrate into the channel.
+- The effective threshold voltage (Vₜ, eff) lowers because some amount of depletion charge shares the source and drain.
+- The charge sharing phenomenon can be explained through the effective body-effect coefficient (γeff), where γeff < γ.
+- As channel length becomes shorter, the threshold voltage roll-off increases.
+- Halo (pocket) implantations are used in order to prevent depletion region spreading and charge sharing.
+- The halo implantation creates the reverse short-channel effect (RSCE), which involves threshold voltage increasing within some short-channel interval.
+- The narrow channel devices also suffer from the charge sharing phenomenon caused by fringing electric field of the gate.
+- STI isolation normally results in threshold voltage reduction while channel width is narrowing; however, LOCOS isolation causes threshold voltage increase in such case.
+- Empirical threshold voltage equations based on both channel length (L) and channel width (W) parameters are used in modern compact models.
+
+#### Part 4 – Drain-Induced Barrier Lowering and Combining Several Effects Into One Model
+##### Key Concepts
+- The short-channel effects can be integrated into one compact MOSFET model.
+- The effective threshold voltage (Vt,eff) is a function of L, W, VDS, and VSB.
+- DIBL effect arises due to the decrease in the barrier height in the source-channel region because of the influence of the drain electric field.
+- With DIBL effect, the drain current becomes greater for the same gate voltage, especially with increased VDS.
+- In extreme cases of DIBL, it can cause the punchthrough effect, with very high leakage current which cannot be shut off by the gate.
+- Modern compact models use an effective value of VDS (VDS,eff).
+  
+#### Part 5 – Hot Carrier Effects and Velocity Overshoot and Ballistic Operation
+##### Key Concepts
+- Hot carriers are highly energetic carriers that occur in strong electric fields, especially near the drain.
+- Hot carriers lead to impact ionization, causing generation of electron-hole pairs and hence generating body current.
+- Some of these energetic carriers penetrate into the gate oxide region, thereby leading to interface traps and oxide charges.
+- Velocity overshoot is the case where the carriers are seen traveling at velocities higher than their drift velocities for very small distances.
+- Ballistic transport refers to the case where the carriers travel from the source to drain with minimal scattering events.
+- Ballistic operation becomes viable only in short-channel devices and can help enhance currents beyond traditional drift predictions.
+- This concept is more theoretical, and hence is not incorporated in most compact MOSFET models.
+
+#### Part 6 – Polysilicon Depletion
+##### Key Concepts
+- Polysilicon gate is a semiconductor material that means that it may create a depletion layer rather than act as an ideal conductor.
+- Poly depletion effects start to matter when the oxide layer is very thin and the gate field is high.
+- The depletion layer in the gate creates an additional voltage loss (ψpoly) and therefore reduces the effective gate voltage.
+- Poly depletion reduces the gate capacitance because it increases the effective distance between the gate charges and the channel.
+- This is equivalent to increasing the effective oxide thickness (ΔTOX) and, consequently, the oxide capacitance (COX).
+- Under weak inversion conditions, poly depletion leads to the increase in the slope factor (n).
+- Under strong inversion conditions, poly depletion results in the increase in the effective threshold voltage (VT).
+- The problem does not exist anymore in modern technologies since metal gate is used rather than polysilicon.
+
+#### Summary
+In this module, various short-channel phenomena that affect the validity of the long-channel transistor models were highlighted. This included phenomena such as velocity saturation, channel-length modulation, charge sharing, DIBL, hot carriers, ballistic transport, and polysilicon depletion. This helps us to understand how scaling affects carrier transport, the threshold voltage, and current characteristics of the device.
+
+#### Reflection
+In this module, we learned that the long-channel MOSFET models will not be accurate when the devices get smaller. Instead of developing totally new models, the various short-channel effects are modeled by making additions to the long-channel models. It is helpful to know the physics behind each effect.
+
+#### Connection to my Research
+Short channel effects studied in this module can be described by using effective parameters in compact models for MOSFETs. It is important to understand the physics behind velocity saturation, channel length modulation, DIBL, mobility degradation, and shift in threshold voltages in order to interpret results from parameter extraction and evaluate compact models.
+
+---
+
+### Module 7 - Small-Dimension Effect 2 & Modelling for Circuits Simulation
+#### Part 1 – Quantum-Mechanical Effects; Gate Curren, Junction Leakage, and Scaling and New Technologies
+##### Key Concepts
+- Inversion charge moves away from Si-SiO2 interface due to quantum confinement, which increases the effective oxide thickness and Vth.
+- Tunneling through thin oxide causes large leakage currents due to gate current.
+- Gate current consists of gate to channel, gate to source/drains overlap and gate to substrate tunneling current.
+- Band to band tunneling (BTBT) causes body drain junction leakage. Gate Induced Drain Leakage (GIDL) is a result of high electric field at drain end.
+- Thin oxides enhance drive current but increase the gate current tremendously. High (k) dielectrics increase (Cox) and reduce tunneling leakage.
+
+#### Part 2 – Approaches and Properties of Good Models and Model Formulation Considerations
+##### Key Concepts
+- Classical MOS scaling involved reducing channel length, oxide thickness, and supply voltage together to achieve increased speed and density.
+- Today’s scaling is restricted by leakage currents, short-channel effects, and power consumption issues.
+- Novel approaches to scaling involve improving electrostatics instead of classical geometrical scaling (SOI, FinFET/Tri-Gate, high-(k) dielectrics, metal gates, strain engineering, etc.).
+- Physical compact models strike a balance between physical correctness and efficiency of calculations for circuit simulation.
+- The ideal compact models should give a correct estimate for current, charge, capacitance, leakage, parasitics, etc.
+- Equations and their derivatives must be smooth and continuous to provide correct simulation results and performance.
+- Proper smoothing functions are used instead of hard switching in regions (between linear and saturation regions, for example).
+- Parameters of the model should be physically interpretable, independent, and easily extractable from measurements.
+- Numerical stability of the compact model is important under all conditions.
+- 
+#### Part 3 – Parameter Extraction
+##### Key Concepts
+- The process of parameter extraction matches the values of compact models’ parameters to the data of the device under test by minimizing the prediction errors.
+- The DC behavior and small-signal parameters need to be fitted accurately.
+- The values of parameters should maintain their physical significance instead of being blindly optimized.
+- Threshold voltage, mobility, oxide thickness, and channel dimensions correction are among those parameters which are extracted commonly.
+- Binning uses different sets of parameters for different device sizes.
+
+#### Part 4 – Representative Compact Models and Benchmark Tests
+##### Key Concepts
+- Representative compact models include BSIM, EKV, PSP, and HiSIM, which differ in their approach to modeling.
+- Physical compact models find a compromise between physics and computation in circuit simulation.
+- Benchmarking is used to check the accuracy, continuity, symmetry, and numerically stability of a model.
+- Good compact models are supposed to provide smooth (I)-(V) curves with continuous derivatives.
+- Benchmarking allows us to discover modeling bugs prior to applying compact models in circuit design.
+
+#### Summary
+The present module covered advanced compact modeling of MOSFETs, including issues related to leakage currents, scaling down of technology, modeling, parameterization, and benchmarking. It was noted that for the simulation of circuits with accuracy, one needs models which are physically intuitive and computationally fast and whose parameters need to be obtained by benchmark tests.
+
+#### Reflection
+The module made me realize that there is a lot that goes into accurate modeling apart from just writing the equations. A good compact model should not only be physically accurate and numerically stable but also efficient to simulate while being applicable for all operating regimes and transistor dimensions. Parameter extraction and benchmarking are crucial for a realistic model.
+
+#### Connection to my Research
+This module is highly relevant to my study of MOSFET parameter extraction and compact models. The topics of physical parameter extraction, optimization techniques, and the validation of compact models are extremely useful for designing an effective parameter extraction algorithm and its evaluation.
+
+---
+
+### Module 8 - Large-Signal Dynamic Operation
+#### Part 1 – Quasi-Static Operation, Terminal Currents in QS Operation, amd Charging Currents in QS Operation
+##### Key Concepts
+- Introduced quasi-static (QS) operation where terminal voltages vary such that charge equations for DC remain valid.
+- Differentiated between quasi-static and non-quasi-static (NQS) operation where the charges do not vary instantaneously.
+- Described the relationship between inversion charge, gate charge, and body charge in terms of terminal voltages.
+- Indicated that during QS operation, transport current and charging current both co-exist.
+- Defined source charge (QS) and drain charge (QD) in terms of charge redistribution.
+- Derived terminal charging currents by differentiating the terminal charges and applying chain rule.
+- Formulated charge conservation (KCL) equation for the charging currents.
+
+
+#### Part 2 – Evaluation of Charges, Transit Time, and Transient Response Using QS Modeling
+##### Key Concepts
+- Determination of terminal charges (gate, body, source, drain, inversion) through charge distribution density.
+- Conversion of charge integration from position (x) to channel potential by drift-current equation.
+- Investigation of charge distribution in non-saturation and saturation conditions.
+- Demonstration that increase of VDS leads to increase of depletion charge and decrease of inversion charge.
+- Concept of drain/source charge division (QD and QS) was introduced for transient analysis.
+- Derivation of transit time (τ = QI / IDS) for strong and weak inversion.
+- Explanation that transit time is proportional to L² and is finally limited by velocity saturation.
+- Application of charge formulas to quasi-static transient response and charge current calculations.
+- Discussion of 40/60 charge ratio, limitations of quasi-static approach and necessity of NQS modeling in high speed regime.
+- 
+#### Part 3 – Non-Quasi-Static Operation and Extrinsic Parasitics
+##### Key Concepts
+- Described small-signal parameters of source conductance (g_s), drain conductance (g_d), and output conductance (g_0) based on current-voltage characteristics.
+- Developed small-signal capacitance by considering terminal charge change versus terminal voltage.
+- Stated that the capacitance of the MOS device is voltage-dependent rather than voltage-independent as an ideal capacitor.
+- Created the small-signal equivalent circuit with the use of conductances and capacitances for transistor operation under AC conditions.
+- Differentiated between intrinsic and extrinsic (or parasitic) capacitances.
+- 
+#### Summary
+MOSFET large-signal dynamics was discussed in Module 8 in connection with the extension of DC analysis to time-varying situations. The topics included QS mode, charging current, charge distribution, transit time, and NQS mode, and additionally introduced extrinsic parasitics that affect the high-frequency performance of the device.
+
+#### Reflection
+From this module, I have gained an insight into the fact that the behavior of transient MOSFETs is controlled not only by the aspect of current transport but also charge storage and charge redistribution. It further explained to me why QS modeling fails at higher frequency ranges and why NQS considerations become necessary.
+
+#### Connection to my Research
+Charge distribution, transit time, and parasitics are terms that have direct connection with compact MOSFET modeling. These terms form a theoretical framework for enhancing the dynamic current estimation and parameter extraction process which is very useful for my research on compact MOSFET models.
+
+---
+
+### Module 9 - Small-Signal Modeling 1
+#### Part 1 – Conductance Parameters
+##### Key Concepts
+- Discussed small-signal analysis based on the impact of small voltage changes at the terminals around a DC bias point.
+- Identified the three primary conductance parameters, namely, gate transconductance, body transconductance, and output conductance.
+- Represented the conductance parameters as the partial derivatives of the drain current with respect to the terminal voltages.
+- Derived the small-signal drain current as the weighted sum of the three conductance parameters with their corresponding voltage changes.
+- Designed the low-frequency small-signal equivalent circuit based on conductances and controlled current sources.
+- Added the conductance parameters for the gate and body leakage to the equivalent circuit.
+- Consolidated the various conductances into one low-frequency small-signal equivalent circuit.
+
+#### Part 2 – Transconductance
+##### Key Concepts
+- Defined gate transconductance (gm) as the ratio of change in drain current to that in gate-source voltage.
+- Described the properties of the transconductance curve in the non-saturation and saturation regime in strong inversion.
+- Explored the factors that affect transconductance, including the velocity saturation effect and the short-channel effect.
+- Elaborated on the properties of weak inversion transconductance and contrasted the behavior of transconductance with that of bipolar transistors.
+- Made a comparison of the variation of gm and gm/current in weak, moderate and strong inversion regimes.
+- Defined the body transconductance (gmb) and explained its relation to body effect and threshold voltage variation.
+- Examined the respective influence of the gate and the body on the channel current from the ratio between gm and gmb.
+
+#### Part 3 – Source-Drain and Output Conductance and Capacitance Definitions and Equivalent Circuits
+##### Key Concepts
+- Described source-drain conductance (gsd) and output conductance (g₀) as important small signal parameters indicating the effect of variation of the drain voltage on the drain current.
+- Indicated that channel-length modulation, DIBL, and impact ionization are the major causes of variation in output conductance, particularly in saturation region.
+- Introduced small signal capacitances through the relationship between change in charge and change in voltages across terminals.
+- Defined the major intrinsic capacitances such as gate-source (CGS), gate-drain (CGD), gate-body (CGB), body-source (CBS) and body-drain (CBD) capacitances.
+- Created the low frequency small signal equivalent circuit by combining the conductance and capacitance elements.
+- Illustrated how extrinsic resistance and body/drain leakage conductances affect the transconductance and output conductance.
+
+
+#### Part 4 – Capacitance Evaluation and Properties
+##### Key Concepts
+- Small-signal capacitance evaluation involved taking derivatives of terminal charges with respect to terminal voltages.
+- Elucidation of the change of intrinsic capacitances (CGS, CGD, CGB, CBS, and CBD) for non-saturation, saturation, weak inversion, depletion, and accumulation.
+- Physical interpretation of capacitance variation due to the effect of channel formation, pinch-off, and charge distribution.
+- Definition of the intrinsic transition (cut-off) frequency, taking into consideration transconductance and gate capacitances with regard to high frequency operation of MOSFETs.
+- Comparison of capacitance variation due to the strong inversion approximation as compared to that of the complete model of the entire operating regions.
+- Identification of intrinsic capacitances as compared to extrinsic (parasitic) capacitances and how their combination leads to the formation of the small signal equivalent circuit.
+- Identification of the increase in significance of extrinsic parasitic capacitances at high frequencies.
+
+#### Summary
+The basis of small signal MOSFET modeling was covered in this unit. This involves representing small changes to the voltage from the dc operating point in terms of conductance and capacitance values. Transconductance, output conductance, and capacitances were interpreted physically, and low frequency small signal equivalent circuits were derived. It was shown how analog and RF performance depends on device parameters.
+
+#### Reflection
+This module made it possible for me to realize how the behavior of a MOSFET is linearized for circuit design purposes. It was not just confined to studying the characteristics of the device at DC. Instead, parameters like gm, gmb, g₀, and the intrinsic capacitances were discussed as measures of how the device behaves in response to small AC variations.
+
+#### Connection to my Research
+This module bears great similarities with my research into MOSFET compact modeling and parameter extraction. All the parameters explained here have been obtained from the very same physical models that are used when creating compact models. Learning how DC behavior, transconductance, output conductance, and capacitances are interrelated will give you a good theoretical background for validating the parameters of the model.
+
+---
+
+### Module 10 - Small-Signal Modeling 2
+#### Part 1 – Complete Capacitance Parameter Set and Complete Quasi-Static Model
+##### Key Concepts
+- Extended the small-signal model from the simple capacitance network to a complete quasi-static (QS) model.
+- Identified the complete set of terminal capacitance coefficients based on the relationship between terminal charge variations and terminal voltage variations.
+- Showed that even though one could define sixteen capacitance coefficients, only nine of them are independent due to the laws of charge conservation and voltage.
+- Found out relations between capacitance coefficients based on Kirchhoff's current law and Kirchhoff's voltage law.
+- Added the concept of non-reciprocal capacitance coefficients to describe the different behavior of each terminal pair.
+- Formulated the complete quasi-static small-signal equivalent circuit which consists of nine independent capacitance coefficients.
+- Elaborated on the meaning of the extra trans-capacitance coefficients.
+
+#### Part 2 – y-Parameter Model and Non-Quasi-Static Model
+##### Key Concepts
+- Pioneered the general y-parameter approach for modeling small-signal behavior of MOSFETs with no frequency limitations.
+- Defined the y-parameters as the expressions for the relationship of the terminal current and terminal voltage with respect to small-signal excitations, and used the superposition theorem to establish the equations for currents.
+- Simplified the system of y-parameters to only nine independent parameters using the principles of current conservation and voltage relations.
+- Obtained the entire high-frequency equivalent circuit from the y-parameter approach.
+- Showed that the quasi-static small-signal model is one of the special cases of the general y-parameter model.
+- Developed the first-order non-quasi-static (NQS) model for accounting for the time-delay associated with charge redistribution at high frequencies.
+- Discussed the fact that the NQS model is an advanced model which includes resistance, inductance, and frequency-dependent transadmittance.
+
+#### Part 3 – Model Comparison and RF Models
+##### Key Concepts
+- Compares the simple, complete quasi-static (QS) and first order non-quasi static (NQS) small signal models in relation to their equivalent circuits and their applicable frequency ranges.
+- Examined the frequency response of transadmittance magnitude and phase responses and concluded that the NQS model is able to predict transadmittance more accurately at higher frequencies, while the QS model loses accuracy as frequency increases.
+- Determined the approximate validity range of each model whereby the simple model is used for lower frequency calculations, the complete QS model is used for medium frequencies and the NQS model is used for frequencies up to the intrinsic transition frequency.
+- Understood that RF modeling requires the combination of the intrinsic NQS equivalent circuit with extrinsic parasitic resistance, capacitances and inductance to model the real MOSFET.
+- Understands what the transition (cut-off) frequency (fT) is and how it depends on transconductance, gate capacitance, channel length, and velocity saturation.
+- Understand the concept of the maximum oscillation frequency (fmax) which is calculated from the unilateral power gain and the importance of gate resistance.
+- Knows about some RF practical layout considerations like the use of multi-fingered transistors.
+  
+#### Summary
+Module 10 expanded the small-signal analysis of MOSFET devices from the complete quasi-static approach to more advanced high-frequency models. Initially, the full set of capacitance values was determined, and it was shown that nine independent capacitance coefficients are sufficient to completely describe the intrinsic MOSFET characteristics under quasi-static conditions. The next step was the development of the general formulation of the y-parameters, providing the unified description of the MOSFET behavior within the wide frequency spectrum and laying the ground for obtaining the non-quasi-static (NQS) model. In contrast to the quasi-static model, the NQS model accounts for the delay caused by the channel charge redistribution using frequency dependent transadmittance and extra resistance and inductance components. The last part of Module 10 provided the comparison of simple, QS, and NQS models in terms of their accuracy and applicability to different frequency regimes. In addition, some RF-specific notions, such as fT, fmax, and the impact of parasitics and layout design on high frequencies, were covered.
+
+#### Reflection
+This module has provided me with a deeper insight into how the small signal models of MOSFETs change with increasing frequencies. In particular, I came to understand that the simple and quasi-static models can be used satisfactorily at lower frequencies, while an analysis at higher frequencies necessitates the use of advanced models that consider charge redistribution and parasitics. Further, the development of the y-parameter form allowed me to realize that the modeling of transistors at high frequencies is essentially centered on terminal voltages and currents. Another important aspect of using various models is that the choice of a suitable model depends on the compromise between simplicity and accuracy.
+
+#### Connection to my Research
+The present module has relevance to my area of research on MOSFET modeling and compact model generation. The complete capacitance model, y-parameters, and the non-quasi-static modeling concept are the theoretical principles which can be used in explaining the dynamics of the MOSFET under different operating conditions. These theories will be important in parameter extraction and compact model development in situations where both the DC parameters and frequency dependent phenomena need to be considered at the same time. Moreover, the parasitic capacitance effect, transadmittance, and fT and fmax figures will be of great use in improving the accuracy and physicality of future compact MOSFET models.
+
+---
+
+### Module 11&12 - Final Exam & End of Course
+
+---
+## Skills Acquired
+
+- MOS Device Physics
+- Semiconductor Fundamentals
+- Device Modeling
+- Analytical Thinking
+- Small-Signal and RF Modeling
+- Charge-Based MOSFET Modeling
+- Semiconductor Device Modeling
+- Parameter Extraction
+
+---
+
+## Reflection
+This course has covered extensively all aspects of the operation of a MOSFET starting from the physics of semiconductors to the latest developments in compact modeling techniques. Charge-based modeling, quasistatic and non-quasistatic methods, small signal equivalent circuits and RF modeling have been covered in such depth that it forms a solid theoretical base for my research into the extraction of parameters and compact modeling of the MOSFET.
 
