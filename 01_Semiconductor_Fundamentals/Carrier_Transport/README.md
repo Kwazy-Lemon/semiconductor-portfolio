@@ -36,7 +36,8 @@ where
 - \(\mu_n\) and \(\mu_p\) are the carrier mobilities,
 - \(E\) is the electric field.
 
-> **Figure 1.** Carrier drift under an applied electric field.
+<img width="797" height="506" alt="image" src="https://github.com/user-attachments/assets/0ca5f51a-bbbc-4984-ae22-ad96699422fc" />
+
 
 ---
 
@@ -60,7 +61,8 @@ where
 
 - \(D_n\) and \(D_p\) are the diffusion coefficients.
 
-> **Figure 2.** Carrier diffusion caused by a concentration gradient.
+<img width="779" height="524" alt="image" src="https://github.com/user-attachments/assets/eb278829-c8ce-4015-8a4a-85a452052ee3" />
+
 
 ---
 
@@ -77,7 +79,7 @@ Several factors influence mobility, including:
 
 Higher mobility generally leads to higher conductivity and faster device operation.
 
-> **Figure 3.** Conceptual illustration of carrier mobility.
+<img width="784" height="524" alt="image" src="https://github.com/user-attachments/assets/04fea889-8e7e-4853-9a53-631b244dc57a" />
 
 ---
 
@@ -97,6 +99,7 @@ where
 - \(T\) is the absolute temperature.
 
 This relationship links drift and diffusion transport in thermal equilibrium.
+<img width="776" height="520" alt="image" src="https://github.com/user-attachments/assets/958e7136-2314-4c84-92c4-b51a031dd1d0" />
 
 ---
 
