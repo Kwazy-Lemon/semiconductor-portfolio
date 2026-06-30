@@ -26,10 +26,11 @@ Coming soon.
 Coming soon.
 
 ### MOSFET Modeling
-- [MOSFET Parameter Extraction Toolkit](./03_MOSFET_Parameter_Extraction/README.md)
+Coming soon.
 
 ### Parameter Extraction
-Coming soon.
+- [MOSFET Parameter Extraction Toolkit](./03_MOSFET_Parameter_Extraction/README.md)
+
 
 ### Electronic Design Automation
 Coming soon.
