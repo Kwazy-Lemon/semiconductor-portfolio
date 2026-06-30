@@ -121,6 +121,24 @@ Many important MOSFET concepts originate directly from MOS capacitor physics, in
 
 For this reason, understanding MOS capacitors is an essential step before studying MOSFET modeling and semiconductor device characterization.
 
+## Applications
+
+The MOS capacitor is not used only as a standalone device but also serves as the physical foundation for many semiconductor technologies.
+
+Its operating principles are directly applied in:
+
+- MOSFET operation and threshold voltage formation
+- CMOS integrated circuit design
+- Semiconductor device characterization
+- C–V measurement and oxide characterization
+- Compact device modeling
+- MOSFET parameter extraction
+
+In this portfolio, the concepts introduced in this section are further explored in the following projects:
+
+- Device Characterization
+- MOSFET Parameter Extraction Toolkit
+
 ---
 
 ## Related Projects
