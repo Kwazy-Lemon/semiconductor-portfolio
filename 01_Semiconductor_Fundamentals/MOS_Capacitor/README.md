@@ -15,21 +15,8 @@ A MOS capacitor consists of three layers:
 
 When a voltage is applied to the gate, an electric field is generated across the oxide, causing the charge distribution inside the semiconductor to change.
 
->*                     Gate Voltage (VG)
-                           ↓
-        ┌────────────────────────────┐
-        │        Metal Gate          │
-        └────────────────────────────┘
-        │      Silicon Dioxide       │
-        │          (SiO₂)            │
-        ──────────────────────────────
-        │                            │
-        │      p-type Silicon        │
-        │        Substrate           │
-        │                            │
-        └────────────────────────────┘
+><img width="802" height="500" alt="image" src="https://github.com/user-attachments/assets/6487e0b8-f23e-4099-b27b-d8e6589eaa97" />
 
-          ← Hole / Electron Distribution →*
 
 ---
 
@@ -91,12 +78,8 @@ Three typical conditions are considered:
 
 Band bending increases with gate voltage and directly reflects changes in the surface potential.
 
-> *Flat-band        Depletion        Strong Inversion
-┌────────┐      ┌────────┐      ┌────────┐
-│        │      │  ╱     │      │   ╱    │
-│        │      │ ╱      │      │  ╱     │
-│        │      │╱       │      │ ╱      │
-└────────┘      └────────┘      └────────┘*
+<img width="774" height="257" alt="image" src="https://github.com/user-attachments/assets/30f4e8cd-a98e-4f88-b396-4f2abb6aef46" />
+
 
 ---
 
@@ -119,24 +102,7 @@ Understanding C–V characteristics is essential for determining:
 - Threshold voltage
 - Interface quality
 
-> *Capacitance
-
-↑
-│        HF
-│───────────────╲
-│                ╲__________
-│                           ╲
-│                            ╲
-│                             ╲────────
-│
-│        LF
-│───────────────╲
-│                ╲
-│                 ╲
-│                  ╲──────────────
-│
-└──────────────────────────────────→ VG
-   Acc.      Depletion     Inversion*
+<img width="791" height="270" alt="image" src="https://github.com/user-attachments/assets/d88beedb-c158-40b1-b25b-cffb776c5d6c" />
 
 ---
 
