@@ -36,9 +36,7 @@ Finally, I loaded the dataset into the Viewer and successfully visualized the fi
 
 # First Visualization
 
-<p align="center">
-<img src="images/pointcloud.png" width="900">
-</p>
+<img width="1221" height="667" alt="image" src="https://github.com/user-attachments/assets/2863a78e-57a9-4b47-bea8-79eec7032a09" />
 
 *Official Livox MID360 indoor point cloud.*
 
