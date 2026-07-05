@@ -32,6 +32,9 @@ Coming soon.
 ### Electronic Design Automation
 Coming soon.
 
+### Sensors and Instrumentation 
+Coming Soon
+
 ### Research Publications
 
 - [Conference Publications ](05_Research_Publications/#conference-papers)
