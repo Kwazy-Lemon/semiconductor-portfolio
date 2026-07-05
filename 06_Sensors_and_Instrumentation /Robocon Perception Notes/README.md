@@ -21,6 +21,7 @@ The 25th China University Robocon Competition adopts the theme
 > **Martial Arts Exploration (武林探秘)**
 
 Inspired by traditional Chinese martial arts culture, two cooperative robots must complete a sequence of tasks including weapon assembly, autonomous exploration, secret manual collection, and strategic confrontation. The competition combines traditional cultural elements with modern robotics technologies such as autonomous navigation, perception, localization, and multi-robot cooperation. :contentReference[oaicite:0]{index=0}
+<img width="629" height="500" alt="image" src="https://github.com/user-attachments/assets/2e124995-9d1a-4be7-bded-bfe2667fed67" />
 
 ---
 
@@ -39,6 +40,7 @@ Main responsibilities include
 - Collecting R1 secret manuals
 - Nine-grid confrontation
 - Cooperation with R2
+<img width="677" height="206" alt="image" src="https://github.com/user-attachments/assets/12c25bdc-8370-4f3a-8c0a-71fa722ba858" />
 
 ---
 
@@ -57,6 +59,7 @@ Main responsibilities include
 - Cooperation with R1
 
 According to the official rules, **R2 must operate as a fully autonomous robot without manual intervention.** :contentReference[oaicite:1]{index=1}
+<img width="604" height="311" alt="image" src="https://github.com/user-attachments/assets/a1b51309-1c43-4111-b4ef-e0bd26e651e8" />
 
 ---
 
