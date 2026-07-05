@@ -38,10 +38,8 @@ The objective is to understand what a point cloud represents, what information e
 ---
 
 ## First Visualization
+<img width="1249" height="667" alt="image" src="https://github.com/user-attachments/assets/78e48351-dd55-4486-9dc5-dd91a06b031a" />
 
-<p align="center">
-<img src="images/pointcloud.png" width="800">
-</p>
 
 *Official indoor point cloud captured by Livox MID360.*
 
