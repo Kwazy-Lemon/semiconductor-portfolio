@@ -16,6 +16,7 @@ Learn how Livox MID360 records and visualizes point cloud data.
 ## Results
 
 Successfully loaded and visualized the official point cloud dataset.
+
 <img width="521" height="421" alt="image" src="https://github.com/user-attachments/assets/7e7f554c-617f-4b0e-bd7c-3f2507061151" />
 
 
