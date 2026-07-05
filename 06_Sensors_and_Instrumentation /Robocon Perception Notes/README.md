@@ -20,7 +20,7 @@ The 25th China University Robocon Competition adopts the theme
 
 > **Martial Arts Exploration (武林探秘)**
 
-Inspired by traditional Chinese martial arts culture, two cooperative robots must complete a sequence of tasks including weapon assembly, autonomous exploration, secret manual collection, and strategic confrontation. The competition combines traditional cultural elements with modern robotics technologies such as autonomous navigation, perception, localization, and multi-robot cooperation. :contentReference[oaicite:0]{index=0}
+Inspired by traditional Chinese martial arts culture, two cooperative robots must complete a sequence of tasks including weapon assembly, autonomous exploration, secret manual collection, and strategic confrontation. The competition combines traditional cultural elements with modern robotics technologies such as autonomous navigation, perception, localization, and multi-robot cooperation. 
 <img width="629" height="500" alt="image" src="https://github.com/user-attachments/assets/2e124995-9d1a-4be7-bded-bfe2667fed67" />
 
 ---
