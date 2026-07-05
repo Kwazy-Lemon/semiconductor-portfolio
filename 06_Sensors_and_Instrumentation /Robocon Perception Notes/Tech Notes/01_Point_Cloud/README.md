@@ -153,22 +153,17 @@ Building a stable development environment is also an important engineering skill
 
 # Reflection
 
-Today's exploration changed my understanding of LiDAR.
+Today's work was mainly about building a basic understanding of point clouds rather than developing robotic applications.
 
-Before today, I mainly regarded the MID360 as another sensor on a robot.
+Before loading the official dataset, I knew that a LiDAR generated point clouds, but I had never actually interacted with real LiDAR data.
 
-After visualizing the official dataset, I realized that the point cloud is actually the fundamental representation upon which almost every robotic perception algorithm is built.
+Visualizing the official MID360 dataset helped me connect the theoretical concept of a point cloud with an actual engineering representation.
 
-Another realization was that simply displaying a point cloud is not the goal.
+I also realized that the Viewer is only a visualization tool. The point cloud itself is the raw output of the sensor, and all subsequent robotic perception algorithms—including localization, mapping, and navigation—are built upon this data.
 
-The more interesting question is
+At this stage, my understanding is still limited to the visualization level. I have not yet explored how these points are organized internally, transmitted through ROS2, or processed by SLAM algorithms.
 
-> **How do thousands of independent points eventually become a consistent map?**
-
-This question naturally leads to topics such as ROS2, sensor synchronization, FAST-LIO, and SLAM.
-
-Those will become the focus of my next stage of learning.
-
+Therefore, today's work should be considered the first step toward understanding the complete robotic perception pipeline.
 ---
 
 # Questions
