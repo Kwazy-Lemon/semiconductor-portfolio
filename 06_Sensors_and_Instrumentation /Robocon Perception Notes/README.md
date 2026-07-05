@@ -58,7 +58,7 @@ Main responsibilities include
 - Multi-stage decision making
 - Cooperation with R1
 
-According to the official rules, **R2 must operate as a fully autonomous robot without manual intervention.** :contentReference[oaicite:1]{index=1}
+According to the official rules, **R2 must operate as a fully autonomous robot without manual intervention.**
 <img width="604" height="311" alt="image" src="https://github.com/user-attachments/assets/a1b51309-1c43-4111-b4ef-e0bd26e651e8" />
 
 ---
