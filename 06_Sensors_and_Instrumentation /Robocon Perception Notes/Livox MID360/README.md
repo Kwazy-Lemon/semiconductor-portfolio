@@ -9,6 +9,8 @@
 The Livox MID360 is a compact 360° LiDAR designed for robotics, autonomous navigation, mapping, and perception. Unlike conventional mechanical spinning LiDARs, the MID360 integrates laser ranging, inertial sensing, and a wide field of view into a lightweight sensor, making it suitable for mobile robots operating in indoor and outdoor environments.
 
 In many autonomous robot systems, the MID360 serves as the primary perception sensor by continuously generating three-dimensional point clouds that are subsequently used for localization, mapping, obstacle detection, and navigation.
+<img width="488" height="329" alt="image" src="https://github.com/user-attachments/assets/33a832be-6785-4667-9b85-0ddefa496564" />
+
 
 ---
 
@@ -103,18 +105,6 @@ Typical applications include
 - Service Robots
 - Environment Mapping
 
----
-
-# Learning Progress
-
-- [ ] Hardware architecture
-- [ ] Communication protocol
-- [ ] Livox SDK
-- [ ] ROS2 Driver
-- [ ] Point Cloud Visualization
-- [ ] Coordinate Systems
-- [ ] Sensor Calibration
-- [ ] FAST-LIO Integration
 
 ---
 
