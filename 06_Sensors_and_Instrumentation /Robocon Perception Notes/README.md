@@ -132,6 +132,11 @@ This repository records the complete learning process of autonomous robotics, in
 The repository will continue to evolve as new topics are studied.
 
 ---
+## Learning Context
+
+This repository was developed through an independent learning experience alongside the Wuhan University Robocon team during the preparation period for Robocon 2026.
+
+My role focused on studying the perception system, software architecture, and engineering workflow used by the team. All technical notes and analyses in this repository are based on my own understanding and independent exploration.
 
 # References
 
