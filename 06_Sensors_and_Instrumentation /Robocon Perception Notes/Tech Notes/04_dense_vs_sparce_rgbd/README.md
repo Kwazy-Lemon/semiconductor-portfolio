@@ -2,7 +2,6 @@
 
 > **Technical Learning Note #03**
 
-**Date:** July 24, 2026
 
 ---
 
