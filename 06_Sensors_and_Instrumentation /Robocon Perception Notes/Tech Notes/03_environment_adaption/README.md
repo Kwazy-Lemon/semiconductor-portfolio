@@ -1,8 +1,7 @@
 # Adapting LiDAR Perception to Different Competition Environments
 
-> **Engineering Learning Note #3**
+> **Engineering Learning Notes #3**
 
-**Date:** July 7, 2026
 
 ---
 
