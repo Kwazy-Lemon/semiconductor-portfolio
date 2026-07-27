@@ -96,9 +96,7 @@ ORB combines
 
 while adding rotation invariance.
 
-Compared with FAST,
-
-ORB can not only detect feature points but also describe them so that the same feature can be matched across different images.
+Compared with FAST, ORB can not only detect feature points but also describe them so that the same feature can be matched across different images.
 
 Advantages:
 
