@@ -2,8 +2,6 @@
 
 > **Engineering Learning Note #08**
 
-**Date:** July 2026
-
 ---
 
 # Background
