@@ -1,6 +1,6 @@
 # Understanding Dense and Sparse Methods in RGB-D Perception
 
-> **Technical Learning Note #03**
+> **Engineering Learning Notes #04**
 
 
 ---
