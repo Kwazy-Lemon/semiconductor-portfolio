@@ -155,9 +155,7 @@ After today's discussion, I would like to further investigate:
 - [ ] ROS2 Topics
 - [ ] RViz
 - [ ] Localization
-- [ ] Learn Point Cloud
-- [ ] Location Error
-- [ ] Environment Adaption
+
 ---
 
 # Key Takeaway
