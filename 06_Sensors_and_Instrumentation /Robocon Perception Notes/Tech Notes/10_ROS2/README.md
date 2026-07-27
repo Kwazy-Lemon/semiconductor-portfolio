@@ -271,20 +271,16 @@ Several questions remain for future investigation.
 ---
 
 # Next Steps
-
 - [x] Learn Point Cloud
-- [x] Understand Localization Error
-- [x] Environment Adaptation
-- [x] Learn Dense and Sparse Methods
-- [x] Understand Semi-Dense SLAM
-- [x] Compare RGB-D and LiDAR
-- [x] Learn Feature Extraction
-- [x] Understand FAST-LIO
-- [x] Understand Localization
-- [x] Learn ROS2 for Robot Perception
-- [ ] Study Sensor Fusion
-- [ ] Learn Loop Closure
-- [ ] Deploy complete ROS2 perception pipeline
+- [x] Location Error
+- [x] Environment Adaption
+- [x] Learn the difference between Dense and Sparse methods
+- [x] Study Semi-Dense SLAM
+- [x] Compare RGB-D and LiDAR perception
+- [x] Learn feature extraction algorithms (ORB, FAST, etc.)
+- [x] FAST-LIO
+- [x] Localization
+- [x] ROS2 for Robot Perception
 
 ---
 
