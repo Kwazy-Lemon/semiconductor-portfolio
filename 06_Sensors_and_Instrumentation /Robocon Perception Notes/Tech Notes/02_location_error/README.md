@@ -137,8 +137,8 @@ After today's discussion, I would like to investigate the following questions.
 
 - [x] Learn Point Cloud
 - [x] Location Error
-- [x] Environment Adaption
-- [x] Learn the difference between Dense and Sparse methods
+- [ ] Environment Adaption
+- [ ] Learn the difference between Dense and Sparse methods
 - [ ] Study Semi-Dense SLAM
 - [ ] Compare RGB-D and LiDAR perception
 - [ ] Learn feature extraction algorithms (ORB, FAST, etc.)
@@ -146,9 +146,6 @@ After today's discussion, I would like to investigate the following questions.
 - [ ] ROS2 Topics
 - [ ] RViz
 - [ ] Localization
-- [ ] Learn Point Cloud
-- [ ] Location Error
-- [ ] Environment Adaption
 
 ---
 
