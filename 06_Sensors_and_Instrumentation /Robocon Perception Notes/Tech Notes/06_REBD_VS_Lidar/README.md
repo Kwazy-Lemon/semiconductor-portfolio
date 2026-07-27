@@ -217,10 +217,8 @@ Several questions remain for future investigation.
 - [x] Compare RGB-D and LiDAR perception
 - [ ] Learn feature extraction algorithms (ORB, FAST, etc.)
 - [ ] FAST-LIO
-- [ ] ROS2 Topics
-- [ ] RViz
 - [ ] Localization
-
+- [ ] ROS2 for Robot Perception
 
 ---
 
