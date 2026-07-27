@@ -39,6 +39,8 @@ The notes combine theoretical understanding with engineering observations obtain
 └── README.md
 ```
 
+
+
 ---
 
 # Learning Roadmap
@@ -83,42 +85,24 @@ The corresponding learning sequence is
 - ROS2 for Robot Perception
 
 ---
+# Learning Notes
 
-# Topics Covered
+## Livox MID360
 
-## LiDAR
+- [Livox MID360](./Livox%20MID360/README.md)
 
-- Livox MID360
-- Point Cloud
-- Sensor Characteristics
-- Point Cloud Processing
+## Robocon Perception Notes
 
----
-
-## Visual Perception
-
-- RGB-D Sensors
-- Dense Methods
-- Sparse Methods
-- Semi-Dense SLAM
-- Feature Extraction
-
----
-
-## Robot Localization
-
-- FAST-LIO
-- Localization
-- Environment Adaptation
-- Localization Error Analysis
-
----
-
-## Robotic Software
-
-- ROS2
-- RViz
-- Robotic Perception Pipeline
+- [01 Point Cloud](./Robocon%20Perception%20Notes/01_Point_Cloud/README.md)
+- [02 Localization Error](./Robocon%20Perception%20Notes/02_Localization_Error/README.md)
+- [03 Environment Adaptation](./Robocon%20Perception%20Notes/03_Environment_Adaptation/README.md)
+- [04 Dense vs Sparse](./Robocon%20Perception%20Notes/04_Dense_vs_Sparse/README.md)
+- [05 Semi-Dense SLAM](./Robocon%20Perception%20Notes/05_Semi_Dense_SLAM/README.md)
+- [06 RGB-D vs LiDAR](./Robocon%20Perception%20Notes/06_RGBD_vs_LiDAR/README.md)
+- [07 Feature Extraction](./Robocon%20Perception%20Notes/07_Feature_Extraction/README.md)
+- [08 FAST-LIO](./Robocon%20Perception%20Notes/08_FAST_LIO/README.md)
+- [09 Localization](./Robocon%20Perception%20Notes/09_Localization/README.md)
+- [10 ROS2 for Robot Perception](./Robocon%20Perception%20Notes/10_ROS2/README.md)
 
 ---
 
