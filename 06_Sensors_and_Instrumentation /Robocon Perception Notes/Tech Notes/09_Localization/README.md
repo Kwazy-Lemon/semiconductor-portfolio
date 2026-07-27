@@ -2,8 +2,6 @@
 
 > **Engineering Learning Note #09**
 
-**Date:** July 2026
-
 ---
 
 # Background
@@ -214,17 +212,15 @@ Several questions remain for future investigation.
 # Next Steps
 
 - [x] Learn Point Cloud
-- [x] Understand Localization Error
-- [x] Environment Adaptation
-- [x] Dense vs Sparse
-- [x] Semi-Dense SLAM
-- [x] Compare RGB-D and LiDAR
-- [x] Feature Extraction
-- [x] Understand FAST-LIO
-- [x] Understand Localization
-- [ ] Learn ROS2 Communication
-- [ ] Study Sensor Fusion
-- [ ] Analyze Loop Closure
+- [x] Location Error
+- [x] Environment Adaption
+- [x] Learn the difference between Dense and Sparse methods
+- [x] Study Semi-Dense SLAM
+- [x] Compare RGB-D and LiDAR perception
+- [x] Learn feature extraction algorithms (ORB, FAST, etc.)
+- [x] FAST-LIO
+- [x] Localization
+- [ ] ROS2 for Robot Perception
 
 ---
 
