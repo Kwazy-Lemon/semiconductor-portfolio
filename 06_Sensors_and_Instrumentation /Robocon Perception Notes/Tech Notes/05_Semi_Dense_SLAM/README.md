@@ -1,6 +1,6 @@
 # Understanding Semi-Dense SLAM
 
-> **Technical Learning Notes #05**
+> **Engineering Learning Notes #05**
 
 
 ---
