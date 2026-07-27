@@ -1,8 +1,7 @@
 # Investigating Initial Localization Error in Robocon
 
-> **Engineering Learning Note #2**
+> **Engineering Learning Notes #2**
 
-**Date:** July 6, 2026
 
 ---
 
