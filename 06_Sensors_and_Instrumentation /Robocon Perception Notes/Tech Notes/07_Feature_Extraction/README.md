@@ -216,15 +216,17 @@ Several questions remain for future investigation.
 
 # Next Steps
 
-- [x] Understand RGB-D sensors
-- [x] Learn Dense methods
-- [x] Learn Sparse methods
-- [x] Understand Semi-Dense SLAM
+- [x] Learn Point Cloud
+- [x] Location Error
+- [x] Environment Adaption
+- [x] Learn the difference between Dense and Sparse methods
+- [x] Study Semi-Dense SLAM
 - [x] Compare RGB-D and LiDAR perception
 - [x] Learn feature extraction algorithms (ORB, FAST, etc.)
-- [ ] Learn ORB-SLAM architecture
-- [ ] Study visual-inertial SLAM
-- [ ] Learn LiDAR-Visual fusion
+- [ ] FAST-LIO
+- [ ] ROS2 Topics
+- [ ] RViz
+- [ ] Localization
 
 ---
 
