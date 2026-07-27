@@ -19,18 +19,6 @@ These measurements reveal the operating behavior of MOSFETs under different gate
 
 ---
 
-# Learning Objectives
-
-After completing this section, the reader should be able to:
-
-- Understand the principles of I–V characterization.
-- Interpret MOSFET output and transfer characteristics.
-- Identify different operating regions of a MOSFET.
-- Understand how electrical parameters are extracted from I–V curves.
-- Relate I–V measurements to compact device modeling.
-
----
-
 # Physical Principle
 
 The electrical behavior of a MOSFET depends on the gate voltage and drain voltage.
@@ -99,7 +87,8 @@ The transfer curve provides important information for extracting:
 
 ### Output Characteristics
 
-*(Insert ID–VDS curve here)*
+<img width="402" height="244" alt="image" src="https://github.com/user-attachments/assets/1219fd12-bb3c-44ee-aaa0-9fbad8cb2311" />
+
 
 Suggested figure:
 
@@ -119,7 +108,8 @@ ID
 
 ### Transfer Characteristics
 
-*(Insert ID–VGS curve here)*
+<img width="417" height="243" alt="image" src="https://github.com/user-attachments/assets/50041677-a59a-45ed-bc46-b20df8ed7b3d" />
+
 
 Suggested figure:
 
