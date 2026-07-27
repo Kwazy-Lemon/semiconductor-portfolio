@@ -160,9 +160,7 @@ Several questions remain for future investigation.
 - [ ] ROS2 Topics
 - [ ] RViz
 - [ ] Localization
-- [ ] Learn Point Cloud
-- [ ] Location Error
-- [ ] Environment Adaption
+
 ---
 
 # Key Takeaway
