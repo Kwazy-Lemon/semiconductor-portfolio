@@ -1,8 +1,7 @@
 # Understanding Semi-Dense SLAM
 
-> **Technical Learning Note #04**
+> **Technical Learning Notes #05**
 
-**Date:** July 8, 2026
 
 ---
 
@@ -119,12 +118,20 @@ Several questions remain for future investigation.
 
 # Next Steps
 
-- [x] Understand RGB-D sensors
-- [x] Learn Dense methods
-- [x] Learn Sparse methods
-- [x] Understand Semi-Dense SLAM
+- [x] Learn Point Cloud
+- [x] Location Error
+- [x] Environment Adaption
+- [x] Learn the difference between Dense and Sparse methods
+- [ ] Study Semi-Dense SLAM
 - [ ] Compare RGB-D and LiDAR perception
 - [ ] Learn feature extraction algorithms (ORB, FAST, etc.)
+- [ ] FAST-LIO
+- [ ] ROS2 Topics
+- [ ] RViz
+- [ ] Localization
+- [ ] Learn Point Cloud
+- [ ] Location Error
+- [ ] Environment Adaption
 
 ---
 
