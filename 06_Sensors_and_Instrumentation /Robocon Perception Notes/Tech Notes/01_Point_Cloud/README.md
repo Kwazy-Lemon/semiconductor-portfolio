@@ -180,9 +180,9 @@ After today's exploration, I still have several questions.
 # Next Steps
 
 - [x] Learn Point Cloud
-- [x] Location Error
-- [x] Environment Adaption
-- [x] Learn the difference between Dense and Sparse methods
+- [ ] Location Error
+- [ ] Environment Adaption
+- [ ] Learn the difference between Dense and Sparse methods
 - [ ] Study Semi-Dense SLAM
 - [ ] Compare RGB-D and LiDAR perception
 - [ ] Learn feature extraction algorithms (ORB, FAST, etc.)
@@ -190,9 +190,6 @@ After today's exploration, I still have several questions.
 - [ ] ROS2 Topics
 - [ ] RViz
 - [ ] Localization
-- [ ] Learn Point Cloud
-- [ ] Location Error
-- [ ] Environment Adaption
 ---
 
 # References
