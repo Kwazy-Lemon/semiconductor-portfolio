@@ -46,8 +46,11 @@ A MATLAB-based toolkit developed for MOSFET parameter extraction, data processin
 ### Research Publications
 
 - [Conference Publications ](05_Research_Publications/#conference-papers)
-  - 1 Published
-  - 1 Accepted
+  - **IEEE EICCT 2026**
+     - Published (IEEE Xplore, EI Indexed)
+  - **WCMEIM 2026**
+     - Accepted
+
 
 - [Journal Manuscripts ](05_Research_Publications/#journal-papers)
   - 2 Under Review
