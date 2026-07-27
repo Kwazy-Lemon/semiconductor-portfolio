@@ -152,7 +152,7 @@ Several questions remain for future investigation.
 - [x] Learn Point Cloud
 - [x] Location Error
 - [x] Environment Adaption
-- [x] Learn the difference between Dense and Sparse methods
+- [ ] Learn the difference between Dense and Sparse methods
 - [ ] Study Semi-Dense SLAM
 - [ ] Compare RGB-D and LiDAR perception
 - [ ] Learn feature extraction algorithms (ORB, FAST, etc.)
