@@ -136,12 +136,15 @@ After today's discussion, I would like to investigate the following questions.
 
 # Next Steps
 
-- [x] Understand LiDAR point clouds
-- [x] Observe a real localization problem during Robocon testing
-- [ ] Learn how RViz visualizes localization
-- [ ] Study ROS2 localization data flow
-- [ ] Understand FAST-LIO initialization
-- [ ] Learn robust localization in dynamic environments
+- [x] Understand RGB-D sensors
+- [x] Learn the difference between Dense and Sparse methods
+- [ ] Study Semi-Dense SLAM
+- [ ] Compare RGB-D and LiDAR perception
+- [ ] Learn feature extraction algorithms (ORB, FAST, etc.)
+- [ ] FAST-LIO
+- [ ] ROS2 Topics
+- [ ] RViz
+- [ ] Localization
 
 ---
 
