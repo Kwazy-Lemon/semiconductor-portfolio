@@ -20,7 +20,7 @@ It is a portfolio for my technical work and how much I learned while doing them 
 
 ## Portfolio
 ### Semiconductor Fundamentals
-Coming soon.
+- [01_Semiconductore_Fundamentals](./01_Semiconductor_Fundamentals/README.md)
 
 ### Device Characterization
 Coming soon.
