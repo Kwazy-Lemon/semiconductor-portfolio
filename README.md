@@ -10,36 +10,44 @@ It is a portfolio for my technical work and how much I learned while doing them 
 ---
 
 ## Research Interests
-- Semiconductor Devices
-- MOSFET Modeling
+- Semiconductor Device Physics
+- MOSFET Characterization
 - Compact Modeling
-- Semiconductor Characterization
+- Parameter Extraction
 - Electronic Design Automation (EDA)
 
 ---
+## Featured Project
 
+### MOSFET Parameter Extraction Toolkit
+
+A MATLAB-based toolkit developed for MOSFET parameter extraction, data processing, visualization, and compact-model research using LTspice simulation results.
+
+➡️ [Explore the Toolkit](./03_MOSFET_Parameter_Extraction/README.md)
+
+---
 ## Portfolio
 ### Semiconductor Fundamentals
 - [01_Semiconductore_Fundamentals](./01_Semiconductor_Fundamentals/README.md)
 
 ### Device Characterization
-Coming soon.
+- [Device Characterization](./02_Device_Characterization/README.md)
 
 ### Parameter Extraction
 - [MOSFET Parameter Extraction Toolkit](./03_MOSFET_Parameter_Extraction/README.md)
 
 
 ### Electronic Design Automation
-Coming soon.
+- [Electronic Design Automation](./04_Electronic_Design_Automation/README.md)
 
-### Sensors and Instrumentation 
-Coming Soon
+### Sensors and Instrumentation
+- [Sensors and Instrumentation](./06_Sensors_and_Instrumentation/README.md)
 
 ### Research Publications
 
 - [Conference Publications ](05_Research_Publications/#conference-papers)
   - 1 Published
-  - 1 Accpeted
+  - 1 Accepted
 
 - [Journal Manuscripts ](05_Research_Publications/#journal-papers)
   - 2 Under Review
@@ -60,10 +68,12 @@ Coming Soon
 
 ## Future Development
 
-This portfolio will be continuously updated with:
+This portfolio will continue to expand with:
 
-- Technical reports
-- MATLAB/Python implementations
+- MATLAB-based engineering toolkits
+- Compact modeling research
 - Semiconductor device simulations
 - Research publications
+- Technical reports
 - Independent engineering projects
+- Open-source software development
