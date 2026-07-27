@@ -53,7 +53,8 @@ Three operating regions can be observed:
 
 # Typical C–V Curve
 
-*(Insert C–V curve figure here)*
+<img width="538" height="236" alt="image" src="https://github.com/user-attachments/assets/cb6d9355-8a15-4755-8680-2df33252e821" />
+
 
 Suggested figure:
 
