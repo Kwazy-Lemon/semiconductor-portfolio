@@ -93,17 +93,29 @@ The corresponding learning sequence is
 
 ## Robocon Perception Notes
 
-- [01 Point Cloud](./Robocon%20Perception%20Notes/01_Point_Cloud/README.md)
-- [02 Localization Error](./Robocon%20Perception%20Notes/02_Localization_Error/README.md)
-- [03 Environment Adaptation](./Robocon%20Perception%20Notes/03_Environment_Adaptation/README.md)
-- [04 Dense vs Sparse](./Robocon%20Perception%20Notes/04_Dense_vs_Sparse/README.md)
-- [05 Semi-Dense SLAM](./Robocon%20Perception%20Notes/05_Semi_Dense_SLAM/README.md)
-- [06 RGB-D vs LiDAR](./Robocon%20Perception%20Notes/06_RGBD_vs_LiDAR/README.md)
-- [07 Feature Extraction](./Robocon%20Perception%20Notes/07_Feature_Extraction/README.md)
-- [08 FAST-LIO](./Robocon%20Perception%20Notes/08_FAST_LIO/README.md)
-- [09 Localization](./Robocon%20Perception%20Notes/09_Localization/README.md)
-- [10 ROS2 for Robot Perception](./Robocon%20Perception%20Notes/10_ROS2/README.md)
+- [Robocon Perception Notes](./Robocon%20Perception%20Notes/README.md)
 
+### Tech Notes
+
+- [01 Point Cloud](./Robocon%20Perception%20Notes/Tech%20Notes/01_Point_Cloud/README.md)
+
+- [02 Localization Error](./Robocon%20Perception%20Notes/Tech%20Notes/02_location_error/README.md)
+
+- [03 Environment Adaptation](./Robocon%20Perception%20Notes/Tech%20Notes/03_environment_adaption/README.md)
+
+- [04 Dense vs Sparse RGB-D](./Robocon%20Perception%20Notes/Tech%20Notes/04_dense_vs_sparce_rgbd/README.md)
+
+- [05 Semi-Dense SLAM](./Robocon%20Perception%20Notes/Tech%20Notes/05_Semi_Dense_SLAM/README.md)
+
+- [06 RGB-D vs LiDAR](./Robocon%20Perception%20Notes/Tech%20Notes/06_REBD_VS_Lidar/README.md)
+
+- [07 Feature Extraction](./Robocon%20Perception%20Notes/Tech%20Notes/07_Feature_Extraction/README.md)
+
+- [08 FAST-LIO](./Robocon%20Perception%20Notes/Tech%20Notes/08_FAST_LIO/README.md)
+
+- [09 Localization](./Robocon%20Perception%20Notes/Tech%20Notes/09_Localization/README.md)
+
+- [10 ROS2 for Robot Perception](./Robocon%20Perception%20Notes/Tech%20Notes/10_ROS2/README.md)
 ---
 
 # Engineering Perspective
