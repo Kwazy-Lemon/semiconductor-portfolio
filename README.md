@@ -39,6 +39,7 @@ Coming Soon
 
 - [Conference Publications ](05_Research_Publications/#conference-papers)
   - 1 Published
+  - 1 Accpeted
 
 - [Journal Manuscripts ](05_Research_Publications/#journal-papers)
   - 2 Under Review
