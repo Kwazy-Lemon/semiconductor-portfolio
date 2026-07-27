@@ -26,15 +26,15 @@ The goals of this section are to:
 - Columbia MOS Transistors
   - [Columbia MOS Transistors](./Columbia_MOS_Transistors/README.md)
 - MOS Capacitors
-  - [MOS Capacitors](./MOS_Capacitors/README.md)
+  - [MOS Capacitor](./MOS_Capacitor/README.md)
 - PN Junctions
-  - [PN Junctions](./PN_Junctions/README.md)
+  - [PN Junction](./PN_Junction/README.md)
 - Carrier Transport
   - [Carrier Transport](./Carrier_Transport/README.md)
 - Energy Bands
   - [Energy Bands](./Energy_Bands/README.md)
 - MOSFET Fundamentals
-  - [MOSFET Fundamentals](./MOSFET_Fundamentals/README.md)
+  - [MOSFET Basics](./MOSFET_Basics/README.md)
 
 ---
 
