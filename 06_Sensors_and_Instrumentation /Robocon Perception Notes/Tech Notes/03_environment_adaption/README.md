@@ -150,13 +150,15 @@ Several questions remain for future investigation.
 
 # Next Steps
 
-- [x] Understand LiDAR point clouds
-- [x] Observe environmental influence on point cloud quality
-- [x] Learn the idea of point cloud filtering
-- [ ] Study point cloud preprocessing in FAST-LIO
-- [ ] Investigate adaptive point cloud filtering
-- [ ] Compare localization performance under different filtering strategies
-
+- [x] Understand RGB-D sensors
+- [x] Learn the difference between Dense and Sparse methods
+- [ ] Study Semi-Dense SLAM
+- [ ] Compare RGB-D and LiDAR perception
+- [ ] Learn feature extraction algorithms (ORB, FAST, etc.)
+- [ ] FAST-LIO
+- [ ] ROS2 Topics
+- [ ] RViz
+- [ ] Localization
 ---
 
 # Key Takeaway
