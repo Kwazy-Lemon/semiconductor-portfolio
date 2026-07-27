@@ -149,6 +149,10 @@ After today's discussion, I would like to further investigate:
 - [ ] Study Semi-Dense SLAM
 - [ ] Compare RGB-D and LiDAR perception
 - [ ] Learn feature extraction algorithms (ORB, FAST, etc.)
+- [ ] FAST-LIO
+- [ ] ROS2 Topics
+- [ ] RViz
+- [ ] Localization
 
 ---
 
