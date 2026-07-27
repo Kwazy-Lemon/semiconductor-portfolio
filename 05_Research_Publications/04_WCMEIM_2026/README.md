@@ -5,7 +5,7 @@
 | Item | Information |
 |------|-------------|
 | Type | Conference Paper |
-| Conference | World Conference on Mechanical Engineering and Intelligent Manufacturing (WCMEIM 2026) |
+| Conference |2026 9th World Conference on Mechanical Engineering and Intelligent Manufacturing (WCMEIM) |
 | Publisher | Conference Proceedings |
 | Author | Jianhao Wu (Sole Author) |
 | Status | Accepted |
