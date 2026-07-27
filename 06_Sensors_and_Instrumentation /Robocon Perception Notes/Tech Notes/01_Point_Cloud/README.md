@@ -1,8 +1,7 @@
 # Understanding Livox MID360 Point Cloud
 
-> **Engineering Learning Note #1**
+> **Engineering Learning Notes #1**
 
-**Date:** July 5, 2026
 
 ---
 
