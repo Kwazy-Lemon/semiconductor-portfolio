@@ -49,7 +49,7 @@ R2 n2 0 2k
 
 Ground is represented by node `0`. Common engineering suffixes such as `k`, `meg`, `m`, `u`, `n`, and `p` are supported.
 
-Controlled-source names use the full prefixes `VCVS`, `VCCS`, `CCVS`, and `CCCS` in this project’s netlist format.
+Controlled-source names use the full prefixes `VCVS`, `VCCS`, `CCVS`, and `CCCS` in this project's netlist format.
 
 ## Run
 
