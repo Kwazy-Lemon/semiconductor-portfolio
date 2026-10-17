@@ -7,7 +7,7 @@
 | Type | Journal Manuscript |
 | Journal | Microelectronics Journal |
 | Author | Jianhao Wu (Sole Author) |
-| Status | Submitted |
+| Status | Under Review |
 | Submission Date | 2026 |
 
 ---
