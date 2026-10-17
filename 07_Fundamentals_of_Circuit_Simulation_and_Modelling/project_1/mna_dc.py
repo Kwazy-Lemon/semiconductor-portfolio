@@ -315,13 +315,21 @@ def print_matrix(A, z):
     print("  [" + ", ".join(f"{value: .6g}" for value in z) + "]")
 
 
-def main():
-    if len(sys.argv) != 2:
-        print("Usage: python mna_dc.py circuit.cir")
-        sys.exit(2)
+def main(netlist_path=None):
+    """Run DC analysis from a netlist path or the command-line argument.
+
+    Examples:
+        python mna_dc.py circuits/simple.cir
+        main("/content/simple_voltage_divider.cir")  # Google Colab
+    """
+    if netlist_path is None:
+        if len(sys.argv) != 2:
+            print("Usage: python mna_dc.py circuit.cir")
+            sys.exit(2)
+        netlist_path = sys.argv[1]
 
     try:
-        title, raw_elements = read_netlist(sys.argv[1])
+        title, raw_elements = read_netlist(netlist_path)
         elements = parse_elements(raw_elements)
         A, z, nodes, node_index, branch_index, voltage_defined = build_mna(elements)
         solution = solve_linear_system(A, z)
