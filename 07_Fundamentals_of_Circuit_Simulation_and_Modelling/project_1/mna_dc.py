@@ -349,6 +349,17 @@ def main(netlist_path=None):
                 "(positive from first node to second node)"
             )
 
+        # CCCS elements do not introduce their own MNA branch unknown.
+        # Compute their output current from the controlling branch current.
+        for element in elements:
+            if element["kind"] == "CCCS":
+                control_idx = branch_index[element["control"].lower()]
+                current = element["gain"] * solution[control_idx]
+                print(
+                    f"  I({element['name']}) = {current:.9g} A "
+                    "(positive from first node to second node)"
+                )
+
     except (OSError, ValueError, KeyError) as error:
         print(f"Error: {error}", file=sys.stderr)
         sys.exit(1)
