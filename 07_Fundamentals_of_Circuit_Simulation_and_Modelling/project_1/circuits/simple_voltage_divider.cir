@@ -1,0 +1,6 @@
+Simple voltage divider
+V1 n1 0 DC 10
+R1 n1 n2 1000
+R2 n2 0 2000
+.dc
+.end
