@@ -16,7 +16,7 @@ This section summarizes my research publications and manuscripts in semiconducto
 | No. | Title | Status |
 | :-- | :---- | :----- |
 | 1 | [Robust Parameter Extraction for MOSFET Compact Models Using Multi-Bias Regression and Simulation](02_WJE_Robust_Parameter_Extraction/) | Under Review (World Journal of Engineering) |
-| 2 | [A Parameter-Space Framework for Investigating Coupling and Identifiability in MOSFET Compact Models](03_MJ_Parameter_Coupling_Identifiability/) | Submitted (Microelectronics Journal) |
+| 2 | [A Parameter-Space Framework for Investigating Coupling and Identifiability in MOSFET Compact Models](03_MJ_Parameter_Coupling_Identifiability/) | Under Review (Microelectronics Journal) |
 
 ---
 
@@ -25,5 +25,5 @@ Additional research outputs will be added as they become available.
 ## Statistics
 
 - Conference Papers: **2** (1 Published, 1 Accepted)
-- Journal Papers: **2** (1 Submitted, 1 Under Review)
+- Journal Papers: **2** (2 Under Review)
 - Total Research Works: **4**
