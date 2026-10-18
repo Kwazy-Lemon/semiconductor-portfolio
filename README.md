@@ -25,6 +25,12 @@ A MATLAB-based toolkit developed for MOSFET parameter extraction, data processin
 
 ➡️ [Explore the Toolkit](./03_MOSFET_Parameter_Extraction/README.md)
 
+### Capstone Project — Python-Based SPICE-Like Circuit Simulator
+
+A McGill University Group 24 capstone team project to develop a Python-based SPICE-like circuit simulator with a Python API for circuit construction and simulation.
+
+➡️ [Explore the Capstone Project](https://github.com/Kwazy-Lemon/capstone-project)
+
 ---
 ## Portfolio
 ### Semiconductor Fundamentals
