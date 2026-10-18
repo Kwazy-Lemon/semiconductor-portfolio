@@ -7,7 +7,7 @@ R4 n3 0 4000
 R5 n4 n5 1000
 R6 n5 0 2000
 I1 n3 0 2m
-C1 n3 0 10μ
+C1 n3 0 10u
 L1 n5 0 5m
 VCCS1 n2 0 n5 0 1m
 VCVS1 n4 0 n2 n3 2
