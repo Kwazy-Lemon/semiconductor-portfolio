@@ -11,6 +11,6 @@ I1 0 n3 1m
 C1 n2 0 4.7u
 L1 n6 0 10m
 VCCS1 n1 0 n2 n3 0.5m
-CCVS1 n4 0 n1 0 1k
+CCVS1 n4 0 V1 1k
 .dc
 .end
