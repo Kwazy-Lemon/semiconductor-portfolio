@@ -59,9 +59,9 @@ A McGill University Group 24 capstone team project to develop a Python-based SPI
 
 
 - [Journal Manuscripts ](05_Research_Publications/#journal-papers)
-  - **[World Journal of Engineering](05_Research_Publications/02_WJE_Robust_Parameter_Extraction/)**
+  - **World Journal of Engineering**
      - Under Review
-  - **[Microelectronics Journal](05_Research_Publications/03_MJ_Parameter_Coupling_Identifiability/)**
+  - **Microelectronics Journal**
      - Under Review
 ---
 
