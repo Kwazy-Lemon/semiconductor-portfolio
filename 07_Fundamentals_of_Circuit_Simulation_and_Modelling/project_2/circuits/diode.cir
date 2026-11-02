@@ -1,0 +1,6 @@
+* diode circuit
+Vin n1 0 DC 1
+D1 n1 n2
+R n2 0 50
+.dc
+.end

@@ -1,0 +1,6 @@
+Deliverable 1 voltage divider
+Vin n1 0 DC 6
+R1 n1 n2 100
+R2 n2 0 50
+.dc
+.end
