@@ -6,8 +6,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from mna_dc import (DIODE_IS, DIODE_VT, build_mna, diode_iv, main,
-                    parse_elements, read_netlist, solve_dc)
+from mna_dc import (DIODE_IS, DIODE_VT, build_mna_blocks, diode_iv, main,
+                    parse_elements, read_netlist, solve_block_system, solve_dc)
 
 
 def analyze(body, **options):
@@ -111,13 +111,14 @@ class ProjectTwoTests(unittest.TestCase):
         for p, n in (("a", "b"), ("a", "0"), ("0", "a")):
             with self.subTest(p=p, n=n):
                 e = parse_elements([["D1", p, n]])
-                _, _, nodes, idx, _, _ = build_mna(e)
+                initial = build_mna_blocks(e)
+                nodes, idx = initial["nodes"], initial["node_index"]
                 x = [0.05 if node == "a" else -0.02 for node in nodes]
-                A, z, _, _, _, _ = build_mna(e, x)
+                blocks = build_mna_blocks(e, x)
                 vd = (0 if p == "0" else x[idx[p]]) - (0 if n == "0" else x[idx[n]])
                 current, _ = diode_iv(vd)
                 for node in nodes:
-                    residual = sum(a * v for a, v in zip(A[idx[node]], x)) - z[idx[node]]
+                    residual = sum(g * v for g, v in zip(blocks["G"][idx[node]], x)) - blocks["i_vector"][idx[node]]
                     expected = current * ((1 if node == p else 0) - (1 if node == n else 0))
                     self.assertAlmostEqual(residual, expected, delta=1e-27)
 
@@ -133,6 +134,9 @@ class ProjectTwoTests(unittest.TestCase):
                 main(path)
             self.assertIn("V(a) = 1 V", stream.getvalue())
             self.assertIn("I(D1)", stream.getvalue())
+            for name in ("G", "B", "C", "D"):
+                self.assertIn(f"{name} matrix", stream.getvalue())
+            self.assertNotIn("MNA matrix A", stream.getvalue())
 
     def test_missing_directives_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -161,6 +165,59 @@ class ProjectTwoTests(unittest.TestCase):
         for body in cases:
             with self.subTest(body=body), self.assertRaises(ValueError):
                 parse_elements([line.split() for line in body.splitlines()])
+
+
+    def test_explicit_divider_blocks(self):
+        elements = parse_elements([line.split() for line in (
+            "Vin n1 0 6", "R1 n1 n2 100", "R2 n2 0 50")])
+        blocks = build_mna_blocks(elements)
+        self.assertEqual(blocks["G"], [[0.01, -0.01], [-0.01, 0.03]])
+        self.assertEqual(blocks["B"], [[1.0], [0.0]])
+        self.assertEqual(blocks["C"], [[1.0, 0.0]])
+        self.assertEqual(blocks["D"], [[0.0]])
+        self.assertEqual(blocks["i_vector"], [0.0, 0.0])
+        self.assertEqual(blocks["e_vector"], [6.0])
+
+    def test_controlled_source_blocks(self):
+        cases = [
+            ("V1 a 0 2\nVCVS1 b 0 a 0 3\nR1 b 0 1k",
+             "C", [[1.0, 0.0], [-3.0, 1.0]]),
+            ("V1 a 0 2\nR1 a 0 1k\nCCVS1 b 0 V1 1k\nR2 b 0 1k",
+             "D", [[0.0, 0.0], [-1000.0, 0.0]]),
+            ("V1 a 0 2\nR1 a 0 1k\nCCCS1 b 0 V1 3\nR2 b 0 1k",
+             "B", [[1.0], [3.0]]),
+            ("V1 a 0 2\nVCCS1 b 0 a 0 1m\nR1 b 0 1k",
+             "G", [[0.0, 0.0], [0.001, 0.001]]),
+        ]
+        for body, name, expected in cases:
+            with self.subTest(block=name):
+                blocks = build_mna_blocks(parse_elements(
+                    [line.split() for line in body.splitlines()]))
+                self.assertEqual(blocks[name], expected)
+
+    def test_singular_G_can_still_have_unique_solution(self):
+        # A single ideal voltage source has G=[0], but v=1 and j=0.
+        result = analyze("V1 a 0 1")
+        self.assertEqual(result["G"], [[0.0]])
+        self.assertAlmostEqual(voltage(result, "a"), 1.0)
+        self.assertAlmostEqual(branch(result, "V1"), 0.0)
+
+    def test_no_voltage_defined_branches(self):
+        result = analyze("I1 0 a 1m\nR1 a 0 1k")
+        self.assertEqual(result["B"], [[]])
+        self.assertEqual(result["C"], [])
+        self.assertEqual(result["D"], [])
+        self.assertAlmostEqual(voltage(result, "a"), 1.0)
+
+    def test_no_node_unknowns(self):
+        self.assertEqual(solve_block_system([], [], [[]], [[2.0]], [], [6.0]), [3.0])
+
+    def test_block_solver_preserves_original_stamps(self):
+        G, B, C, D = [[0.0]], [[1.0]], [[1.0]], [[0.0]]
+        i, e = [0.0], [2.0]
+        self.assertEqual(solve_block_system(G, B, C, D, i, e), [2.0, 0.0])
+        self.assertEqual((G, B, C, D, i, e),
+                         ([[0.0]], [[1.0]], [[1.0]], [[0.0]], [0.0], [2.0]))
 
 
 if __name__ == "__main__":

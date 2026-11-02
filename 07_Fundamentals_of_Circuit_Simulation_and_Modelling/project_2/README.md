@@ -4,16 +4,16 @@ Nonlinear DC operating-point analysis, extended from the existing `../project_1/
 
 ## What carries over and what changes
 
-All nine Project 1 element types remain supported: `R`, `V`, `I`, `C`, `L`, `VCVS`, `CCVS`, `VCCS`, and `CCCS`. Their MNA stamps and current-reference conventions are retained. Capacitors are open circuits and inductors are zero-voltage branches at DC.
+All nine Project 1 element types remain supported: `R`, `V`, `I`, `C`, `L`, `VCVS`, `CCVS`, `VCCS`, and `CCCS`. Their stamp equations and current-reference conventions are retained, with stamps now written explicitly into G, B, C, and D. Capacitors are open circuits and inductors are zero-voltage branches at DC.
 
 Project 2 adds:
 
 - A diode entry: `Dname anode cathode`.
 - The Shockley model with `Is = 1e-15 A`, `Vt = 0.025 V`, and ideality factor 1.
-- A diode companion stamp, updated at every Newton iteration.
+- A diode companion stamp in G and i_vector, updated at every Newton iteration.
 - Damped Newton-Raphson iteration, with forward-voltage step limiting and backtracking against the original nonlinear residual.
 - Explicit convergence and singular-matrix errors, residual reporting, and diode-current output.
-- Row scaling in the inherited linear solver, finite-number validation, and correct handling of the assignment's `* diode circuit` title line.
+- Row scaling in the direct block solver, finite-number validation, and correct handling of the assignment's `* diode circuit` title line.
 - Automated regression checks for all nine original element types and nonlinear cases.
 
 Only Python's standard library is used. Python 3.10+ is recommended.
@@ -75,35 +75,80 @@ R n2 0 50
 
 Current-controlled sources sense a voltage-defined branch: `V`, `VCVS`, `CCVS`, or `L`. Place a zero-volt voltage source in series with a branch when a current sensor is needed. Engineering suffixes follow Project 1: `k`, `meg`, `m`, `u`, `n`, `p`, etc.; `M` means milli and `meg` means mega. Values use implicit SI units without trailing unit names.
 
-## Diode stamp and solution
+## Separate G, B, C, D equations
 
-For `Vd = Va - Vc`, the model and its derivative are:
+The code creates, stamps, solves, and prints these four matrices separately:
+
+```text
+G*v + B*j = i_vector
+C*v + D*j = e_vector
+```
+
+Here v contains the N non-ground node voltages and j contains the M voltage-defined branch currents.
+
+| Block | Size | Meaning |
+| --- | --- | --- |
+| G | N x N | Node-voltage coefficients in the KCL equations |
+| B | N x M | Branch-current coefficients in the KCL equations |
+| C | M x N | Node-voltage coefficients in the voltage constraints |
+| D | M x M | Branch-current coefficients in the voltage constraints |
+| i_vector | N entries | Node-current right-hand side |
+| e_vector | M entries | Voltage-constraint right-hand side |
+
+The block named D is **not a diode**. With resistors and independent voltage sources, D is zero. A CCVS adds a term such as D[output_branch][control_branch] -= gain. Likewise, the block C is distinct from an element whose name starts with C (a capacitor).
+
+The implementation never joins the four blocks into a full coefficient matrix or an augmented matrix. The function `solve_block_system(G, B, C, D, i_vector, e_vector)` performs row operations on the separate blocks. It permits row exchanges across both equation groups, so it also handles circuits where G itself is singular.
+
+### Where each stamp goes
+
+| Element | Contributions |
+| --- | --- |
+| Resistor | G |
+| Independent current source | i_vector |
+| Independent voltage source | B, C, e_vector |
+| Capacitor at DC | No contribution (open circuit) |
+| Inductor at DC | B, C (a zero-volt branch) |
+| VCVS | B and C, including control-voltage terms in C |
+| VCCS | G |
+| CCVS | B, C, and a control-current coefficient in D |
+| CCCS | A control-current coefficient in B |
+| Diode | Differential conductance in G; companion current in i_vector |
+
+For an independent voltage source, B connects its current to node KCL and C writes its terminal-voltage difference. Controlled sources can make C different from the transpose of B.
+
+### Diode update
+
+For Vd = Va - Vc:
 
 ```text
 Id  = Is * (exp(Vd / Vt) - 1)
 gd  = (Is / Vt) * exp(Vd / Vt)
 Ieq = Id - gd * Vd
+
+G[a,a] += gd       G[a,c] -= gd
+G[c,a] -= gd       G[c,c] += gd
+i_vector[a] -= Ieq
+i_vector[c] += Ieq
 ```
 
-The companion model is a conductance `gd` in parallel with a current source `Ieq` directed from anode to cathode. In `A*x_new = z`:
+Ground rows and columns are omitted. `build_mna_blocks(elements, operating_point)` applies these contributions along with all linear stamps. Without an operating point, the same function returns the fixed linear blocks for checking the true nonlinear residual.
+
+`solve_dc()` evaluates the two groups of true equation residuals and solves their Newton corrections directly in block form:
 
 ```text
-A[a,a] += gd       A[a,c] -= gd
-A[c,a] -= gd       A[c,c] += gd
-z[a]   -= Ieq      z[c]   += Ieq
+G*dv + B*dj = -F_node
+C*dv + D*dj = -F_branch
 ```
 
-Ground rows and columns are omitted. `build_mna(elements, operating_point)` applies these stamps on top of the inherited linear stamps. Calling it without an operating point returns the fixed linear portion, including all node and branch indices.
+The update uses a damping factor. Forward diode-voltage increases are limited to 0.1 V per step, followed by backtracking that requires the original scaled residual to decrease. The output shows each block's dimensions, entries, node order, and branch order at the final operating point.
 
-`solve_dc()` evaluates the true residual `F(x)` from the fixed linear equations and original diode currents. It solves the equivalent Newton correction equation `A*delta = -F(x)` using the existing linear-solver structure, then selects a step `x_new = x + alpha*delta`. Forward diode-voltage increases are limited to `0.1 V` per update. Backtracking requires the scaled equation residual to decrease. The printed matrix is the companion-model matrix **at the final operating point**.
-
-Convergence requires every node KCL residual to be at most `1e-11 A` and every voltage-defined branch constraint error to be at most `1e-9 V`. The defaults allow at most 200 updates. A matrix check also rejects underdetermined circuits that happen to have zero residual at the initial guess. No hidden ground conductance is added, and the physical diode curve is not clipped.
+Convergence requires every node KCL residual to be at most 1e-11 A and every voltage-defined branch constraint error to be at most 1e-9 V, within 200 updates by default. A block-system check also rejects underdetermined circuits with zero initial residual. No hidden ground conductance is added, and the physical diode curve is not clipped.
 
 Reference for the diode companion model: [Qucs technical documentation — Non-linear DC Analysis](https://qucs.sourceforge.net/tech/node16.html).
 
 ## Validation
 
-The automated suite has 22 tests, covering all nine Project 1 types, the repository's original circuit, the Deliverable 1 divider, the Deliverable 2 diode example, an independent scalar bisection reference, multiple diodes, reverse bias, a controlled source driving a diode, grounded diode stamps, invalid input, floating circuits, and convergence failure.
+The automated suite has 28 tests, covering all nine Project 1 types, the repository's original circuit, the Deliverable 1 divider, the Deliverable 2 diode example, an independent scalar bisection reference, multiple diodes, reverse bias, a controlled source driving a diode, grounded diode stamps, invalid input, floating circuits, convergence failure, explicit block values, singular-G circuits, empty blocks, and preservation of the original stamps.
 
 The diode example converges in 11 updates:
 
@@ -122,5 +167,3 @@ The Deliverable 1 divider still produces `V(n1)=6 V`, `V(n2)=2 V`, and `I(Vin)=-
 ## Scope
 
 This is an educational, dense-matrix DC solver. It does not implement AC, transient analysis, source sweeps, `.model`, temperature dependence, or diode breakdown. Difficult or extreme circuits may still fail to converge; errors are reported rather than returned as operating points.
-
-See [中文说明](README_中文.md) for a short guide to the relationship between the two deliverables.
