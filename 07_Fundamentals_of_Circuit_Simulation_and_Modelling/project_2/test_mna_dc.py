@@ -6,8 +6,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from mna_dc import (DIODE_IS, DIODE_VT, build_mna_blocks, diode_iv, main,
-                    parse_elements, read_netlist, solve_block_system, solve_dc)
+from mna_dc import (DIODE_IS, DIODE_VT, build_mna, diode_iv, main,
+                    parse_elements, read_netlist, solve_dc)
 
 
 def analyze(body, **options):
@@ -111,14 +111,14 @@ class ProjectTwoTests(unittest.TestCase):
         for p, n in (("a", "b"), ("a", "0"), ("0", "a")):
             with self.subTest(p=p, n=n):
                 e = parse_elements([["D1", p, n]])
-                initial = build_mna_blocks(e)
+                initial = build_mna(e)
                 nodes, idx = initial["nodes"], initial["node_index"]
                 x = [0.05 if node == "a" else -0.02 for node in nodes]
-                blocks = build_mna_blocks(e, x)
+                model = build_mna(e, x)
                 vd = (0 if p == "0" else x[idx[p]]) - (0 if n == "0" else x[idx[n]])
                 current, _ = diode_iv(vd)
                 for node in nodes:
-                    residual = sum(g * v for g, v in zip(blocks["G"][idx[node]], x)) - blocks["i_vector"][idx[node]]
+                    residual = sum(g * v for g, v in zip(model["G"][idx[node]], x)) - model["B"][idx[node]]
                     expected = current * ((1 if node == p else 0) - (1 if node == n else 0))
                     self.assertAlmostEqual(residual, expected, delta=1e-27)
 
@@ -134,9 +134,10 @@ class ProjectTwoTests(unittest.TestCase):
                 main(path)
             self.assertIn("V(a) = 1 V", stream.getvalue())
             self.assertIn("I(D1)", stream.getvalue())
-            for name in ("G", "B", "C", "D"):
-                self.assertIn(f"{name} matrix", stream.getvalue())
-            self.assertNotIn("MNA matrix A", stream.getvalue())
+            self.assertIn("G*x + C*dx/dt = B(t)", stream.getvalue())
+            self.assertIn("C matrix", stream.getvalue())
+            self.assertIn("B(t) vector", stream.getvalue())
+            self.assertNotIn("D matrix", stream.getvalue())
 
     def test_missing_directives_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -167,57 +168,58 @@ class ProjectTwoTests(unittest.TestCase):
                 parse_elements([line.split() for line in body.splitlines()])
 
 
-    def test_explicit_divider_blocks(self):
+    def test_classroom_G_C_B_for_divider(self):
         elements = parse_elements([line.split() for line in (
             "Vin n1 0 6", "R1 n1 n2 100", "R2 n2 0 50")])
-        blocks = build_mna_blocks(elements)
-        self.assertEqual(blocks["G"], [[0.01, -0.01], [-0.01, 0.03]])
-        self.assertEqual(blocks["B"], [[1.0], [0.0]])
-        self.assertEqual(blocks["C"], [[1.0, 0.0]])
-        self.assertEqual(blocks["D"], [[0.0]])
-        self.assertEqual(blocks["i_vector"], [0.0, 0.0])
-        self.assertEqual(blocks["e_vector"], [6.0])
+        model = build_mna(elements)
+        self.assertEqual(model["G"], [[0.01, -0.01, 1.0],
+                                      [-0.01, 0.03, 0.0],
+                                      [1.0, 0.0, 0.0]])
+        self.assertEqual(model["C"], [[0.0] * 3 for _ in range(3)])
+        self.assertEqual(model["B"], [0.0, 0.0, 6.0])
 
-    def test_controlled_source_blocks(self):
-        cases = [
-            ("V1 a 0 2\nVCVS1 b 0 a 0 3\nR1 b 0 1k",
-             "C", [[1.0, 0.0], [-3.0, 1.0]]),
-            ("V1 a 0 2\nR1 a 0 1k\nCCVS1 b 0 V1 1k\nR2 b 0 1k",
-             "D", [[0.0, 0.0], [-1000.0, 0.0]]),
-            ("V1 a 0 2\nR1 a 0 1k\nCCCS1 b 0 V1 3\nR2 b 0 1k",
-             "B", [[1.0], [3.0]]),
-            ("V1 a 0 2\nVCCS1 b 0 a 0 1m\nR1 b 0 1k",
-             "G", [[0.0, 0.0], [0.001, 0.001]]),
-        ]
-        for body, name, expected in cases:
-            with self.subTest(block=name):
-                blocks = build_mna_blocks(parse_elements(
-                    [line.split() for line in body.splitlines()]))
-                self.assertEqual(blocks[name], expected)
+    def test_grounded_capacitor_dynamic_stamp(self):
+        model = build_mna(parse_elements([["C1", "a", "0", "2u"],
+                                          ["R1", "a", "0", "1k"]]))
+        self.assertEqual(model["G"], [[0.001]])
+        self.assertEqual(model["C"], [[2e-6]])
+        self.assertEqual(model["B"], [0.0])
 
-    def test_singular_G_can_still_have_unique_solution(self):
-        # A single ideal voltage source has G=[0], but v=1 and j=0.
-        result = analyze("V1 a 0 1")
-        self.assertEqual(result["G"], [[0.0]])
-        self.assertAlmostEqual(voltage(result, "a"), 1.0)
-        self.assertAlmostEqual(branch(result, "V1"), 0.0)
+    def test_two_terminal_capacitor_dynamic_stamp(self):
+        elements = parse_elements([line.split() for line in (
+            "V1 a 0 1", "R1 a b 1k", "R2 b 0 1k", "C1 a b 2u")])
+        model = build_mna(elements)
+        self.assertEqual(model["C"], [[2e-6, -2e-6, 0.0],
+                                      [-2e-6, 2e-6, 0.0],
+                                      [0.0, 0.0, 0.0]])
 
-    def test_no_voltage_defined_branches(self):
-        result = analyze("I1 0 a 1m\nR1 a 0 1k")
-        self.assertEqual(result["B"], [[]])
-        self.assertEqual(result["C"], [])
-        self.assertEqual(result["D"], [])
-        self.assertAlmostEqual(voltage(result, "a"), 1.0)
+    def test_inductor_dynamic_stamp_and_constitutive_equation(self):
+        model = build_mna(parse_elements([line.split() for line in (
+            "V1 a 0 1", "R1 a b 1k", "L1 b 0 2m")]))
+        row = model["branch_index"]["l1"]
+        b_index = model["node_index"]["b"]
+        self.assertEqual(model["C"][row][row], -0.002)
+        self.assertEqual(model["G"][row][b_index], 1.0)
+        # V_L = L*dI/dt = 0.002*2 = 0.004 V.
+        x, dx = [0.0] * 4, [0.0] * 4
+        x[b_index], dx[row] = 0.004, 2.0
+        residual = sum(g * v for g, v in zip(model["G"][row], x))
+        residual += sum(c * dv for c, dv in zip(model["C"][row], dx))
+        self.assertAlmostEqual(residual, 0.0, places=12)
 
-    def test_no_node_unknowns(self):
-        self.assertEqual(solve_block_system([], [], [[]], [[2.0]], [], [6.0]), [3.0])
+    def test_RC_equation_with_nonzero_time_derivative(self):
+        model = build_mna(parse_elements([line.split() for line in (
+            "I1 0 a 1.001m", "R1 a 0 1k", "C1 a 0 2u")]))
+        # At V=1 V and dV/dt=0.5 V/s, source current is 1.001 mA.
+        residual = model["G"][0][0] * 1.0 + model["C"][0][0] * 0.5 - model["B"][0]
+        self.assertAlmostEqual(residual, 0.0, places=12)
 
-    def test_block_solver_preserves_original_stamps(self):
-        G, B, C, D = [[0.0]], [[1.0]], [[1.0]], [[0.0]]
-        i, e = [0.0], [2.0]
-        self.assertEqual(solve_block_system(G, B, C, D, i, e), [2.0, 0.0])
-        self.assertEqual((G, B, C, D, i, e),
-                         ([[0.0]], [[1.0]], [[1.0]], [[0.0]], [0.0], [2.0]))
+    def test_storage_stamps_are_retained_in_DC(self):
+        r = analyze("Vin n1 0 1\nR1 n1 n2 1k\nC1 n2 0 1u\nR2 n2 n3 100\nL1 n3 0 1m")
+        self.assertAlmostEqual(voltage(r, "n2"), 1.0 / 11)
+        self.assertAlmostEqual(voltage(r, "n3"), 0.0)
+        self.assertEqual(r["C"][r["node_index"]["n2"]][r["node_index"]["n2"]], 1e-6)
+        self.assertEqual(r["C"][r["branch_index"]["l1"]][r["branch_index"]["l1"]], -1e-3)
 
 
 if __name__ == "__main__":

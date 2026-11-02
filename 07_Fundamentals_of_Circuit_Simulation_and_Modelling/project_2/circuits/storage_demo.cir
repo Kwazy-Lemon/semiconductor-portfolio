@@ -1,0 +1,8 @@
+G x + C dx/dt = B(t): capacitor and inductor stamps
+Vin n1 0 DC 1
+R1 n1 n2 1k
+C1 n2 0 1u
+R2 n2 n3 100
+L1 n3 0 1m
+.dc
+.end

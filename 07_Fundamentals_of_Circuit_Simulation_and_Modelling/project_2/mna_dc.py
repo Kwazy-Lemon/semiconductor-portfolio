@@ -198,10 +198,15 @@ def parse_elements(raw_elements):
     return elements
 
 
-# 【建立分块 MNA】直接建立 G、B、C、D，以及 i_vector、e_vector。
+# 【课堂形式】线性电路：G*x + C*dx/dt = B(t)。
+# G 是完整静态 MNA 系数矩阵；C 是储能矩阵；B 是激励向量。
 # 未知量顺序：先节点电压，后 V/VCVS/CCVS/L 的支路电流。
-def build_mna_blocks(elements, operating_point=None):
-    """Stamp G*v+B*j=i and C*v+D*j=e, keeping all blocks separate."""
+def build_mna(elements, operating_point=None):
+    """Build G*x + C*dx/dt = B(t); optionally linearize the diodes.
+
+    Without an operating point, D contributes nodes but no matrix entries.
+    This gives the fixed linear part used to evaluate the true residual.
+    """
     # 【节点与编号】收集非接地节点并编号，再给额外支路电流编号。
     # N 个节点、M 个支路电流，对应 N+M 个未知量。
     nodes = []
@@ -215,55 +220,49 @@ def build_mna_blocks(elements, operating_point=None):
     voltage_defined = [
         e for e in elements if e["kind"] in ("V", "VCVS", "CCVS", "L")
     ]
-    branch_number = {
-        e["name"].lower(): i
+    branch_index = {
+        e["name"].lower(): len(nodes) + i
         for i, e in enumerate(voltage_defined)
     }
 
-    # 【初始化】G: N×N；B: N×M；C: M×N；D: M×M。
+    # 【初始化】G 和 C 都是 (N+M)×(N+M)，B 的长度是 N+M。
     size = len(nodes) + len(voltage_defined)
     if size == 0:
         raise ValueError("The circuit has no unknowns.")
 
-    N, M = len(nodes), len(voltage_defined)
-    G = [[0.0 for _ in range(N)] for _ in range(N)]
-    B = [[0.0 for _ in range(M)] for _ in range(N)]
-    C = [[0.0 for _ in range(N)] for _ in range(M)]
-    # 矩阵块 D 是电压约束中的电流系数；与二极管元件 D 无关。
-    # 独立电压源在这里填零；CCVS 会填入控制支路电流的系数。
-    D = [[0.0 for _ in range(M)] for _ in range(M)]
-    i_vector = [0.0 for _ in range(N)]
-    e_vector = [0.0 for _ in range(M)]
+    G = [[0.0 for _ in range(size)] for _ in range(size)]
+    C = [[0.0 for _ in range(size)] for _ in range(size)]
+    B = [0.0 for _ in range(size)]
 
     # 【查节点编号】地返回 None，表示没有对应的未知电压位置。
     def node_idx(node):
         return None if node == "0" else node_index[node]
 
     # 【填入矩阵】跳过接地项，其他位置用 += 累加元件贡献。
-    def add(matrix, row, col, value):
+    def add(row, col, value):
         if row is not None and col is not None:
-            matrix[row][col] += value
+            G[row][col] += value
 
-    # 【电阻模板 / G 块】对角 +g、交叉 -g；来自 I=g(Vp-Vn)。
+    # 【电阻模板 / G 静态矩阵】对角 +g、交叉 -g；来自 I=g(Vp-Vn)。
     def stamp_conductance(p, n, conductance):
         ip, inn = node_idx(p), node_idx(n)
-        add(G, ip, ip, conductance)
-        add(G, inn, inn, conductance)
-        add(G, ip, inn, -conductance)
-        add(G, inn, ip, -conductance)
+        add(ip, ip, conductance)
+        add(inn, inn, conductance)
+        add(ip, inn, -conductance)
+        add(inn, ip, -conductance)
 
-    # 【电压支路模板：老师问 B matrix / add V 时看这里】
-    # 前两次 add：B 块，把 +Ib/-Ib 加入两端节点方程。
-    # 后两次 add：C 块，写出 Vp-Vn；最后 e_vector += voltage 填入已知电压。
+    # 【电压支路模板：电压源的静态系数全部进入 G】
+    # 前两次 add：G 中的电流列，把 +Ib/-Ib 加入两端节点方程。
+    # 后两次 add：G 中的电压约束行，写出 Vp-Vn；最后 B += voltage 填入已知电压。
     def stamp_branch(p, n, branch, voltage=0.0):
         ip, inn = node_idx(p), node_idx(n)
-        add(B, ip, branch, 1.0)
-        add(B, inn, branch, -1.0)
-        add(C, branch, ip, 1.0)
-        add(C, branch, inn, -1.0)
-        e_vector[branch] += voltage
+        add(ip, branch, 1.0)
+        add(inn, branch, -1.0)
+        add(branch, ip, 1.0)
+        add(branch, inn, -1.0)
+        B[branch] += voltage
 
-    # 【逐个元件填 stamp】以下各分支按类型修改对应的分块或右端向量。
+    # 【逐个元件填 stamp】以下各分支按类型修改 G、C 或 B。
     for e in elements:
         kind = e["kind"]
         p, n = e["p"], e["n"]
@@ -282,157 +281,120 @@ def build_mna_blocks(elements, operating_point=None):
             ieq = current - gd * (vp - vn)
             stamp_conductance(p, n, gd)
             if ip is not None:
-                i_vector[ip] -= ieq
+                B[ip] -= ieq
             if inn is not None:
-                i_vector[inn] += ieq
+                B[inn] += ieq
 
-        # 【I 电流源】只改 i_vector；电流 p→n，所以 p 减、n 加。
+        # 【I 电流源】只改激励向量 B；电流 p→n，所以 p 减、n 加。
         elif kind == "I":
             # Positive source current flows from p to n.
             ip, inn = node_idx(p), node_idx(n)
             if ip is not None:
-                i_vector[ip] -= e["value"]
+                B[ip] -= e["value"]
             if inn is not None:
-                i_vector[inn] += e["value"]
+                B[inn] += e["value"]
 
         # 【V 电压源】找到电流编号，把电源电压传给 stamp_branch。
         elif kind == "V":
-            branch = branch_number[e["name"].lower()]
+            branch = branch_index[e["name"].lower()]
             stamp_branch(p, n, branch, e["value"])
 
-        # 【C 电容】直流稳态开路，电流为零，不填矩阵。
+        # 【电容】i = capacitance*d(Vp-Vn)/dt，印章只进入动态矩阵 C。
         elif kind == "C":
-            # An ideal capacitor is an open circuit in DC steady state.
-            pass
+            ip, inn = node_idx(p), node_idx(n)
+            capacitance = e["value"]
+            if ip is not None:
+                C[ip][ip] += capacitance
+            if inn is not None:
+                C[inn][inn] += capacitance
+            if ip is not None and inn is not None:
+                C[ip][inn] -= capacitance
+                C[inn][ip] -= capacitance
 
         # 【L 电感】直流稳态短路，用 0V 电压支路表示，保留电流未知量。
         elif kind == "L":
             # An ideal inductor is a short circuit in DC steady state.
-            branch = branch_number[e["name"].lower()]
+            branch = branch_index[e["name"].lower()]
             stamp_branch(p, n, branch, 0.0)
+            # Vp - Vn - L*dI/dt = 0，所以动态系数为 -L。
+            C[branch][branch] -= e["value"]
 
-        # 【VCVS / C 块】Vp-Vn=gain*(Vcp-Vcn)，在电压约束行补控制电压系数。
+        # 【VCVS / G 中的电压约束行】Vp-Vn=gain*(Vcp-Vcn)，在电压约束行补控制电压系数。
         elif kind == "VCVS":
-            branch = branch_number[e["name"].lower()]
+            branch = branch_index[e["name"].lower()]
             stamp_branch(p, n, branch, 0.0)
             row = branch
-            add(C, row, node_idx(e["cp"]), -e["gain"])
-            add(C, row, node_idx(e["cn"]), e["gain"])
+            add(row, node_idx(e["cp"]), -e["gain"])
+            add(row, node_idx(e["cn"]), e["gain"])
 
-        # 【VCCS / G 块】输出电流=gain*(Vcp-Vcn)，直接加入两端节点方程。
+        # 【VCCS / G 静态矩阵】输出电流=gain*(Vcp-Vcn)，直接加入两端节点方程。
         elif kind == "VCCS":
             cp, cn = node_idx(e["cp"]), node_idx(e["cn"])
             ip, inn = node_idx(p), node_idx(n)
             g = e["gain"]
-            add(G, ip, cp, g)
-            add(G, ip, cn, -g)
-            add(G, inn, cp, -g)
-            add(G, inn, cn, g)
+            add(ip, cp, g)
+            add(ip, cn, -g)
+            add(inn, cp, -g)
+            add(inn, cn, g)
 
-        # 【CCVS / D 块】Vp-Vn=gain*Icontrol，在约束行的控制电流列加入 -gain。
+        # 【CCVS / G 中的控制电流系数】Vp-Vn=gain*Icontrol，在约束行的控制电流列加入 -gain。
         elif kind == "CCVS":
-            branch = branch_number[e["name"].lower()]
+            branch = branch_index[e["name"].lower()]
             stamp_branch(p, n, branch, 0.0)
-            control_branch = branch_number[e["control"].lower()]
-            add(D, branch, control_branch, -e["gain"])
+            control_branch = branch_index[e["control"].lower()]
+            add(branch, control_branch, -e["gain"])
 
-        # 【CCCS / B 块】输出电流=gain*Icontrol，在两端节点行补 +gain/-gain。
+        # 【CCCS / G 中的电流列】输出电流=gain*Icontrol，在两端节点行补 +gain/-gain。
         elif kind == "CCCS":
-            control_branch = branch_number[e["control"].lower()]
+            control_branch = branch_index[e["control"].lower()]
             ip, inn = node_idx(p), node_idx(n)
-            add(B, ip, control_branch, e["gain"])
-            add(B, inn, control_branch, -e["gain"])
+            add(ip, control_branch, e["gain"])
+            add(inn, control_branch, -e["gain"])
 
-    # 支路编号 0...M-1 用于 B/C/D；解向量中的支路位置从 N 开始。
-    branch_index = {name: N + k for name, k in branch_number.items()}
     return {
-        "G": G, "B": B, "C": C, "D": D,
-        "i_vector": i_vector, "e_vector": e_vector,
+        "G": G, "C": C, "B": B,
         "nodes": nodes, "node_index": node_index,
         "branch_index": branch_index, "voltage_defined": voltage_defined,
     }
 
 
-# 【直接分块求解】四块分别保存并消元，不创建完整矩阵或增广矩阵。
-def solve_block_system(G, B, C, D, i_vector, e_vector):
-    """Solve G*v+B*j=i and C*v+D*j=e by row operations on separate blocks."""
-    G, B = [row[:] for row in G], [row[:] for row in B]
-    C, D = [row[:] for row in C], [row[:] for row in D]
-    i_vector, e_vector = i_vector[:], e_vector[:]
-    N, M = len(i_vector), len(e_vector)
-    size = N + M
-
-    # 每行的左右两部分仍在各自的矩阵中，这里只返回引用。
-    def row_parts(row):
-        return (G[row], B[row]) if row < N else (C[row - N], D[row - N])
-
-    def rhs(row):
-        return i_vector[row] if row < N else e_vector[row - N]
-
-    def set_rhs(row, value):
-        if row < N:
-            i_vector[row] = value
-        else:
-            e_vector[row - N] = value
-
-    def entry(row, col):
-        left, right = row_parts(row)
-        return left[col] if col < N else right[col - N]
-
-    # 【行缩放】分别缩放左右两部分。
+# 【线性求解】求 G*x=B；系数矩阵和右端向量分开保存。
+def solve_linear_system(G, B):
+    """Gaussian elimination with row scaling and partial pivoting."""
+    G, B = [row[:] for row in G], B[:]
+    size = len(B)
     for row in range(size):
-        left, right = row_parts(row)
-        scale = max(max(map(abs, left), default=0.0),
-                    max(map(abs, right), default=0.0))
+        scale = max(map(abs, G[row]), default=0.0)
         if scale == 0.0 or not math.isfinite(scale):
-            raise ValueError("Singular or non-finite MNA blocks; check circuit topology.")
-        for k in range(N):
-            left[k] /= scale
-        for k in range(M):
-            right[k] /= scale
-        set_rhs(row, rhs(row) / scale)
+            raise ValueError("Singular or non-finite G; check circuit topology.")
+        for col in range(size):
+            G[row][col] /= scale
+        B[row] /= scale
 
     for col in range(size):
-        # 【选主元】也允许交换上下两组的方程，无须求 G 的逆矩阵。
-        pivot = max(range(col, size), key=lambda row: abs(entry(row, col)))
-        if abs(entry(pivot, col)) < 1e-14:
-            raise ValueError("The MNA system is singular; check floating nodes or sources.")
-        if pivot != col:
-            left_a, right_a = row_parts(col)
-            left_b, right_b = row_parts(pivot)
-            left_a[:], left_b[:] = left_b[:], left_a[:]
-            right_a[:], right_b[:] = right_b[:], right_a[:]
-            value = rhs(col)
-            set_rhs(col, rhs(pivot))
-            set_rhs(pivot, value)
-
-        # 【主元变成 1】两个矩阵行部分分别除以主元。
-        left, right = row_parts(col)
-        pivot_value = entry(col, col)
-        for k in range(N):
-            left[k] /= pivot_value
-        for k in range(M):
-            right[k] /= pivot_value
-        set_rhs(col, rhs(col) / pivot_value)
-
-        # 【消元】分别更新 G/C、B/D 中的行部分。
+        pivot = max(range(col, size), key=lambda row: abs(G[row][col]))
+        if abs(G[pivot][col]) < 1e-14:
+            raise ValueError("The DC system is singular; check floating nodes or sources.")
+        G[col], G[pivot] = G[pivot], G[col]
+        B[col], B[pivot] = B[pivot], B[col]
+        value = G[col][col]
+        for k in range(size):
+            G[col][k] /= value
+        B[col] /= value
         for row in range(size):
             if row == col:
                 continue
-            factor = entry(row, col)
+            factor = G[row][col]
             if factor == 0.0:
                 continue
-            row_left, row_right = row_parts(row)
-            for k in range(N):
-                row_left[k] -= factor * left[k]
-            for k in range(M):
-                row_right[k] -= factor * right[k]
-            set_rhs(row, rhs(row) - factor * rhs(col))
+            for k in range(size):
+                G[row][k] -= factor * G[col][k]
+            B[row] -= factor * B[col]
 
-    solution = i_vector + e_vector  # 解向量：先 v，后 j。
-    if not all(math.isfinite(value) for value in solution):
+    if not all(math.isfinite(value) for value in B):
         raise ValueError("The solution is non-finite.")
-    return solution
+    return B
+
 
 
 def diode_iv(voltage):
@@ -444,79 +406,79 @@ def diode_iv(voltage):
             DIODE_IS / DIODE_VT * math.exp(exponent))
 
 
-# 【牛顿迭代】固定线性部分和当前工作点始终使用分块形式。
+# 【非线性 DC】保留项目一的所有线性印章，每次只更新二极管的工作点。
 def solve_dc(elements, max_iterations=200, current_tolerance=1e-11,
              voltage_tolerance=1e-9):
-    """Solve DC operating points using separate G, B, C, D blocks."""
+    """Solve the true DC equations using damped Newton iterations.
+
+    KCL rows are checked in amperes; voltage-constraint rows in volts.
+    No hidden ground conductance or clipped diode curve is introduced.
+    """
     if max_iterations <= 0:
         raise ValueError("max_iterations must be positive.")
     if not all(math.isfinite(t) and t > 0
                for t in (current_tolerance, voltage_tolerance)):
         raise ValueError("Tolerances must be positive and finite.")
 
-    linear = build_mna_blocks(elements)
+    # 课堂方程：G*x + C*dx/dt + f_diode(x) = B(t)。
+    # DC 工作点令 dx/dt=0；C 仍然建立、保存和打印。
+    linear = build_mna(elements)
+    G_linear, B_source = linear["G"], linear["B"]
     nodes, node_index = linear["nodes"], linear["node_index"]
-    N, M = len(nodes), len(linear["e_vector"])
-    size = N + M
-    diodes = [element for element in elements if element["kind"] == "D"]
+    size, node_count = len(B_source), len(nodes)
+    diodes = [e for e in elements if e["kind"] == "D"]
 
     def node_voltage(x, node):
         return 0.0 if node == "0" else x[node_index[node]]
 
     def residual(x):
-        v, j = x[:N], x[N:]
-        node_residual, branch_residual = [], []
-        for row in range(N):
-            value = sum(g * voltage for g, voltage in zip(linear["G"][row], v))
-            value += sum(b * current for b, current in zip(linear["B"][row], j))
-            node_residual.append(value - linear["i_vector"][row])
-        for row in range(M):
-            value = sum(c * voltage for c, voltage in zip(linear["C"][row], v))
-            value += sum(d * current for d, current in zip(linear["D"][row], j))
-            branch_residual.append(value - linear["e_vector"][row])
-        for element in diodes:
-            vd = node_voltage(x, element["p"]) - node_voltage(x, element["n"])
+        # Use the original diode currents, independently of Ieq cancellation.
+        values = [sum(a * v for a, v in zip(row, x)) - rhs
+                  for row, rhs in zip(G_linear, B_source)]
+        for e in diodes:
+            vd = node_voltage(x, e["p"]) - node_voltage(x, e["n"])
             current, _ = diode_iv(vd)
-            if element["p"] != "0":
-                node_residual[node_index[element["p"]]] += current
-            if element["n"] != "0":
-                node_residual[node_index[element["n"]]] -= current
-        return node_residual + branch_residual
+            if e["p"] != "0":
+                values[node_index[e["p"]]] += current
+            if e["n"] != "0":
+                values[node_index[e["n"]]] -= current
+        return values
 
     def residual_norm(values):
-        if not all(math.isfinite(value) for value in values):
+        if not all(math.isfinite(v) for v in values):
             return math.inf
-        return max((abs(value) / (current_tolerance if k < N else voltage_tolerance)
-                    for k, value in enumerate(values)), default=0.0)
+        return max((abs(v) / (current_tolerance if i < node_count else voltage_tolerance)
+                    for i, v in enumerate(values)), default=0.0)
 
     x = [0.0] * size
     for iteration in range(max_iterations + 1):
-        blocks = build_mna_blocks(elements, x)
-        G, B, C, D = blocks["G"], blocks["B"], blocks["C"], blocks["D"]
+        # 在当前电压线性化二极管，得到牛顿雅可比矩阵。
+        current_model = build_mna(elements, x)
+        G_newton = current_model["G"]
         values = residual(x)
         norm = residual_norm(values)
         if norm <= 1.0:
-            solve_block_system(G, B, C, D, [0.0] * N, [0.0] * M)
+            # Zero residual is possible even in an underdetermined circuit.
+            solve_linear_system(G_newton, [0.0] * size)
             return {
-                **blocks, "solution": x, "iterations": iteration,
-                "max_kcl_error": max(map(abs, values[:N]), default=0.0),
-                "max_constraint_error": max(map(abs, values[N:]), default=0.0),
+                **linear, "solution": x, "iterations": iteration,
+                "max_kcl_error": max(map(abs, values[:node_count]), default=0.0),
+                "max_constraint_error": max(map(abs, values[node_count:]), default=0.0),
             }
         if iteration == max_iterations:
             break
 
-        # 分块修正方程：G*dv+B*dj=-F_node；C*dv+D*dj=-F_branch。
-        node_rhs = [-value for value in values[:N]]
-        branch_rhs = [-value for value in values[N:]]
-        delta = solve_block_system(G, B, C, D, node_rhs, branch_rhs)
+        # G_newton = G_linear + d(f_diode)/dx；这不是动态矩阵 C。
+        delta = solve_linear_system(G_newton, [-v for v in values])
         alpha = 1.0
-        for element in diodes:
-            change = node_voltage(delta, element["p"]) - node_voltage(delta, element["n"])
+        for e in diodes:
+            change = node_voltage(delta, e["p"]) - node_voltage(delta, e["n"])
             if change > 0.1:
                 alpha = min(alpha, 0.1 / change)
 
+        # Limit the step, not the physical exponential model.
         for _ in range(60):
-            trial = [value + alpha * step for value, step in zip(x, delta)]
+            trial = [v + alpha * step for v, step in zip(x, delta)]
             try:
                 trial_norm = residual_norm(residual(trial))
             except OverflowError:
@@ -530,23 +492,22 @@ def solve_dc(elements, max_iterations=200, current_tolerance=1e-11,
     raise ValueError(f"DC analysis did not converge after {max_iterations} iterations.")
 
 
-def print_mna_blocks(result):
-    """Print each block and each right-hand-side vector separately."""
-    N, M = len(result["nodes"]), len(result["voltage_defined"])
-    print("\nBlock equations: G*v + B*j = i; C*v + D*j = e")
-    print("v: node voltages; j: voltage-defined branch currents")
-    print("Node order: " + (", ".join(result["nodes"]) or "(none)"))
-    print("Branch order: " + (", ".join(e["name"] for e in result["voltage_defined"]) or "(none)"))
-    for name, rows, cols in (("G", N, N), ("B", N, M), ("C", M, N), ("D", M, M)):
-        print(f"\n{name} matrix ({rows} x {cols}):")
+# 【打印课堂方程】始终显示原始 G、动态矩阵 C 和独立源激励 B。
+def print_mna_model(result):
+    print("\nLinear model: G*x + C*dx/dt = B(t)")
+    print("With diodes: G*x + C*dx/dt + f_diode(x) = B(t)")
+    print("DC operating point: dx/dt = 0")
+    labels = result["nodes"] + [
+        "I(" + element["name"] + ")" for element in result["voltage_defined"]
+    ]
+    print("Unknown order: " + ", ".join(labels))
+    size = len(result["B"])
+    for name, meaning in (("G", "static coefficients"), ("C", "storage coefficients")):
+        print(f"\n{name} matrix ({size} x {size}, {meaning}):")
         for row in result[name]:
             print("  [" + ", ".join(f"{value: .6g}" for value in row) + "]")
-        if rows == 0:
-            print("  (no rows)")
-    print("\ni vector (node-current RHS):")
-    print("  [" + ", ".join(f"{value: .6g}" for value in result["i_vector"]) + "]")
-    print("e vector (voltage-constraint RHS):")
-    print("  [" + ", ".join(f"{value: .6g}" for value in result["e_vector"]) + "]")
+    print("\nB(t) vector (independent sources evaluated at DC):")
+    print("  [" + ", ".join(f"{value: .6g}" for value in result["B"]) + "]")
 
 
 # 【主流程】取文件路径→读取→解析→建矩阵→求解→打印；出错则显示错误并退出。
@@ -577,9 +538,9 @@ def main(netlist_path=None):
         print(f"Non-ground nodes: {', '.join(nodes) if nodes else '(none)'}")
         if any(e["kind"] == "D" for e in elements):
             print("Diode parameters: Is=1e-15 A, Vt=0.025 V")
-            print("The printed blocks are linearized at the final operating point.")
+            print("Diode nonlinear terms are evaluated separately from the static G matrix.")
         print(f'Newton updates: {result["iterations"]}')
-        print_mna_blocks(result)
+        print_mna_model(result)
 
         print("\nDC operating-point solution:")
         for node in nodes:
