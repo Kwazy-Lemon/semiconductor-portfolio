@@ -1,6 +1,4 @@
-"""Run the Deliverable 2 example from any working directory."""
-from pathlib import Path
-from mna_dc import main
+!git clone https://github.com/Kwazy-Lemon/semiconductor-portfolio.git /content/semiconductor-portfolio
 
-if __name__ == "__main__":
-    main(str(Path(__file__).resolve().parent / "circuits" / "diode.cir"))
+%cd /content/semiconductor-portfolio/07_Fundamentals_of_Circuit_Simulation_and_Modelling/project_2
+!python mna_dc.py circuits/diode.cir
