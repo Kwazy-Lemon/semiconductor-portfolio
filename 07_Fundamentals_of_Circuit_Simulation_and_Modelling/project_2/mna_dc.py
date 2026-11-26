@@ -460,14 +460,14 @@ def solve_dc(elements, max_iterations=200, current_tolerance=1e-11,
         if iteration == max_iterations:
             break
 
-        # G_newton = G_linear + d(f_diode)/dx；这不是动态矩阵 C。
-        delta = solve_linear_system(G_newton, [-v for v in values])
-        alpha = 1.0
-        for e in diodes:
+       ''' # G_newton = G_linear + d(f_diode)/dx；这不是动态矩阵 C。
+        #delta = solve_linear_system(G_newton, [-v for v in values])
+        #alpha = 1.0
+        #for e in diodes:
             change = node_voltage(delta, e["p"]) - node_voltage(delta, e["n"])
             if change > 0.1:
                 alpha = min(alpha, 0.1 / change)
-
+'''
         # Limit the step, not the physical exponential model.
         for _ in range(60):
             trial = [v + alpha * step for v, step in zip(x, delta)]
