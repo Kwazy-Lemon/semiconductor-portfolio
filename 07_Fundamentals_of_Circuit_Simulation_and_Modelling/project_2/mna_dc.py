@@ -400,8 +400,8 @@ def diode_iv(voltage):
 
 # 【非线性 DC】保留项目一的所有线性印章，每次只更新二极管的工作点。
 def solve_dc(elements, max_iterations=200, current_tolerance=1e-11,
-             voltage_tolerance=1e-9):
-    """Solve the true DC equations using damped Newton iterations.
+             voltage_tolerance=1e-9, initial_voltages=None):
+    """Solve the true DC equations using full Newton steps.
 
     KCL rows are checked in amperes; voltage-constraint rows in volts.
     No hidden ground conductance or clipped diode curve is introduced.
@@ -442,7 +442,12 @@ def solve_dc(elements, max_iterations=200, current_tolerance=1e-11,
         return max((abs(v) / (current_tolerance if i < node_count else voltage_tolerance)
                     for i, v in enumerate(values)), default=0.0)
 
-    x = [0.74,0.05] * size
+    x = [0.0] * size
+    if initial_voltages is None:
+        initial_voltages = {"n1": 0.74, "n2": 0.05}
+    for node, guess in initial_voltages.items():
+        if node in node_index:
+            x[node_index[node]] = guess
     for iteration in range(max_iterations + 1):
         # 在当前电压线性化二极管，得到牛顿雅可比矩阵。
         current_model = build_mna(elements, x)
@@ -460,27 +465,8 @@ def solve_dc(elements, max_iterations=200, current_tolerance=1e-11,
         if iteration == max_iterations:
             break
 
-       ''' # G_newton = G_linear + d(f_diode)/dx；这不是动态矩阵 C。
-        #delta = solve_linear_system(G_newton, [-v for v in values])
-        #alpha = 1.0
-        #for e in diodes:
-            change = node_voltage(delta, e["p"]) - node_voltage(delta, e["n"])
-            if change > 0.1:
-                alpha = min(alpha, 0.1 / change)
-'''
-        # Limit the step, not the physical exponential model.
-        for _ in range(60):
-            trial = [v + alpha * step for v, step in zip(x, delta)]
-            try:
-                trial_norm = residual_norm(residual(trial))
-            except OverflowError:
-                trial_norm = math.inf
-            if trial_norm <= 1.0 or trial_norm < norm * (1.0 - 1e-4 * alpha):
-                x = trial
-                break
-            alpha *= 0.5
-        else:
-            raise ValueError("Newton backtracking failed; check circuit topology or parameters.")
+        delta = solve_linear_system(G_newton, [-v for v in values])
+        x = [value + step for value, step in zip(x, delta)]
     raise ValueError(f"DC analysis did not converge after {max_iterations} iterations.")
 
 
@@ -504,7 +490,7 @@ def print_mna_model(result):
 
 # 【主流程】取文件路径→读取→解析→建矩阵→求解→打印；出错则显示错误并退出。
 # 输出负电流表示方向与“第一个节点→第二个节点”相反。
-def main(netlist_path=None):
+def main(netlist_path=None, warm_start=False):
     """Run DC analysis from a netlist path or the command-line argument.
 
     Examples:
@@ -512,8 +498,10 @@ def main(netlist_path=None):
         main("/content/simple_voltage_divider.cir")  # Google Colab
     """
     if netlist_path is None:
-        if len(sys.argv) != 2:
-            print("Usage: python mna_dc.py circuit.cir")
+        if len(sys.argv) == 3 and sys.argv[2] == "--warm-start":
+            warm_start = True
+        elif len(sys.argv) != 2:
+            print("Usage: python mna_dc.py circuit.cir [--warm-start]")
             sys.exit(2)
         netlist_path = sys.argv[1]
 
@@ -521,6 +509,15 @@ def main(netlist_path=None):
         title, raw_elements = read_netlist(netlist_path)
         elements = parse_elements(raw_elements)
         result = solve_dc(elements)
+        if warm_start:
+            print(f'First run: {result["iterations"]} Newton updates')
+            previous_voltages = {}
+            for node, idx in result["node_index"].items():
+                displayed = f'{result["solution"][idx]:.6f}'
+                print(f'Previous V({node}) = {displayed} V')
+                previous_voltages[node] = float(displayed)
+            print("Second run: initial guess = previous node voltages (6 decimal places)")
+            result = solve_dc(elements, initial_voltages=previous_voltages)
         solution = result["solution"]
         nodes, node_index = result["nodes"], result["node_index"]
         branch_index, voltage_defined = result["branch_index"], result["voltage_defined"]

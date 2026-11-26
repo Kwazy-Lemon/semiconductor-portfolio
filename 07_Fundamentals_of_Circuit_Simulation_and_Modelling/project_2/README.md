@@ -98,12 +98,12 @@ It computes the Newton correction using:
 ```text
 G_newton = G + d(f_diode)/dx
 G_newton*delta = -F(x)
-x_new = x + alpha*delta
+x_new = x + delta
 ```
 
 The diode Jacobian in G_newton is a derivative with respect to x. It is distinct from the storage matrix C, which multiplies the time derivative dx/dt.
 
-Forward diode-voltage increases are limited to 0.1 V per update. Backtracking requires the original scaled residual to decrease. Defaults are 200 updates, 1e-11 A absolute KCL tolerance, and 1e-9 V voltage-constraint tolerance. Singular systems and convergence failures raise errors. No hidden ground conductance or clipped diode curve is used.
+Each iteration applies the full Newton correction. By default, the initial voltages are 0.74 V at n1 and 0.05 V at n2 when those nodes are present. All other unknowns start at zero. Defaults are 200 updates, 1e-11 A absolute KCL tolerance, and 1e-9 V voltage-constraint tolerance. Singular systems and convergence failures raise errors. No hidden ground conductance or clipped diode curve is used.
 
 The output shows the **original static G**, dynamic C, and physical B_DC, together with the solved voltages/currents. G_newton is used internally for iteration. The linear solver uses row scaling and partial pivoting, with coefficients and right-hand side stored separately.
 
@@ -114,16 +114,15 @@ Reference for diode linearization: [Qucs technical documentation — Non-linear 
 From this directory:
 
 ```bash
-python start_code.py
 python mna_dc.py circuits/diode.cir
 python mna_dc.py circuits/linear_divider.cir
 python mna_dc.py circuits/storage_demo.cir
-python -B -m unittest -v test_mna_dc.py
+python mna_dc.py circuits/diode_1mA.cir --warm-start
 ```
 
 The storage demo contains both a capacitor and an inductor. Its C matrix includes C[n2,n2] = 1e-6 and C[I(L1),I(L1)] = -1e-3, using the displayed unknown ordering. Its DC solution has V(n2) = 1/11 V, V(n3) = 0, and I(L1) = 1/1100 A.
 
-The diode example converges in 11 updates:
+The 1 V source example in `circuits/diode.cir` converges in 7 updates:
 
 ```text
 V(n1)  = 1 V
@@ -136,6 +135,10 @@ I(R)   =  0.00534628818 A
 All currents are referenced from the first node to the second. The negative voltage-source current means it supplies power. The assignment's IE = 0.0053 A is the magnitude or uses the opposite reference direction.
 
 The diode example contains no capacitors or inductors, so its dynamic C matrix is zero. A nonzero C is demonstrated by the storage demo.
+
+### Restart the 1 mA diode circuit
+
+Run `python mna_dc.py circuits/diode_1mA.cir --warm-start`. The first run starts from 0.74 V and 0.05 V and takes three updates. The second run reuses its node voltages as displayed to six decimal places (0.740776 V and 0.050000 V). One full Newton update meets the same tolerances. Reusing the full-precision solution satisfies the initial convergence check immediately.
 
 ## Google Colab
 
@@ -152,6 +155,7 @@ Run the following as separate cells in a fresh notebook runtime:
 ```python
 from mna_dc import main
 main("circuits/diode.cir")
+main("circuits/diode_1mA.cir", warm_start=True)
 main("circuits/storage_demo.cir")
 ```
 
@@ -175,8 +179,6 @@ CCVS/CCCS sense currents through V, VCVS, CCVS, or L branches. A zero-volt volta
 
 ## Validation and scope
 
-The 28 automated tests cover all nine Project 1 types, both assignment examples, the repository's original circuit, independent scalar bisection for the diode example, multiple/reverse-biased/current-driven diodes, controlled-source operation, input errors, singular circuits, and convergence failure.
-
-Storage-specific checks verify grounded and two-terminal capacitor stamps, the inductor sign using V=L*dI/dt, an RC equation with nonzero dV/dt, and preservation of nonzero C entries during DC analysis.
+The example netlists above exercise the voltage divider, DC storage-element stamps and both diode-source configurations.
 
 This is a small dense-matrix DC simulator. It does not implement transient time stepping, AC analysis, source sweeps, .model, diode breakdown, or temperature dependence. Difficult circuits can still fail to converge.
