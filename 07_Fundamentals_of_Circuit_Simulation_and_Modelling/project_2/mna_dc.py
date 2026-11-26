@@ -1,14 +1,6 @@
 """
 ECSE 472 - Project 2
-Linear and nonlinear DC analysis using Modified Nodal Analysis (MNA).
-Based on project_1/mna_dc.py; Project 1 remains an independent snapshot.
 
-Usage:
-    python mna_dc.py circuits/diode.cir
-
-This implementation uses only the Python standard library. It does not call SPICE.
-Supported elements: R, independent V/I sources, C, L, VCVS, CCVS, VCCS, CCCS.
-Adds Shockley diodes and damped Newton-Raphson iteration.
 """
 
 import math
