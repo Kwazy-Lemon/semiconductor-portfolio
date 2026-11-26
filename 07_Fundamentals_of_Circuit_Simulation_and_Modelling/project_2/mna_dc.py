@@ -442,7 +442,7 @@ def solve_dc(elements, max_iterations=200, current_tolerance=1e-11,
         return max((abs(v) / (current_tolerance if i < node_count else voltage_tolerance)
                     for i, v in enumerate(values)), default=0.0)
 
-    x = [0.74,0.005] * size
+    x = [0.74,0.05] * size
     for iteration in range(max_iterations + 1):
         # 在当前电压线性化二极管，得到牛顿雅可比矩阵。
         current_model = build_mna(elements, x)
