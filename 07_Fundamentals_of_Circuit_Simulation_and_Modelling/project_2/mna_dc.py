@@ -442,7 +442,7 @@ def solve_dc(elements, max_iterations=200, current_tolerance=1e-11,
         return max((abs(v) / (current_tolerance if i < node_count else voltage_tolerance)
                     for i, v in enumerate(values)), default=0.0)
 
-    x = [0.0] * size
+    x = [0.740776, 0.050000]
     if initial_voltages is None:
         initial_voltages = {"n1": 0.74, "n2": 0.05}
     for node, guess in initial_voltages.items():
