@@ -1,0 +1,7 @@
+* Half-wave rectifier
+Vin n1 0 COS 1 60
+D1 n1 n2
+R1 n2 0 50
+C1 n2 0 100e-6
+.tran 0.05s 0.1ms
+.end

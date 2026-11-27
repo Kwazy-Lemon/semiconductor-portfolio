@@ -1,0 +1,6 @@
+* RC charging from zero initial capacitor voltage
+Vin n1 0 DC 1
+R1 n1 n2 1k
+C1 n2 0 1u
+.tran 5ms 0.1ms
+.end
