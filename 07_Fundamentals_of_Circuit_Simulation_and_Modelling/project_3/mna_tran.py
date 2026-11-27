@@ -464,6 +464,7 @@ def plot_voltages(title, labels, samples):
             ax.plot(time, [x[i] for _, x in samples], label=label, color=color)
     ax.set(title=title.lstrip("* "), xlabel="Time (s)", ylabel="Voltage (V)",
            xlim=(0, time[-1]))
+    ax.set_xticks([i * 0.005 for i in range(11)])  # 0 到 0.05 s，每 0.005 s 一个刻度
     ax.grid(alpha=0.25)
     ax.legend()
     fig.tight_layout()
