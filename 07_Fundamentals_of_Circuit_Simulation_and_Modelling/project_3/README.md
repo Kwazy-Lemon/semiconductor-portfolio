@@ -2,9 +2,9 @@
 
 Linear and nonlinear transient simulation with Backward Euler. The assignment example is a half-wave rectifier driven by a 1 V, 60 Hz cosine. A Shockley diode feeds a 50 Ω resistor in parallel with a 100 µF capacitor. This project uses `Is = 1e-14 A` and `Vt = 0.025 V`.
 
-[Run the demo in Google Colab](https://colab.research.google.com/github/Kwazy-Lemon/semiconductor-portfolio/blob/main/07_Fundamentals_of_Circuit_Simulation_and_Modelling/project_3/project_3_demo.ipynb). Run the cells in order to simulate the rectifier, plot both node voltages and check the results.
+## Run in Colab
 
-![Simulated rectifier node voltages over 50 ms](half_wave_rectifier.png)
+Paste the three lines from [start_code.py](start_code.py) into a Colab cell and run it to simulate and plot the circuit. If the repository is already cloned, replace the first line with `!git -C /content/semiconductor-portfolio pull --ff-only`.
 
 ## Run locally
 
@@ -13,10 +13,9 @@ From this directory with Python 3.10 or later:
 ```bash
 python mna_tran.py circuits/half_wave_rectifier.cir --csv rectifier.csv
 python mna_tran.py circuits/linear_rc.cir --csv rc.csv
-python -m unittest -v test_transient
 ```
 
-The solver and tests use the Python standard library. The notebook uses Matplotlib for the figure. CSV columns contain time in seconds followed by node voltages and voltage-defined branch currents in MNA order.
+The solver uses the Python standard library. Add `--plot` to display node voltages with Matplotlib. CSV columns contain time in seconds followed by node voltages and voltage-defined branch currents in MNA order.
 
 ## Time stepping
 

@@ -453,10 +453,28 @@ def simulate(elements, stop, step):
     return labels, samples
 
 
+def plot_voltages(title, labels, samples):
+    import matplotlib.pyplot as plt
+
+    time = [t for t, _ in samples]
+    fig, ax = plt.subplots(figsize=(9, 4.5))
+    for i, label in enumerate(labels):
+        if label.startswith("V("):
+            color = {"V(n1)": "royalblue", "V(n2)": "black"}.get(label)
+            ax.plot(time, [x[i] for _, x in samples], label=label, color=color)
+    ax.set(title=title.lstrip("* "), xlabel="Time (s)", ylabel="Voltage (V)",
+           xlim=(0, time[-1]))
+    ax.grid(alpha=0.25)
+    ax.legend()
+    fig.tight_layout()
+    plt.show()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("netlist", type=Path)
     parser.add_argument("--csv", type=Path, help="Output CSV (default: netlist name with .csv)")
+    parser.add_argument("--plot", action="store_true", help="Display node voltages using Matplotlib")
     args = parser.parse_args()
     try:
         title, elements, stop, step = read_netlist(args.netlist)
@@ -473,6 +491,8 @@ def main():
         for name, value in zip(labels, samples[-1][1]):
             print(f"  {name} = {value:.9g}")
         print(f"Waveform data: {output}")
+        if args.plot:
+            plot_voltages(title, labels, samples)
     except (OSError, ValueError, OverflowError) as error:
         parser.exit(1, f"Error: {error}\n")
 
